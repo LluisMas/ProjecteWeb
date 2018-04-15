@@ -6,13 +6,22 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 # from models import Restaurant, Dish
 # from forms import RestaurantForm, DishForm
 # from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
+from distributors.views import ModelList
 
 urlpatterns = [
     # List latest 5 restaurants: /distributors/
     url(r'^$',
         TemplateView.as_view(
-            template_name="distributors/restaurant_list.html"),
+            template_name="distributors/home_page.html"),
             name="Principal"),
+
+    url(r'^model_list/$',
+    ModelList.as_view(
+       # context_object_name = 'latest_movie_list',
+        template_name = 'distributors/model_list.html'),
+            name = 'model_list')
+
+
     #
     # # Restaurant details, ex.: /distributors/restaurants/1/
     # url(r'^restaurants/(?P<pk>\d+)/$',

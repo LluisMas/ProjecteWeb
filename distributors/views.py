@@ -40,7 +40,7 @@ class ModelDetail(DetailView):
 
 class ModelList(ListView):
     model = Model
-    template_name = 'myapp/model_list.html'
+    template_name = 'distributors/model_list.html'
 
 
 class CarDetail(DetailView):
