@@ -2,5 +2,3 @@ Django==1.11.11
 behave==1.2.6
 splinter==0.7.7
 psycopg2==2.7.3.1
-dj-database-url
-gunicorn
