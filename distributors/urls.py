@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 # from forms import RestaurantForm, DishForm
 # from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
 from distributors.models import Model, CarShop
-from distributors.views import ModelList, SellList, CustomerList, CarShopDetails
+from distributors.views import ModelList, SellList, CustomerList, CarShopList
 
 urlpatterns = [
     # List latest 5 restaurants: /distributors/
@@ -18,26 +18,27 @@ urlpatterns = [
 
     url(r'^model/$',
     ModelList.as_view(
-       # context_object_name = 'latest_movie_list',
+        context_object_name = 'latest_model_list',
         template_name = 'distributors/model_list.html'),
             name = 'model_list'),
     url(r'^seller/$',
         SellList.as_view(
-            # context_object_name = 'latest_movie_list',
+            context_object_name='latest_seller_list',
             template_name='distributors/seller_list.html'),
         name='seller_list'),
     url(r'^customer/$',
         CustomerList.as_view(
-            # context_object_name = 'latest_movie_list',
+            context_object_name='latest_customer_list',
             template_name='distributors/customer_list.html'),
-        name='customer_list'),
+            name='customer_list'),
 
     url(r'^carshop/$',
-        CarShopDetails.as_view(
+        CarShopList.as_view(
             # context_object_name = 'latest_movie_list',
             model=CarShop,
-            template_name='distributors/carshop_details.html'),
-            name='carshop_details')
+            context_object_name='latest_carshop_list',
+            template_name='distributors/carshop_list.html'),
+            name='carshop_list')
 
 
 
