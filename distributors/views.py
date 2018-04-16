@@ -112,6 +112,20 @@ class SellerList(ListView):
 #         form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
 #         return super(DishCreate, self).form_valid(form)
 
+class PersonDetail(DetailView):
+    model = Person
+    template_name = 'distributors/person_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PersonDetail, self).get_context_data(**kwargs)
+        return context
+
+
+class PersonList(ListView):
+    model = Person
+    context_object_name = 'latest_person_list'
+    template_name = 'distributors/person_list.html'
+
 @login_required()
 def review(request, pk):
     model = get_object_or_404(Model, pk=pk)

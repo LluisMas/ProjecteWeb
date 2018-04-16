@@ -6,8 +6,8 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 # from models import Restaurant, Dish
 # from forms import RestaurantForm, DishForm
 # from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
-from distributors.models import Model, CarShop, Seller, Customer
-from distributors.views import ModelList, SellerList, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
+from distributors.models import Model, CarShop, Seller, Customer, Person
+from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
     ModelDetail, CarShopDetail
 
 urlpatterns = [
@@ -28,29 +28,29 @@ urlpatterns = [
             template_name='distributors/model_detail.html'),
         name='model_detail'),
 
-    url(r'^seller/$',
-        SellerList.as_view(
-            context_object_name='latest_seller_list',
-            template_name='distributors/seller_list.html'),
-        name='seller_list'),
+    # url(r'^seller/$',
+    #     SellerList.as_view(
+    #         context_object_name='latest_seller_list',
+    #         template_name='distributors/seller_list.html'),
+    #     name='seller_list'),
+    #
+    # url(r'^seller/(?P<pk>\d+)/$',
+    #     SellerDetail.as_view(
+    #         model=Seller,
+    #         template_name='distributors/seller_detail.html'),
+    #     name='seller'),
 
-    url(r'^seller/(?P<pk>\d+)/$',
-        SellerDetail.as_view(
-            model=Seller,
-            template_name='distributors/seller_detail.html'),
-        name='seller_detail'),
-
-    url(r'^customer/$',
-        CustomerList.as_view(
-            context_object_name='latest_customer_list',
-            template_name='distributors/customer_list.html'),
-        name='customer_list'),
-
-    url(r'^customer/(?P<pk>\d+)/$',
-        CustomerDetail.as_view(
-            model=Customer,
-            template_name='distributors/customer_detail.html'),
-        name='customer_detail'),
+    # url(r'^customer/$',
+    #     CustomerList.as_view(
+    #         context_object_name='latest_customer_list',
+    #         template_name='distributors/customer_list.html'),
+    #     name='customer_list'),
+    #
+    # url(r'^customer/(?P<pk>\d+)/$',
+    #     CustomerDetail.as_view(
+    #         model=Customer,
+    #         template_name='distributors/customer_detail.html'),
+    #     name='customer_detail'),
 
     url(r'^carshop/$',
         CarShopList.as_view(
@@ -65,4 +65,17 @@ urlpatterns = [
             model=CarShop,
             template_name='distributors/carshop_detail.html'),
         name='carshop_detail'),
+
+
+    url(r'^person/$',
+        PersonList.as_view(
+            context_object_name='latest_person_list',
+            template_name='distributors/person_list.html'),
+        name='person_list'),
+
+    url(r'^person/(?P<pk>\d+)/$',
+        PersonDetail.as_view(
+            model=Person,
+            template_name='distributors/person_detail.html'),
+        name='person_detail'),
 ]

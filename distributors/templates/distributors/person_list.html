@@ -1,0 +1,18 @@
+{% extends "distributors/base.html" %}
+{% block title %}Person{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Person">
+
+
+<h2>Person List:</h2>
+<u1>
+	{% for person in latest_person_list %}
+		<li><a href="./{{person.id}}">
+			{{ person.name }}</a></li>
+	{% empty %}<li>Sorry, no people registered yet.</li>
+	{% endfor %}
+</u1>
+</span>
+
+{% endblock %}

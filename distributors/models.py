@@ -28,6 +28,11 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+    def __unicode__(self):
+        return u"%s" % self.name
+
+    def get_absolute_url(self):
+        return reverse('distributors:person_list', kwargs={'pk': self.pk})
 
 
 class CarShop(models.Model):
