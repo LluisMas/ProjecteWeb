@@ -7,7 +7,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-from models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
+from distributors import models
+from distributors.models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
 # from forms import PersonForm, CarShopForm, ModelForm, SellerForm, SellForm, ReviewForm, CarForm
 
 # Security Mixins
