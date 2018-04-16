@@ -1,18 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-from models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
+from distributors.models import *
 
-
-# from forms import PersonForm, CarShopForm, ModelForm, SellerForm, SellForm, ReviewForm, CarForm
-
-# Security Mixins
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required())
