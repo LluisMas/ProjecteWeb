@@ -19,11 +19,17 @@ class Person(models.Model):
     #si volem ficar foto del venedor/ client falta canviar el upload
    # image = models.ImageField(upload_to="myapp", blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 class CarShop(models.Model):
     id = models.IntegerField(primary_key=True)
     modelYear = models.IntegerField(blank=True, null=True)
     shopName = models.TextField(blank=True, null=True)
     addr = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.shopName + ' - ' + self.addr
 
 
 
@@ -37,6 +43,9 @@ class Model(models.Model):
     doors = models.IntegerField(blank=True, null=True)
     seats = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.modelName
+
 
 class Car(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -47,23 +56,36 @@ class Car(models.Model):
     registrationYear = models.IntegerField(blank=True, null=True)
     carShop = models.ForeignKey(CarShop, default=1)
 
+    def __str__(self):
+        return str(self.id)
+
 class Seller(models.Model):
     #nss = models.IntegerField(blank=True, null=True)
     info = models.ForeignKey(Person, default=1)
     shop = models.ForeignKey(CarShop, default=1)
     salary = models.IntegerField(blank=True, null=True)
 
+    def __str__(self):
+        return self.info.name
+
 class Customer(models.Model):
     info = models.ForeignKey(Person, default=1)
     shop = models.ForeignKey(CarShop, default=1)
     #sell = models.ForeignKey(Sell, default=1)
 
+    def __str__(self):
+        return self.info.name
 
 class Sell(models.Model):
     seller = models.ForeignKey(Seller, default=1)
     customer = models.ForeignKey(Customer, default=1)
     car = models.ForeignKey(Car, default=1)
     date = models.DateField(default=date.today)
+
+    def __str__(self):
+        return self.seller.info.name + ' - ' + self.car.model.__name__
+
+
 
 class ModelReview(models.Model):
     #valorar on ficar-lo
@@ -72,6 +94,9 @@ class ModelReview(models.Model):
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(Customer, default=1)
     date = models.DateField(default=date.today)
+
+    def __str__(self):
+        return str(self.date), str(self.rating) + " starts"
 
     #class Meta:
     #    abstract = True
