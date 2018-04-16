@@ -11,17 +11,17 @@ import datetime
 class Person(models.Model):
     # Mirant la randomuser.api les dades que retorna, comunes per selle i customer son:
     id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-    street = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, null=True)
+    street = models.CharField(max_length=30, null=True)
     gender = models.IntegerField(choices=(
         (1, 'Male'),
         (2, 'Female'),
-    ))
-    city = models.CharField(max_length=30)
-    postCode = models.CharField(max_length=30)
-    state = models.CharField(max_length=30)
-    phoneNumber = models.CharField(max_length=30)
-    email = models.CharField(max_length=30)
+    ), default=1)
+    city = models.CharField(max_length=30, null=True)
+    postCode = models.CharField(max_length=30, null=True)
+    state = models.CharField(max_length=30, null=True)
+    phoneNumber = models.CharField(max_length=30, null=True)
+    email = models.CharField(max_length=30, null=True)
 
     # si volem ficar foto del venedor/ client falta canviar el upload
     # image = models.ImageField(upload_to="myapp", blank=True, null=True)
@@ -33,8 +33,8 @@ class Person(models.Model):
 class CarShop(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
-    shopName = models.CharField(max_length=30)
-    addr = models.CharField(max_length=30)
+    shopName = models.CharField(max_length=30, null=True)
+    addr = models.CharField(max_length=30, null=True)
 
     def __str__(self):
         return self.shopName + ' - ' + self.addr
@@ -51,16 +51,16 @@ class Model(models.Model):
         year_dropdown.append((y, y))
 
     id = models.PositiveIntegerField(primary_key=True)
-    modelName = models.CharField(max_length=30)
-    body = models.CharField(max_length=30)
+    modelName = models.CharField(max_length=30, null=True)
+    body = models.CharField(max_length=30, null=True)
     fuelType = models.IntegerField(choices=(
         (1, 'Gasoline'),
         (2, 'Diesel'),
         (3, 'Electric'),
         (4, 'Hybrid')
-    ))
+    ), default=1)
     modelYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
-    maxTopSpeed = models.PositiveIntegerField(validators=[MaxValueValidator(500)], )
+    maxTopSpeed = models.PositiveIntegerField(validators=[MaxValueValidator(500)], default=0)
     doors = models.IntegerField(choices=(
         (1, '3 Doors'),
         (2, '5 Doors')
@@ -82,7 +82,7 @@ class Car(models.Model):
     model = models.ForeignKey(Model, default=1)
     kms = models.PositiveIntegerField(default=0)
     price = models.PositiveIntegerField(default=0)
-    color = models.CharField(max_length=30)
+    color = models.CharField(max_length=30, default="Color")
     registrationYear = models.PositiveIntegerField(default=0)
     carShop = models.ForeignKey(CarShop, default=1)
 
@@ -93,7 +93,7 @@ class Car(models.Model):
 class Seller(models.Model):
     info = models.ForeignKey(Person, default=1)
     shop = models.ForeignKey(CarShop, default=1)
-    salary = models.PositiveIntegerField()
+    salary = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.info.name
