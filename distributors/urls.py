@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 # from forms import RestaurantForm, DishForm
 # from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
 from distributors.models import Model, CarShop
-from distributors.views import ModelList, SellList, CustomerList, CarShopList, ModelDetail, CarShopDetail
+from distributors.views import ModelList, SellerList, CustomerList, CarShopList, ModelDetail, CarShopDetail
 
 urlpatterns = [
     # List latest 5 restaurants: /distributors/
@@ -31,7 +31,7 @@ urlpatterns = [
 
 
     url(r'^seller/$',
-        SellList.as_view(
+        SellerList.as_view(
             context_object_name='latest_seller_list',
             template_name='distributors/seller_list.html'),
         name='seller_list'),

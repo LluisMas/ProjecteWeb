@@ -75,8 +75,8 @@ class SellDetail(DetailView):
     model = Sell
     template_name = 'myapp/sell?detail'
 
-class SellList(ListView):
-    model = Sell
+class SellerList(ListView):
+    model = Seller
     context_object_name = 'latest_seller_list'
     template_name = 'distributors/seller_list.html'
 

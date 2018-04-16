@@ -101,7 +101,6 @@ class Seller(models.Model):
         return self.info.name
     def __unicode__(self):
         return u"%s" % self.info.name
-
     def get_absolute_url(self):
         return reverse('distributors:seller_list', kwargs={'pk': self.pk})
 
@@ -114,7 +113,6 @@ class Customer(models.Model):
         return self.info.name
     def __unicode__(self):
         return u"%s" % self.info.name
-
     def get_absolute_url(self):
         return reverse('distributors:customer_list', kwargs={'pk': self.pk})
 

@@ -8,12 +8,11 @@
 <h2>Seller List:</h2>
 <u1>
 	{% for seller in latest_seller_list %}
-		<li><a href="./{{customer.info.id}}">
+		<li><a href="./{{seller.info.id}}">
 			{{ seller.info.name }}</a></li>
 	{% empty %}<li>Sorry, no sellers registered yet.</li>
 	{% endfor %}
 </u1>
-
 </span>
 
 {% endblock %}
