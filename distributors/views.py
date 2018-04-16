@@ -31,11 +31,10 @@ class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin,
 
 class ModelDetail(DetailView):
     model = Model
-    template_name = 'myapp/model_detail.html'
+    template_name = 'distributors/model_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(ModelDetail, self).get_context_data(**kwargs)
-        context['RATING_CHOICES'] = ModelReview.RATING_CHOICES
         return context
 
 class ModelList(ListView):

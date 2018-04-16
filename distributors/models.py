@@ -69,7 +69,6 @@ class Model(models.Model):
 
     def __str__(self):
         return self.modelName
-
     def __unicode__(self):
         return u"%s" % self.modelName
 

@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 # from forms import RestaurantForm, DishForm
 # from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
 from distributors.models import Model, CarShop
-from distributors.views import ModelList, SellList, CustomerList, CarShopList
+from distributors.views import ModelList, SellList, CustomerList, CarShopList, ModelDetail
 
 urlpatterns = [
     # List latest 5 restaurants: /distributors/
@@ -21,6 +21,21 @@ urlpatterns = [
         context_object_name = 'latest_model_list',
         template_name = 'distributors/model_list.html'),
             name = 'model_list'),
+
+    # url(r'^director/(?P<pk>\d+)/$',
+    #     DirectorDetail.as_view(
+    #         model=Director,
+    #         template_name='myapp/director_detail.html'),
+    #     name='director_detail'),
+
+
+    url(r'^model/(?P<pk>\d+)/$',
+        ModelDetail.as_view(
+            model=Model,
+            template_name='distributors/model_detail.html'),
+            name='model_detail'),
+
+
     url(r'^seller/$',
         SellList.as_view(
             context_object_name='latest_seller_list',

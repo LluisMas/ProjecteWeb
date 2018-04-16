@@ -1,18 +1,83 @@
-{% extends "distributors/base.html" %}
-{% block title %}CarShop - {{ CarShop.shopName }}{% endblock %}
+{% extends "myapp/base.html" %}
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="CarShop">
+<span vocab="http://schema.org/" typeof="Movie">
+	<h1>
+		<span property="name">{{ movie.name }}</span>
+	</h1>
 
-<h1>
-    <span property="name">{{ CarShop.shopName }}</span>
-    {% if user == restaurant.user %}
-        (<a href="{% url 'myrestaurants:restaurant_edit' restaurant.id %}">edit</a>)
-    {% endif %}
-</h1>
+	<span property="image" content="http://comm.soc.northwestern.edu/mscblog/files/2013/03/movie_night.jpg"></span>
 
-<h2>Car Shop:</h2>
+	<p>
+		<span property="dateCreated" content="{{ movie.year }}-1-1">
+			Year: {{ movie.year }}
+		</span> <br />
 
+		<span property="description">
+			Overview: {{ movie.overview }}
+		</span> <br />
+
+		<span property="director" typeof="Person">
+			<span property="name" content="{{ movie.director }}"></span>
+			Director: {{ movie.director }}
+		</span>
+		<br />
+
+	Actors:
+		{% for actor in movie.actors.all %}
+			<span property="actor" typeof="Person">
+				<span property="name" content="{{ actor.name }}"></span>
+				<a href="../../actor/{{actor.id}}">
+					{{ actor.name }}
+				</a>
+			</span>
+			<br />
+		{% endfor %}
+
+	Company:
+		{% for company in movie.company.all %}
+			<span property="productionCompany" typeof="Organization">
+				<span property="name" content="{{ company.name }}"></span>
+				<a href="../../company/{{company.id}}">
+					{{ company.name }}
+				</a>
+			</span>
+			<br />
+		{% endfor %}
+
+	Category:
+		{% for category in movie.rate.all %}
+			{{category.category}}
+		{% endfor %}
+		<br />
+
+	 Reviews:
+		{% for review in movie.rate.all %}
+			<span property="text">{{review.rating}}</span><br />
+			<span property="text">{{review.comment}}</span><br />
+
+		{% endfor %}
 </span>
+	{% if user.is_authenticated %}
 
+	<h3>Add Review</h3>
+	<form action="{% url 'myapp:review_create' movie.id %}" method="post">
+		{% csrf_token %}
+		Message: <textarea name="comment" id="comment" rows="4"></textarea>
+		<p>Rating:</p>
+		<p>{% for rate in RATING_CHOICES %}
+			<input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.1 }}" />
+			<label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{ rate.0|pluralize }}</label>
+			<br/>{% endfor %}
+		</p>
+		<input type="submit" value="Submit" />
+	</form>
+
+	{% endif %}
+
+</p>
+
+{% endblock %}
+{% block footer %}
+	Created by {{ movie.user }}
 {% endblock %}
