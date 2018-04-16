@@ -52,12 +52,16 @@ class CarList(ListView):
     template_name = 'myapp/car_list.html'
 
 
-class CarShopDetails(DetailView):
+# class CarShopDetails(DetailView):
+#     model = CarShop
+#     template_name = 'distributors/carshop_details.html'
+#     def get_context_data(self, **kwargs):
+#         context = super(CarShopDetails, self).get_context_data(**kwargs)
+#         return context
+
+class CarShopDetails(ListView):
     model = CarShop
     template_name = 'distributors/carshop_details.html'
-    def get_context_data(self, **kwargs):
-        context = super(CarShopDetails, self).get_context_data(**kwargs)
-        return context
 
 
 class SellerDetails(DetailView):

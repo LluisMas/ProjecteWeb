@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Car Shop Details</title>
-</head>
-<body>
+{% extends "distributors/base.html" %}
+{% block title %}CarShop - {{ CarShop.shopName }}{% endblock %}
+{% block content %}
 
-</body>
-</html>
+<span vocab="http://schema.org/" typeof="CarShop">
+
+<h1>
+    <span property="name">{{ CarShop.shopName }}</span>
+    {% if user == restaurant.user %}
+        (<a href="{% url 'myrestaurants:restaurant_edit' restaurant.id %}">edit</a>)
+    {% endif %}
+</h1>
+
+<h2>Car Shop:</h2>
+
+</span>
+
+{% endblock %}

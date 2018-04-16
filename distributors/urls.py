@@ -37,7 +37,7 @@ urlpatterns = [
             # context_object_name = 'latest_movie_list',
             model=CarShop,
             template_name='distributors/carshop_details.html'),
-        name='carshop_details')
+            name='carshop_details')
 
 
 
