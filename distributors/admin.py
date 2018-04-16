@@ -1,5 +1,6 @@
 from django.contrib import admin
-import models
+
+from distributors import models
 
 admin.site.register(models.Person)
 admin.site.register(models.CarShop)
