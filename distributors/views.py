@@ -51,6 +51,15 @@ class CarList(ListView):
     model = Car
     template_name = 'myapp/car_list.html'
 
+
+class CarShopDetails(DetailView):
+    model = CarShop
+    template_name = 'distributors/carshop_details.html'
+    def get_context_data(self, **kwargs):
+        context = super(CarShopDetails, self).get_context_data(**kwargs)
+        return context
+
+
 class SellerDetails(DetailView):
     model = Seller
     template_name = 'myapp/seller_detail'
@@ -61,7 +70,7 @@ class CustomerDetails(DetailView):
 
 class CustomerList(ListView):
     model = Customer
-    template_name = 'myapp/car_list'
+    template_name = 'distributors/customer_list.html'
 
 
 class SellDetail(DetailView):
@@ -70,7 +79,7 @@ class SellDetail(DetailView):
 
 class SellList(ListView):
     model = Sell
-    template_name = 'myapp/sell_list'
+    template_name = 'distributors/seller_list.html'
 
 
 # class RestaurantCreate(LoginRequiredMixin, CreateView):

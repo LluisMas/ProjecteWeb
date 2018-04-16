@@ -6,7 +6,8 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 # from models import Restaurant, Dish
 # from forms import RestaurantForm, DishForm
 # from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
-from distributors.views import ModelList
+from distributors.models import Model, CarShop
+from distributors.views import ModelList, SellList, CustomerList, CarShopDetails
 
 urlpatterns = [
     # List latest 5 restaurants: /distributors/
@@ -15,11 +16,31 @@ urlpatterns = [
             template_name="distributors/home_page.html"),
             name="Principal"),
 
-    url(r'^model_list/$',
+    url(r'^model/$',
     ModelList.as_view(
        # context_object_name = 'latest_movie_list',
         template_name = 'distributors/model_list.html'),
-            name = 'model_list')
+            name = 'model_list'),
+    url(r'^seller/$',
+        SellList.as_view(
+            # context_object_name = 'latest_movie_list',
+            template_name='distributors/seller_list.html'),
+        name='seller_list'),
+    url(r'^customer/$',
+        CustomerList.as_view(
+            # context_object_name = 'latest_movie_list',
+            template_name='distributors/customer_list.html'),
+        name='customer_list'),
+
+    url(r'^carshop/$',
+        CarShopDetails.as_view(
+            # context_object_name = 'latest_movie_list',
+            model=CarShop,
+            template_name='distributors/carshop_details.html'),
+        name='carshop_details')
+
+
+
 
 
     #

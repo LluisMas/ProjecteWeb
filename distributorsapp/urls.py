@@ -11,10 +11,16 @@ from django.conf import settings
 
 urlpatterns = [
 
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', include('distributors.urls', namespace='distributors')),
+   # url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^distributors/', include('distributors.urls', namespace='distributors')),
+
+
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),
+
+    url(r'^$', include('distributors.urls', namespace='distributors'))
+
 ]
 
 #if settings.DEBUG:
