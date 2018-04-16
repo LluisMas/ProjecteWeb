@@ -1,0 +1,19 @@
+{% extends "distributors/base.html" %}
+{% block title %}Car Shop{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Car shop">
+
+
+<h2>Car Shop List:</h2>
+<u1>
+	{% for carshop in latest_carshop_list %}
+		<li><a href="./{{carshop.id}}">
+			{{ carshop.shopName }}</a></li>
+	{% empty %}<li>Sorry, no car shop registered yet.</li>
+	{% endfor %}
+</u1>
+
+</span>
+
+{% endblock %}

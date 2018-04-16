@@ -1,17 +1,18 @@
 {% extends "distributors/base.html" %}
-{% block title %}CarShop - {{ CarShop.shopName }}{% endblock %}
+{% block title %}Model{% endblock %}
 {% block content %}
 
 <span vocab="http://schema.org/" typeof="CarShop">
 
-<h1>
-    <span property="name">{{ CarShop.shopName }}</span>
-    {% if user == restaurant.user %}
-        (<a href="{% url 'myrestaurants:restaurant_edit' restaurant.id %}">edit</a>)
-    {% endif %}
-</h1>
 
 <h2>Car Model List:</h2>
+<u1>
+	{% for model in latest_model_list %}
+		<li><a href="./{{model.id}}">
+			{{ model.modelName }}</a></li>
+	{% empty %}<li>Sorry, no Cars registered yet.</li>
+	{% endfor %}
+</u1>
 
 </span>
 

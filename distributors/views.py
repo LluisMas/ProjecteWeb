@@ -40,6 +40,7 @@ class ModelDetail(DetailView):
 
 class ModelList(ListView):
     model = Model
+    context_object_name = 'latest_model_list'
     template_name = 'distributors/model_list.html'
 
 
@@ -59,9 +60,10 @@ class CarList(ListView):
 #         context = super(CarShopDetails, self).get_context_data(**kwargs)
 #         return context
 
-class CarShopDetails(ListView):
+class CarShopList(ListView):
     model = CarShop
-    template_name = 'distributors/carshop_details.html'
+    context_object_name = 'latest_carshop_list'
+    template_name = 'distributors/carshop_list.html'
 
 
 class SellerDetails(DetailView):
@@ -74,6 +76,7 @@ class CustomerDetails(DetailView):
 
 class CustomerList(ListView):
     model = Customer
+    context_object_name = 'latest_customer_list'
     template_name = 'distributors/customer_list.html'
 
 
@@ -83,6 +86,7 @@ class SellDetail(DetailView):
 
 class SellList(ListView):
     model = Sell
+    context_object_name = 'latest_seller_list'
     template_name = 'distributors/seller_list.html'
 
 

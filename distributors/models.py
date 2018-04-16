@@ -38,6 +38,11 @@ class CarShop(models.Model):
 
     def __str__(self):
         return self.shopName + ' - ' + self.addr
+    def __unicode__(self):
+        return u"%s" % self.shopName
+
+    def get_absolute_url(self):
+        return reverse('distributors:carshop_list', kwargs={'pk': self.pk})
 
 
 class Model(models.Model):
@@ -65,6 +70,12 @@ class Model(models.Model):
     def __str__(self):
         return self.modelName
 
+    def __unicode__(self):
+        return u"%s" % self.modelName
+
+    def get_absolute_url(self):
+        return reverse('distributors:model_list', kwargs={'pk': self.pk})
+
 
 class Car(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
@@ -86,6 +97,11 @@ class Seller(models.Model):
 
     def __str__(self):
         return self.info.name
+    def __unicode__(self):
+        return u"%s" % self.info.name
+
+    def get_absolute_url(self):
+        return reverse('distributors:seller_list', kwargs={'pk': self.pk})
 
 
 class Customer(models.Model):
@@ -94,6 +110,11 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.info.name
+    def __unicode__(self):
+        return u"%s" % self.info.name
+
+    def get_absolute_url(self):
+        return reverse('distributors:customer_list', kwargs={'pk': self.pk})
 
 
 class Sell(models.Model):
