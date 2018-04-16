@@ -21,7 +21,7 @@ class Person(models.Model):
     postCode = models.CharField(max_length=30, null=True)
     state = models.CharField(max_length=30, null=True)
     phoneNumber = models.CharField(max_length=30, null=True)
-    email = models.CharField(max_length=30, null=True)
+    email = models.EmailField(max_length=70, null=False)
 
     # si volem ficar foto del venedor/ client falta canviar el upload
     # image = models.ImageField(upload_to="myapp", blank=True, null=True)
@@ -37,7 +37,10 @@ class CarShop(models.Model):
     addr = models.CharField(max_length=30, null=True)
 
     def __str__(self):
-        return self.shopName + ' - ' + self.addr
+        #return self.shopName + ' - ' + self.addr
+        space = " - "
+        return "{} {} {}".format(self.shopName, space, self.addr)
+
     def __unicode__(self):
         return u"%s" % self.shopName
 
@@ -123,7 +126,7 @@ class Sell(models.Model):
     date = models.DateField(default=date.today)
 
     def __str__(self):
-        return self.seller.info.name + ' - ' + self.car.model.__name__
+        return self.seller.info.name + ' - ' + self.car.model.modelName
 
 
 class ModelReview(models.Model):
