@@ -3,78 +3,98 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import date
+import datetime
+
 
 class Person(models.Model):
-    #Mirant la randomuser.api les dades que retorna, comunes per selle i customer son:
+    # Mirant la randomuser.api les dades que retorna, comunes per selle i customer son:
     id = models.IntegerField(primary_key=True)
-    name = models.TextField()
-    street = models.TextField(blank=True, null=True)
-    gender = models.TextField(blank=True, null=True)
-    city = models.TextField(blank=True, null=True)
-    postCode = models.IntegerField(blank=True, null=True)
-    state = models.TextField(blank=True, null=True)
-    phoneNumber = models.IntegerField(blank=True, null=True)
-    email = models.TextField(blank=True, null=True)
-    #si volem ficar foto del venedor/ client falta canviar el upload
-   # image = models.ImageField(upload_to="myapp", blank=True, null=True)
+    name = models.CharField(max_length=30)
+    street = models.CharField(max_length=30)
+    gender = models.IntegerField(choices=(
+        (1, 'Male'),
+        (2, 'Female'),
+    ))
+    city = models.CharField(max_length=30)
+    postCode = models.CharField(max_length=30)
+    state = models.CharField(max_length=30)
+    phoneNumber = models.CharField(max_length=30)
+    email = models.CharField(max_length=30)
+
+    # si volem ficar foto del venedor/ client falta canviar el upload
+    # image = models.ImageField(upload_to="myapp", blank=True, null=True)
 
     def __str__(self):
         return self.name
 
+
 class CarShop(models.Model):
-    id = models.IntegerField(primary_key=True)
-    modelYear = models.IntegerField(blank=True, null=True)
-    shopName = models.TextField(blank=True, null=True)
-    addr = models.TextField(blank=True, null=True)
+    id = models.PositiveIntegerField(primary_key=True)
+    inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
+    shopName = models.CharField(max_length=30)
+    addr = models.CharField(max_length=30)
 
     def __str__(self):
         return self.shopName + ' - ' + self.addr
 
 
-
 class Model(models.Model):
-    id = models.IntegerField(primary_key=True)
-    modelName = models.TextField(blank=True, null=True)
-    body = models.TextField(blank=True, null=True)
-    fuelType = models.TextField(blank=True, null=True)
-    modelYear = models.IntegerField(blank=True, null=True)
-    maxTopSpeed = models.TextField(blank=True, null=True)
-    doors = models.IntegerField(blank=True, null=True)
-    seats = models.IntegerField(blank=True, null=True)
+    year_dropdown = []
+    for y in range(2011, (datetime.datetime.now().year + 5)):
+        year_dropdown.append((y, y))
+
+    id = models.PositiveIntegerField(primary_key=True)
+    modelName = models.CharField(max_length=30)
+    body = models.CharField(max_length=30)
+    fuelType = models.IntegerField(choices=(
+        (1, 'Gasoline'),
+        (2, 'Diesel'),
+        (3, 'Electric'),
+        (4, 'Hybrid')
+    ))
+    modelYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
+    maxTopSpeed = models.PositiveIntegerField(validators=[MaxValueValidator(500)], )
+    doors = models.IntegerField(choices=(
+        (1, '3 Doors'),
+        (2, '5 Doors')
+    ), default=2)
+    seats = models.IntegerField(choices=[(x, x) for x in range(2, 10)], default=5)
 
     def __str__(self):
         return self.modelName
 
 
 class Car(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.PositiveIntegerField(primary_key=True)
     model = models.ForeignKey(Model, default=1)
-    kms = models.IntegerField(blank=True, null=True)
-    price = models.IntegerField(blank=True, null=True)
-    color = models.IntegerField(blank=True, null=True)
-    registrationYear = models.IntegerField(blank=True, null=True)
+    kms = models.PositiveIntegerField(default=0)
+    price = models.PositiveIntegerField(default=0)
+    color = models.CharField(max_length=30)
+    registrationYear = models.PositiveIntegerField(default=0)
     carShop = models.ForeignKey(CarShop, default=1)
 
     def __str__(self):
         return str(self.id)
 
+
 class Seller(models.Model):
-    #nss = models.IntegerField(blank=True, null=True)
     info = models.ForeignKey(Person, default=1)
     shop = models.ForeignKey(CarShop, default=1)
-    salary = models.IntegerField(blank=True, null=True)
+    salary = models.PositiveIntegerField()
 
     def __str__(self):
         return self.info.name
+
 
 class Customer(models.Model):
     info = models.ForeignKey(Person, default=1)
     shop = models.ForeignKey(CarShop, default=1)
-    #sell = models.ForeignKey(Sell, default=1)
 
     def __str__(self):
         return self.info.name
+
 
 class Sell(models.Model):
     seller = models.ForeignKey(Seller, default=1)
@@ -86,9 +106,8 @@ class Sell(models.Model):
         return self.seller.info.name + ' - ' + self.car.model.__name__
 
 
-
 class ModelReview(models.Model):
-    #valorar on ficar-lo
+    # valorar on ficar-lo
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
     rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
@@ -98,17 +117,8 @@ class ModelReview(models.Model):
     def __str__(self):
         return str(self.date), str(self.rating) + " starts"
 
-    #class Meta:
+    # class Meta:
     #    abstract = True
-
-
-
-
-
-
-
-
-
 
 # class Restaurant(models.Model):
 #     name = models.TextField()
