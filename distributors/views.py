@@ -43,21 +43,13 @@ class ModelList(ListView):
     template_name = 'distributors/model_list.html'
 
 
-class CarDetail(DetailView):
-    model = Car
-    template_name = 'myapp/car_detail.html'
+class CarShopDetail(DetailView):
+    model = CarShop
+    template_name = 'distributors/carshop_detail.html'
 
-class CarList(ListView):
-    model = Car
-    template_name = 'myapp/car_list.html'
-
-
-# class CarShopDetails(DetailView):
-#     model = CarShop
-#     template_name = 'distributors/carshop_details.html'
-#     def get_context_data(self, **kwargs):
-#         context = super(CarShopDetails, self).get_context_data(**kwargs)
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super(CarShopDetail, self).get_context_data(**kwargs)
+        return context
 
 class CarShopList(ListView):
     model = CarShop
@@ -65,13 +57,13 @@ class CarShopList(ListView):
     template_name = 'distributors/carshop_list.html'
 
 
-class SellerDetails(DetailView):
+class SellerDetail(DetailView):
     model = Seller
-    template_name = 'myapp/seller_detail'
+    template_name = 'distributors/seller_detail'
 
-class CustomerDetails(DetailView):
+class CustomerDetail(DetailView):
     model = Customer
-    template_name = 'myapp/car_detail'
+    template_name = 'distributors/customer_detail'
 
 class CustomerList(ListView):
     model = Customer

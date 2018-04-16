@@ -1,0 +1,30 @@
+{% extends "distributors/base.html" %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Car Shop Detail">
+	<h1>
+		<span property="name">{{ carshop.shopName }}</span>
+	</h1>
+
+
+	<p>
+		<span property="inagurationYear" content="{{ carshop.inagurationYear }}-1-1">
+			Inaguration: {{ carshop.inagurationYear }}
+		</span> <br />
+
+		<span property="addr">
+			Car shop address: {{ carshop.addr }}
+		</span> <br />
+
+
+        <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi">
+
+       <!-- <span property="image" content="https://www.actualidadmotor.com/wp-content/uploads/2014/07/Audi-A8-Transporter.jpg">
+
+
+        </span>-->
+
+</span>
+
+    </p>
+{% endblock %}
