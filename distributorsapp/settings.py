@@ -27,7 +27,9 @@ SECRET_KEY = 'jvz2(2qb(d$d%q14v4-1w33!fo5wk7ru3gzs**&%ag*xqq-#40'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cryptic-citadel-96359.herokuapp.com']
+ALLOWED_HOSTS = ['lrldistributors.herokuapp.com',
+                 '127.0.0.1',
+                 'localhost']
 
 
 # Application definition

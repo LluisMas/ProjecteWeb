@@ -32,11 +32,10 @@ class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin,
 
 class ModelDetail(DetailView):
     model = Model
-    template_name = 'myapp/model_detail.html'
+    template_name = 'distributors/model_detail.html'
 
     def get_context_data(self, **kwargs):
         context = super(ModelDetail, self).get_context_data(**kwargs)
-        context['RATING_CHOICES'] = ModelReview.RATING_CHOICES
         return context
 
 class ModelList(ListView):
@@ -45,21 +44,13 @@ class ModelList(ListView):
     template_name = 'distributors/model_list.html'
 
 
-class CarDetail(DetailView):
-    model = Car
-    template_name = 'myapp/car_detail.html'
+class CarShopDetail(DetailView):
+    model = CarShop
+    template_name = 'distributors/carshop_detail.html'
 
-class CarList(ListView):
-    model = Car
-    template_name = 'myapp/car_list.html'
-
-
-# class CarShopDetails(DetailView):
-#     model = CarShop
-#     template_name = 'distributors/carshop_details.html'
-#     def get_context_data(self, **kwargs):
-#         context = super(CarShopDetails, self).get_context_data(**kwargs)
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super(CarShopDetail, self).get_context_data(**kwargs)
+        return context
 
 class CarShopList(ListView):
     model = CarShop
@@ -67,13 +58,13 @@ class CarShopList(ListView):
     template_name = 'distributors/carshop_list.html'
 
 
-class SellerDetails(DetailView):
+class SellerDetail(DetailView):
     model = Seller
-    template_name = 'myapp/seller_detail'
+    template_name = 'distributors/seller_detail'
 
-class CustomerDetails(DetailView):
+class CustomerDetail(DetailView):
     model = Customer
-    template_name = 'myapp/car_detail'
+    template_name = 'distributors/customer_detail'
 
 class CustomerList(ListView):
     model = Customer
@@ -85,8 +76,8 @@ class SellDetail(DetailView):
     model = Sell
     template_name = 'myapp/sell?detail'
 
-class SellList(ListView):
-    model = Sell
+class SellerList(ListView):
+    model = Seller
     context_object_name = 'latest_seller_list'
     template_name = 'distributors/seller_list.html'
 
