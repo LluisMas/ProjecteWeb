@@ -1,10 +1,10 @@
-#!/home/lmr/Desktop/web/LRLdistributors/venv/bin/python2.7
+#!/home/lmr/Desktop/LRLdistributors/ProjecteWeb/venv/bin/python2.7
 
 # -*- coding: utf-8 -*-
 import re
 import sys
 
-from pip import main
+from pip._internal import main
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])

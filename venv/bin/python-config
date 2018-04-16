@@ -1,4 +1,4 @@
-#!/home/lmr/Desktop/web/LRLdistributors/venv/bin/python
+#!/home/lmr/Desktop/LRLdistributors/ProjecteWeb/venv/bin/python
 
 import sys
 import getopt
