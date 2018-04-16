@@ -20,7 +20,7 @@ class Person(models.Model):
     city = models.CharField(max_length=30, null=True)
     postCode = models.CharField(max_length=30, null=True)
     state = models.CharField(max_length=30, null=True)
-    phoneNumber = models.CharField(max_length=30, null=True)
+    phoneNumber = models.IntegerField(max_length=12, null=True)
     email = models.EmailField(max_length=70, blank=False, null=True)
 
     # si volem ficar foto del venedor/ client falta canviar el upload

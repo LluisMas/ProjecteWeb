@@ -7,8 +7,9 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-from distributors import models
-from distributors.models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
+from models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
+
+
 # from forms import PersonForm, CarShopForm, ModelForm, SellerForm, SellForm, ReviewForm, CarForm
 
 # Security Mixins
@@ -18,6 +19,7 @@ class LoginRequiredMixin(object):
     def dispatch(self, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
+
 class CheckIsOwnerMixin(object):
     def get_object(self, *args, **kwargs):
         obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
@@ -25,8 +27,10 @@ class CheckIsOwnerMixin(object):
             raise PermissionDenied
         return obj
 
+
 class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
     template_name = 'myapp/form.html'
+
 
 # HTML Views
 
@@ -37,6 +41,16 @@ class ModelDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(ModelDetail, self).get_context_data(**kwargs)
         return context
+
+
+class SellerDetail(DetailView):
+    model = Seller
+    template_name = 'distributors/seller_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SellerDetail, self).get_context_data(**kwargs)
+        return context
+
 
 class ModelList(ListView):
     model = Model
@@ -52,19 +66,21 @@ class CarShopDetail(DetailView):
         context = super(CarShopDetail, self).get_context_data(**kwargs)
         return context
 
+
 class CarShopList(ListView):
     model = CarShop
     context_object_name = 'latest_carshop_list'
     template_name = 'distributors/carshop_list.html'
 
 
-class SellerDetail(DetailView):
-    model = Seller
-    template_name = 'distributors/seller_detail'
-
 class CustomerDetail(DetailView):
     model = Customer
-    template_name = 'distributors/customer_detail'
+    template_name = 'distributors/customer_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CustomerDetail, self).get_context_data(**kwargs)
+        return context
+
 
 class CustomerList(ListView):
     model = Customer
@@ -72,9 +88,9 @@ class CustomerList(ListView):
     template_name = 'distributors/customer_list.html'
 
 
-class SellDetail(DetailView):
-    model = Sell
-    template_name = 'myapp/sell?detail'
+# class SellDetail(DetailView):
+#    model = Sell
+#  template_name = 'myapp/sell?detail'
 
 class SellerList(ListView):
     model = Seller

@@ -1,0 +1,39 @@
+{% extends "distributors/base.html" %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Customer detail">
+    <h1>
+        <span property="name">{{ customer.info.name }}</span>
+    </h1>
+
+
+    <p>
+        <span property="street" content="{{ customer.info.street }}-1-1">
+            Address: {{ customer.info.street }}
+        </span> <br />
+
+        <span property="city">
+            City: {{ customer.info.city }}
+        </span> <br />
+        <span property="postcode">
+            Postcode: {{ customer.info.postCode }}
+        </span> <br />
+        <span property="phone">
+            Phone Number: {{ customer.info.phoneNumber }}
+        </span> <br />
+        <span property="email">
+            Email: {{ customer.info.email }}
+        </span> <br />
+
+        <img src="https://images01.olx-st.com/ui/52/21/25/78/o_1523403218_663ce77a8e2de945b7f5d9c4b42de677.jpg" alt="customer">
+
+       <!-- <span property="image" content="https://www.actualidadmotor.com/wp-content/uploads/2014/07/Audi-A8-Transporter.jpg">
+
+
+        </span>-->
+
+</span>
+
+    </p>
+
+{% endblock %}

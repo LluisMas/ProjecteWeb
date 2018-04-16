@@ -1,0 +1,39 @@
+{% extends "distributors/base.html" %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Seller detail">
+    <h1>
+        <span property="name">{{ seller.info.name }}</span>
+    </h1>
+
+
+    <p>
+        <span property="street" content="{{ seller.info.street }}-1-1">
+            Address: {{ seller.info.street }}
+        </span> <br />
+
+        <span property="city">
+            City: {{ seller.info.city }}
+        </span> <br />
+        <span property="postcode">
+            Postcode: {{ seller.info.postCode }}
+        </span> <br />
+        <span property="phone">
+            Phone Number: {{ seller.info.phoneNumber }}
+        </span> <br />
+        <span property="email">
+            Email: {{ seller.info.email }}
+        </span> <br />
+
+        <img src="https://bestcollateral.com/wp-content/uploads/2015/11/Seth-300x267.jpg" alt="seller">
+
+       <!-- <span property="image" content="https://www.actualidadmotor.com/wp-content/uploads/2014/07/Audi-A8-Transporter.jpg">
+
+
+        </span>-->
+
+</span>
+
+    </p>
+
+{% endblock %}
