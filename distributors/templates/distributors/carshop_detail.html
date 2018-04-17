@@ -17,12 +17,20 @@
 		</span> <br />
 
 
+		<span property="cars">
+			Cars:
+		</span> <br />
+
+		<ul>
+    		{% for car in carshop.cars.all %}
+        	<li>
+            	{{ car.model.modelName }}</li>
+    			{% empty %}<li>Sorry, no cars in this CarsShop yet.</li>
+    			{% endfor %}
+		</ul>
+	
         <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi">
 
-       <!-- <span property="image" content="https://www.actualidadmotor.com/wp-content/uploads/2014/07/Audi-A8-Transporter.jpg">
-
-
-        </span>-->
 
 </span>
 
