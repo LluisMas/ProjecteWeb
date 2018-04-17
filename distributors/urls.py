@@ -1,11 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
-
-from django.utils import timezone
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
-# from models import Restaurant, Dish
-# from forms import RestaurantForm, DishForm
-# from views import RestaurantCreate, DishCreate, RestaurantDetail, review, LoginRequiredCheckIsOwnerUpdateView
 from distributors.models import Model, CarShop, Seller, Customer, Person
 from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
     ModelDetail, CarShopDetail
