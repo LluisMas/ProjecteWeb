@@ -7,12 +7,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-from models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
+from distributors.models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
 
-
-# from forms import PersonForm, CarShopForm, ModelForm, SellerForm, SellForm, ReviewForm, CarForm
-
-# Security Mixins
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required())
@@ -96,26 +92,6 @@ class SellerList(ListView):
     model = Seller
     context_object_name = 'latest_seller_list'
     template_name = 'distributors/seller_list.html'
-
-
-# class RestaurantCreate(LoginRequiredMixin, CreateView):
-#     model = Restaurant
-#     template_name = 'myapp/form.html'
-#     form_class = RestaurantForm
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         return super(RestaurantCreate, self).form_valid(form)
-
-# class DishCreate(LoginRequiredMixin, CreateView):
-#     model = Dish
-#     template_name = 'myapp/form.html'
-#     form_class = DishForm
-#
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
-#         return super(DishCreate, self).form_valid(form)
 
 class PersonDetail(DetailView):
     model = Person
