@@ -23,29 +23,29 @@ urlpatterns = [
             template_name='distributors/model_detail.html'),
         name='model_detail'),
 
-    # url(r'^seller/$',
-    #     SellerList.as_view(
-    #         context_object_name='latest_seller_list',
-    #         template_name='distributors/seller_list.html'),
-    #     name='seller_list'),
-    #
-    # url(r'^seller/(?P<pk>\d+)/$',
-    #     SellerDetail.as_view(
-    #         model=Seller,
-    #         template_name='distributors/seller_detail.html'),
-    #     name='seller'),
+    url(r'^seller/$',
+        SellerList.as_view(
+            context_object_name='latest_seller_list',
+            template_name='distributors/seller_list.html'),
+        name='seller_list'),
 
-    # url(r'^customer/$',
-    #     CustomerList.as_view(
-    #         context_object_name='latest_customer_list',
-    #         template_name='distributors/customer_list.html'),
-    #     name='customer_list'),
-    #
-    # url(r'^customer/(?P<pk>\d+)/$',
-    #     CustomerDetail.as_view(
-    #         model=Customer,
-    #         template_name='distributors/customer_detail.html'),
-    #     name='customer_detail'),
+    url(r'^seller/(?P<pk>\d+)/$',
+        SellerDetail.as_view(
+            model=Seller,
+            template_name='distributors/seller_detail.html'),
+        name='seller'),
+
+    url(r'^customer/$',
+        CustomerList.as_view(
+            context_object_name='latest_customer_list',
+            template_name='distributors/customer_list.html'),
+        name='customer_list'),
+
+    url(r'^customer/(?P<pk>\d+)/$',
+        CustomerDetail.as_view(
+            model=Customer,
+            template_name='distributors/customer_detail.html'),
+        name='customer_detail'),
 
     url(r'^carshop/$',
         CarShopList.as_view(

@@ -8,7 +8,7 @@
 <h2>Customer List:</h2>
 <u1>
 	{% for customer in latest_customer_list %}
-		<li><a href="./{{customer.info.id}}">
+		<li><a href="./{{customer.id}}">
 			{{ customer.info.name }}</a></li>
 	{% empty %}<li>Sorry, no customers registered yet.</li>
 	{% endfor %}

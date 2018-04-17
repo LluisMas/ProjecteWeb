@@ -10,7 +10,6 @@ import datetime
 
 class Person(models.Model):
     # Mirant la randomuser.api les dades que retorna, comunes per seller i customer son:
-    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=30, null=True)
     street = models.CharField(max_length=30, null=True)
     gender = models.IntegerField(choices=(
