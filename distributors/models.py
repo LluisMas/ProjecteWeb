@@ -93,7 +93,7 @@ class Car(models.Model):
 
 
     def __str__(self):
-        return str(self.id)
+        return '1 - ' + str(self.model.modelName)
 
 
 class Seller(models.Model):
