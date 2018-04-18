@@ -89,7 +89,8 @@ class Car(models.Model):
     price = models.PositiveIntegerField(default=0)
     color = models.CharField(max_length=30, default="Color")
     registrationYear = models.PositiveIntegerField(default=0)
-    carShop = models.ForeignKey(CarShop, default=1)
+    carShop = models.ForeignKey(CarShop, default=1,  related_name='cars')
+
 
     def __str__(self):
         return '1 - ' + str(self.model.modelName)
