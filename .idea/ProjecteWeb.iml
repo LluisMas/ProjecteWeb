@@ -21,6 +21,9 @@
     <orderEntry type="jdk" jdkName="Python 2.7 (ProjecteWeb)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyBDDFrameworkConfig">
+    <option name="preferedFrameworkName" value="behave" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
