@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import Model, CarShop, Seller, Customer, Person
 from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
-    ModelDetail, CarShopDetail
+    ModelDetail, CarShopDetail, SellCreate, CarShopCreate
+
 
 urlpatterns = [
     url(r'^$',
@@ -73,4 +74,14 @@ urlpatterns = [
             model=Person,
             template_name='distributors/person_detail.html'),
         name='person_detail'),
+
+
+    url(r'^add_sell/$',
+        SellCreate.as_view(),
+        name='sell_create'),
+
+    url(r'^add_distrib/$',
+        CarShopCreate.as_view(),
+        name='add_distributors'),
+
 ]

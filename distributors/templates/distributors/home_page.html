@@ -1,8 +1,10 @@
 {% extends "distributors/base.html" %}
+{% load l10n %}
+
 {% block content %}
-<h1>
+<h5>
     Home Page
-</h1>
+</h5>
 <ul>
   <li><a href="/distributors/carshop/">
       CarShop Details</a></li>
@@ -13,7 +15,10 @@
   <li><a href="/distributors/customer/">
       Customer list</a></li>
 
-    <li><a href="/distributors/form/">
-      Añadir Venta</a></li>
+    <li><a href="/distributors/add_sell/">
+        Añadir Venta</a></li>
+
+    <li><a href="/distributors/add_distrib/">
+        Añadir Concesionario</a></li>
 </ul>
 {% endblock %}
