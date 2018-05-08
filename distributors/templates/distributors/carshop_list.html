@@ -8,8 +8,28 @@
 <h2>Car Shop List:</h2>
 <u1>
 	{% for carshop in latest_carshop_list %}
+            <div class="card mb-1">
+      <div class="card-block row m-1">
+        <h4 class="card-title col-md-12 p-1"><a href="{% url 'distributors:carshop_detail' model.id %}">{{ model.modelName }}</a></h4>
+        <div class="col-md-4 p-1">
+          <h6 class="card-subtitle text-muted">Where?</h6>
+                  <p class="card-text">
+
 		<li><a href="./{{carshop.id}}">
 			{{ carshop.shopName }}</a></li>
+
+
+                  </p>
+        </div>
+        <div class="col-md-4 p-1">
+          <h6 class="card-subtitle text-muted">Cars</h6>
+          <p class="card-text">{{ model.object.count }}</p>
+        </div>
+        <div class="col-md-4 p-1">
+          <h6 class="card-subtitle text-muted">Rating</h6>
+         </div>
+      </div>
+    </div>
 	{% empty %}<li>Sorry, no car shop registered yet.</li>
 	{% endfor %}
 </u1>
