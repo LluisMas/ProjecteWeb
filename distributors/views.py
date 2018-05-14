@@ -26,7 +26,7 @@ class CheckIsOwnerMixin(object):
 
 
 class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
-    template_name = 'myapp/form.html'
+    template_name = 'distributors/form.html'
 
 
 # HTML Views

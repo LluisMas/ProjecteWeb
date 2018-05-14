@@ -11,6 +11,11 @@
 
 		<li><a href="./{{carshop.id}}">
 			{{ carshop.shopName }}</a></li>
+        <div class="col-sm-3 text-right align-bottom">
+        {% if user == carshop.user %}
+            <a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a>
+        {% endif %}
+        </div>
 	{% empty %}<li>Sorry, no car shop registered yet.</li>
 	{% endfor %}
 </u1>
@@ -19,7 +24,8 @@
       {% if user.is_authenticated %}
         <li><a href="{% url 'distributors:add_distributors'  %}"> Añadir Concesionario</a></li>
       {% endif %}
-  </div>
+    </div>
+
 
 </span>
 
