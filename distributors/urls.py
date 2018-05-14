@@ -4,7 +4,7 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import Model, CarShop, Seller, Customer, Person
 from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
     ModelDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView
-
+from forms import CarShopForm
 
 urlpatterns = [
     url(r'^$',
@@ -91,13 +91,12 @@ urlpatterns = [
         CarShopCreate.as_view(),
         name='add_distributors'),
 
-    # Edit a carshom, ex.: /distributors/carshop/1/edit/
+
+    # Edit restaurant details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=CarShop,
-            form_class=CarShopCreate),
+            form_class=CarShopForm),
         name='distributors_edit'),
-
-
 
 ]
