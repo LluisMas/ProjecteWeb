@@ -125,7 +125,7 @@ class CarShopCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         #form.instance.user = self.request.user
-        #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
+        #form.instance.CarshopCreate = CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
 
 @login_required()
