@@ -7,3 +7,4 @@ gunicorn
 behave==1.2.6
 whitenoise
 django-crispy-forms
+django_bootstrap_breadcrumbs

@@ -39,6 +39,7 @@ class CarShop(models.Model):
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
     shopName = models.CharField(max_length=30, null=True)
     addr = models.CharField(max_length=30, null=True)
+    country = models.CharField(max_length=120, blank=True, null=True)
 
     def __str__(self):
         space = " - "
