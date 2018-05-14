@@ -1,5 +1,12 @@
 from django.forms import ModelForm
-from models import ModelReview, Sell, CarShop
+from models import ModelReview, Sell, CarShop, Seller
+
+
+
+class SellerForm(ModelForm):
+    class Meta:
+        model = Seller
+        exclude = ('salary',)
 
 
 
@@ -23,7 +30,9 @@ class CarShopForm(ModelForm):
         model = CarShop
         #la data s'ha exlos s'ha de mirar com afegir-la automaticament
         #exlude = ()
-        fields = ('id', 'inaugurationYear', 'shopName', 'addr')
+        fields = ('id','inaugurationYear', 'shopName', 'addr')
 
+    #def get_success_url(self):
+    #    return reverse('profile-list')
 
 
