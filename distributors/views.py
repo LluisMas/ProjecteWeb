@@ -118,6 +118,7 @@ class SellCreate(LoginRequiredMixin, CreateView):
         #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
         return super(SellCreate, self).form_valid(form)
 
+
 class CarShopCreate(LoginRequiredMixin, CreateView):
     model = CarShop
     template_name = 'distributors/form.html'
