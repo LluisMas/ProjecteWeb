@@ -27,7 +27,8 @@ class SellForm(ModelForm):
 class CarShopForm(ModelForm):
     class Meta:
         model = CarShop
-        fields = ('id','inaugurationYear', 'shopName', 'addr', 'country', )
+       # fields = ('id','inaugurationYear', 'shopName', 'addr', 'country', 'city', )
+        exclude = ('user', 'date','city', 'zipCode', )
 
     #def get_success_url(self):
     #    return reverse('profile-list')

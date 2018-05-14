@@ -40,6 +40,9 @@ class CarShop(models.Model):
     shopName = models.CharField(max_length=30, null=True)
     addr = models.CharField(max_length=30, null=True)
     country = models.CharField(max_length=120, blank=True, null=True)
+    city = models.CharField(max_length=120, blank=True, null=True)
+    zipCode = models.CharField(max_length=120, blank=True, null=True)
+    stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
     user = models.ForeignKey(User, default=1)
 
     def __str__(self):
