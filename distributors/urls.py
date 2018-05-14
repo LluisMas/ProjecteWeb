@@ -87,8 +87,10 @@ urlpatterns = [
         SellCreate.as_view(),
         name='sell_create'),
 
-    url(r'^distributors/carshop/$',
+    url(r'^carshop/create/$',
         CarShopCreate.as_view(),
         name='add_distributors'),
+
+
 
 ]

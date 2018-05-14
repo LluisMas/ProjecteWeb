@@ -48,7 +48,7 @@ class CarShop(models.Model):
         return u"%s" % self.shopName
 
     def get_absolute_url(self):
-        return reverse('distributors:carshop_list', kwargs={'pk': self.pk})
+        return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
 
 
 class Model(models.Model):

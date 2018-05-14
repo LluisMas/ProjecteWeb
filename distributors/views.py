@@ -124,9 +124,10 @@ class CarShopCreate(LoginRequiredMixin, CreateView):
     form_class = CarShopForm
 
     def form_valid(self, form):
-        #form.instance.user = self.request.user
+        form.instance.user = self.request.user
         #form.instance.CarshopCreate = CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
+
 
 @login_required()
 def review(request, pk):
