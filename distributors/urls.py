@@ -48,13 +48,20 @@ urlpatterns = [
             template_name='distributors/customer_detail.html'),
         name='customer_detail'),
 
+  #  url(r'^carshop/$',
+   #     CarShopList.as_view(
+    #        # context_object_name = 'latest_movie_list',
+     #       model=CarShop,
+      #      context_object_name='latest_carshop_list',
+       #     template_name='distributors/carshop_list.html'),
+       # name='carshop_list'),
+
     url(r'^carshop/$',
         CarShopList.as_view(
-            # context_object_name = 'latest_movie_list',
-            model=CarShop,
             context_object_name='latest_carshop_list',
             template_name='distributors/carshop_list.html'),
         name='carshop_list'),
+
 
     url(r'^carshop/(?P<pk>\d+)/$',
         CarShopDetail.as_view(
