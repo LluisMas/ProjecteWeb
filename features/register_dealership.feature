@@ -6,11 +6,11 @@ Feature: Register Dealership
     Given Exists a user "user" with password "password"
 
   Scenario: Register a Dealership
-#    Given I login as user "username" with password "password"
+    Given I login as user "user" with password "password"
     When I register dealership
-      | name           |
+      | shopName       |
       | Fish and Chips |
     Then I'm viewing the details page for dealership by "username"
-      | name           |
+      | shopName       |
       | Fish and Chips |
     And There are 1 dealerships

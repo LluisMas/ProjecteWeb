@@ -14,7 +14,7 @@ def step_impl(context, username, password):
 
 @given('I login as user "{username}" with password "{password}"')
 def step_impl(context, username, password):
-    context.browser.visit(context.get_url('/accounts/login/?next=/myrestaurants/'))
+    context.browser.visit(context.get_url('/accounts/login/?next=/'))
     form = context.browser.find_by_tag('form').first
     context.browser.fill('username', username)
     context.browser.fill('password', password)
@@ -26,8 +26,8 @@ def step_impl(context, username, password):
 @when("I register dealership")
 def step_impl(context):
     for row in context.table:
-        context.browser.visit(context.get_url('distributors:add_distributor'))
-        if context.browser.url == context.get_url('distributors:add_distributor'):
+        context.browser.visit(context.get_url('distributors:add_distributors'))
+        if context.browser.url == context.get_url('distributors:add_distributors'):
             form = context.browser.find_by_tag('form').first
             for heading in row.headings:
                 context.browser.fill(heading, row[heading])
