@@ -8,14 +8,16 @@ $(document).ready(function() {
     $("#id_city").autocomplete({
         source: function( request, response ) {
             $.ajax({
-                url: "http://ws.geonames.org/searchJSON",
+                url: "http://api.geonames.org/searchJSON",
                 dataType: "jsonp",
                 data: {
                     featureClass: "P",
                     maxRows: 10,
                     name_startsWith: request.term,
-                    username: "rogargon"
+                    username: "luisradulluis",
+                    q: $("#id_country").val()
                 },
+                //http://api.geonames.org/searchJSON?callback=jQuery33107454543261306075_1526372947159&featureClass=P&maxRows=10&name_startsWith=ba&username=luisradulluis&_=1526372947160&countryName=Spain
                 success: function( data ) {
                     response( $.map( data.geonames, function( item ) {
                         return {
@@ -34,6 +36,7 @@ $(document).ready(function() {
                 $("#id_stateOrProvince").val(ui.item.stateOrProvince);
                 $("#id_country").val(ui.item.countryName);
                 $("#id_zipCode").val("");
+                //alert(id_country);
             }
         }
     });
