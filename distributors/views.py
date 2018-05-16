@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from distributors.models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
+from distributors.models import Person, CarShop, Model, Car, Sell, ModelReview
 from distributors.forms import SellForm, CarShopForm, CarForm
 
 
@@ -41,7 +41,7 @@ class ModelDetail(DetailView):
 
 
 class SellerDetail(DetailView):
-    model = Seller
+    model = Person
     template_name = 'distributors/seller_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -72,7 +72,7 @@ class CarShopList(ListView):
 
 
 class CustomerDetail(DetailView):
-    model = Customer
+    model = Person
     template_name = 'distributors/customer_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -81,7 +81,7 @@ class CustomerDetail(DetailView):
 
 
 class CustomerList(ListView):
-    model = Customer
+    model = Person
     context_object_name = 'latest_customer_list'
     template_name = 'distributors/customer_list.html'
 
@@ -91,7 +91,7 @@ class CustomerList(ListView):
 #  template_name = 'myapp/sell?detail'
 
 class SellerList(ListView):
-    model = Seller
+    model = Person
     context_object_name = 'latest_seller_list'
     template_name = 'distributors/seller_list.html'
 

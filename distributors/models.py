@@ -22,6 +22,12 @@ class Person(models.Model):
     phoneNumber = models.IntegerField(max_length=12, null=True)
     email = models.EmailField(max_length=70, blank=False, null=True)
 
+        # type = models.IntegerField(choices=(
+        #     (1, 'Customer'),
+        #     (2, 'Seller'),
+        #     (3, 'Administrator')
+        # ), default=1)
+
     # En futures versions es ficara foto del venedor/ client
     # image = models.ImageField(upload_to="myapp", blank=True, null=True)
 
@@ -104,34 +110,8 @@ class Car(models.Model):
         return reverse('distributors:model_detail', kwargs={'pkr': self.carshop.pk, 'pk': self.pk})
 
 
-class Seller(models.Model):
-    info = models.ForeignKey(Person, default=1)
-    shop = models.ForeignKey(CarShop, default=1)
-    salary = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return self.info.name
-    def __unicode__(self):
-        return u"%s" % self.info.name
-    def get_absolute_url(self):
-        return reverse('distributors:seller_list', kwargs={'pk': self.pk})
-
-
-class Customer(models.Model):
-    info = models.ForeignKey(Person, default=1)
-    shop = models.ForeignKey(CarShop, default=1)
-
-    def __str__(self):
-        return self.info.name
-    def __unicode__(self):
-        return u"%s" % self.info.name
-    def get_absolute_url(self):
-        return reverse('distributors:customer_list', kwargs={'pk': self.pk})
-
-
 class Sell(models.Model):
-    seller = models.ForeignKey(Seller, default=1)
-    customer = models.ForeignKey(Customer, default=1)
+    seller = models.ForeignKey(Person, default=1)
     car = models.ForeignKey(Car, default=1)
     date = models.DateField(default=date.today)
 
@@ -143,7 +123,7 @@ class ModelReview(models.Model):
     RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
     rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(Customer, default=1)
+    user = models.ForeignKey(Person, default=1)
     date = models.DateField(default=date.today)
 
     def __str__(self):
