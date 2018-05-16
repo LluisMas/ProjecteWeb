@@ -5,10 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from distributors.models import Person, CarShop, Model, Car, Seller, Customer, Sell, ModelReview
-from distributors.forms import SellForm, CarShopForm
+from distributors.forms import SellForm, CarShopForm, CarForm
 
 
 class LoginRequiredMixin(object):
@@ -62,6 +62,7 @@ class CarShopDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CarShopDetail, self).get_context_data(**kwargs)
         return context
+
 
 
 class CarShopList(ListView):
@@ -128,6 +129,36 @@ class CarShopCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         #form.instance.CarshopCreate = CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
+
+class CarShopDelete(DeleteView):
+    model = CarShop
+    #template_name = 'department_delete.html'
+    template_name = 'distributors/carshop_delete.html'
+
+    #def get_success_url(self):
+     #   return reverse_lazy('department')
+
+    def get_object(self, queryset=None):
+        obj = super(CarShopDelete, self).get_object()
+        return obj
+
+    def get_success_url(self):
+        return reverse('distributors:carshop_list')
+
+class CarCreate(LoginRequiredMixin, CreateView):
+    model = Car
+    template_name = 'distributors/form.html'
+    form_class = CarForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.carshop = CarShop.objects.get(id=self.kwargs['pk'])
+        return super(CarCreate, self).form_valid(form)
+
+
+
+
+
 
 @login_required()
 def review(request, pk):

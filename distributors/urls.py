@@ -1,10 +1,10 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
-from distributors.models import Model, CarShop, Seller, Customer, Person
+from distributors.models import Model, CarShop, Seller, Customer, Person, Car
 from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
-    ModelDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView
-from forms import CarShopForm
+    ModelDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
+from forms import CarShopForm, CarForm
 
 urlpatterns = [
     url(r'^$',
@@ -63,11 +63,17 @@ urlpatterns = [
         name='carshop_list'),
 
 
+    url(r'^carshop/(?P<pkr>\d+)/cars/(?P<pk>\d+)/$',
+        DetailView.as_view(
+            model=Car,
+            template_name='distributors/model_detail.html'),
+        name='model_detail'),
+
+    # Restaurant details, ex.: /myrestaurants/restaurants/1/
     url(r'^carshop/(?P<pk>\d+)/$',
-        CarShopDetail.as_view(
-            model=CarShop,
-            template_name='distributors/carshop_detail.html'),
+        CarShopDetail.as_view(),
         name='carshop_detail'),
+
 
 
     url(r'^person/$',
@@ -87,16 +93,37 @@ urlpatterns = [
         SellCreate.as_view(),
         name='sell_create'),
 
+    # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/create/$',
         CarShopCreate.as_view(),
         name='add_distributors'),
 
 
-    # Edit restaurant details, ex.: /myrestaurants/restaurants/1/edit/
+    # Edit CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=CarShop,
             form_class=CarShopForm),
         name='distributors_edit'),
+
+    # Edit CarShop details, ex.: /myrestaurants/restaurants/1/delete/
+    url(r'^carshop/(?P<pk>\d+)/delete/$',
+        CarShopDelete.as_view(
+        template_name = 'distributors/carshop_delete.html'),
+        name='distributors_delete'),
+
+    # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
+    # url(r'^carshop/(?P<pk>\d+)/create/$',
+    #     LoginRequiredCheckIsOwnerUpdateView.as_view(
+    #         model=Car,
+    #         form_class=CarForm),
+    #         name='add_car'),
+
+    url(r'^carshop/(?P<pk>\d+)/create/$',
+         CarCreate.as_view(),
+         name='add_car'),
+
+    #r'^carshop/(?P<pk>\d+)/create/$'
+
 
 ]
