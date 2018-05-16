@@ -27,6 +27,7 @@ class Person(models.Model):
 
     def __str__(self):
         return self.name
+
     def __unicode__(self):
         return u"%s" % self.name
 
@@ -35,7 +36,6 @@ class Person(models.Model):
 
 
 class CarShop(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
     shopName = models.CharField(max_length=30, null=True)
     addr = models.CharField(max_length=30, null=True)
@@ -43,7 +43,7 @@ class CarShop(models.Model):
     city = models.CharField(max_length=120, blank=True, null=True)
     zipCode = models.CharField(max_length=120, blank=True, null=True)
     stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
-    user = models.ForeignKey(User, default=1)
+    user = models.ForeignKey(User)
 
     def __str__(self):
         space = " - "
@@ -61,7 +61,6 @@ class Model(models.Model):
     for y in range(2011, (datetime.datetime.now().year + 5)):
         year_dropdown.append((y, y))
 
-    id = models.PositiveIntegerField(primary_key=True)
     modelName = models.CharField(max_length=30, null=True)
     body = models.CharField(max_length=30, null=True)
     fuelType = models.IntegerField(choices=(
@@ -88,7 +87,6 @@ class Model(models.Model):
 
 
 class Car(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
     model = models.ForeignKey(Model, default=1)
     kms = models.PositiveIntegerField(default=0)
     price = models.PositiveIntegerField(default=0)

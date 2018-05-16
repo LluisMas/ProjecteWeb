@@ -14,7 +14,7 @@ urlpatterns = [
     # url(r'^logout/', logout, name='logout'),
     #
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^distributors/', include('distributors.urls', namespace='distributors')),
+    url(r'^distributors/', include('distributors.urls', namespace='distributors')),
 
 
     url(r'^accounts/login/$', login, name='login'),

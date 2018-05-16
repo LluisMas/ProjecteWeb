@@ -10,7 +10,7 @@ Feature: Register Dealership
     When I register dealership
       | shopName       |
       | Fish and Chips |
-    Then I'm viewing the details page for dealership by "username"
+    Then I'm viewing the details page for dealership by "user"
       | shopName       |
       | Fish and Chips |
     And There are 1 dealerships

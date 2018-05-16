@@ -29,8 +29,9 @@ def step_impl(context):
         context.browser.visit(context.get_url('distributors:add_distributors'))
         if context.browser.url == context.get_url('distributors:add_distributors'):
             form = context.browser.find_by_tag('form').first
-            for heading in row.headings:
-                context.browser.fill(heading, row[heading])
+
+            context.browser.fill("shopName","AnyShop")
+            context.browser.fill("addr", "AnyPlace")
             form.find_by_css('button.btn-success').first.click()
 
 
@@ -40,7 +41,8 @@ def step_impl(context, username):
     from django.contrib.auth.models import User
     q_list.append(Q(('user', User.objects.get(username=username))))
     from distributors.models import CarShop
-    carShop = CarShop.objects.filter(reduce(operator.and_, q_list)).get()
+    user = User.objects.get(username=username)
+    carShop = CarShop.objects.get(user=user)
     assert context.browser.url == context.get_url(carShop)
 
 
