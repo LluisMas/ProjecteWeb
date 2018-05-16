@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from models import Sell, CarShop, Car
 from models import ModelReview, Sell, CarShop, Car, Person
 
 
@@ -9,12 +10,12 @@ class SellerForm(ModelForm):
         exclude = ('salary',)
 
 
-
-class ReviewForm(ModelForm):
-
-    class Meta:
-         model = ModelReview
-         fields = ('user', 'comment', 'rating')
+#
+# class ReviewForm(ModelForm):
+#
+#     class Meta:
+#          model = ModelReview
+#          fields = ('user', 'comment', 'rating')
 
 
 class SellForm(ModelForm):
@@ -37,15 +38,4 @@ class CarForm(ModelForm):
     class Meta:
         model = Car
         #fields = ('id','model', 'kms', 'price', 'color', 'registrationYear', 'carShop')
-        exclude = ('carShop',)
-       # def get_success_url(self):
-        #    return reverse('profile-list')
-
-        #class Car(models.Model):
-        #    id = models.PositiveIntegerField(primary_key=True)
-        #    model = models.ForeignKey(Model, default=1)
-        #    kms = models.PositiveIntegerField(default=0)
-        #    price = models.PositiveIntegerField(default=0)
-        #    color = models.CharField(max_length=30, default="Color")
-        #    registrationYear = models.PositiveIntegerField(default=0)
-        #    carShop = models.ForeignKey(CarShop, default=1, related_name='cars')
+        exclude = ()

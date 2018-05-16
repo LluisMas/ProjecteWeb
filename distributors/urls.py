@@ -1,9 +1,10 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
-from distributors.models import Model, CarShop, Person, Car
-from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
-    ModelDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
+from distributors.models import CarShop, Person, Car
+from distributors.views import CarList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
+    CarDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
+
 from forms import CarShopForm, CarForm
 
 urlpatterns = [
@@ -12,17 +13,17 @@ urlpatterns = [
             template_name="distributors/home_page.html"),
         name="Principal"),
 
-    url(r'^model/$',
-        ModelList.as_view(
-            context_object_name='latest_model_list',
-            template_name='distributors/model_list.html'),
-        name='model_list'),
+    url(r'^car/$',
+        CarList.as_view(
+            context_object_name='latest_car_list',
+            template_name='distributors/car_list.html'),
+        name='car_list'),
 
-    url(r'^model/(?P<pk>\d+)/$',
-        ModelDetail.as_view(
-            model=Model,
-            template_name='distributors/model_detail.html'),
-        name='model_detail'),
+    url(r'^car/(?P<pk>\d+)/$',
+        CarDetail.as_view(
+            model=Car,
+            template_name='distributors/car_detail.html'),
+        name='car_detail'),
 
     url(r'^seller/$',
         SellerList.as_view(
@@ -66,8 +67,8 @@ urlpatterns = [
     url(r'^carshop/(?P<pkr>\d+)/cars/(?P<pk>\d+)/$',
         DetailView.as_view(
             model=Car,
-            template_name='distributors/model_detail.html'),
-        name='model_detail'),
+            template_name='distributors/car_detail.html'),
+        name='car_detail'),
 
     # Restaurant details, ex.: /myrestaurants/restaurants/1/
     url(r'^carshop/(?P<pk>\d+)/$',

@@ -3,9 +3,9 @@
 <div class="container-fluid">
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Model detail">
+<span vocab="http://schema.org/" typeof="Car Detail">
 	<h2>
-		<span property="name">{{ model.modelName }}</span>
+		<span property="name">{{ car.name }}</span>
 	</h2>
 
 
@@ -13,12 +13,12 @@
 
         <div class="row">
             <div class="col-sm-9">
-		<span property="modelYear" content="{{ model.modelYear }}-1-1">Year: {{ model.modelYear }}</span> <br />
-        <span property="body">Car Body: {{ model.body }}</span> <br />
-        <span property="seats">Seats: {{ model.seats }}</span> <br />
-        <span property="maxTopSpeed">Max top speed: {{ model.maxTopSpeed }}</span> <br />
-        <span property="doors">Doors: {{ model.get_doors_display }}</span> <br />
-        <span property="fuelType">Fuel Type: {{ model.get_fuelType_display }}</span> <br />
+		<span property="modelYear" content="{{ car.modelYear }}-1-1">Year: {{ car.modelYear }}</span> <br />
+        <span property="body">Car Body: {{ car.body }}</span> <br />
+        <span property="seats">Seats: {{ car.seats }}</span> <br />
+        <span property="maxTopSpeed">Max top speed: {{ car.maxTopSpeed }}</span> <br />
+        <span property="doors">Doors: {{ car.get_doors_display }}</span> <br />
+        <span property="fuelType">Fuel Type: {{ car.get_fuelType_display }}</span> <br />
 
                 </div>
     </div>

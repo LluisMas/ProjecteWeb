@@ -1,6 +1,6 @@
 {% extends "distributors/base.html" %}
 {% block content %}
-<div class="container-fluid">
+    <div class="container-fluid">
 
 <span vocab="http://schema.org/" typeof="Car Shop Detail">
 	<h2>
@@ -25,36 +25,33 @@
         <span property="city">
 			City: {{ carshop.city }}
 		</span> <br />
+ </p>
 
 
-		<span property="cars">
-			Cars:
-		</span> <br />
-
-
-<div class="row">
-            <div class="col-sm-9"><!--MEJORARR ESTA MIERDA-->
+        <div class="col-md mt-3">
+            <h5>Cars:</h5>
+            <div class="row">
+                <div class="col-sm-9">
                     {% for car in carshop.cars.all %}
-                        <p><a class="car-link" href="{% url 'distributors:model_detail' carshop.id car.id %}">
-                            {{ car.model.modelName }}
+                        <p><a class="car-link" href="{% url 'distributors:car_detail' carshop.id car.id %}">
+                            {{ car.name }}
                         </a></p>
-                    {% empty %}<p>Sorry, no cars for this restaurant yet</p>
+                    {% empty %}<p>Sorry, no cars for this car shop yet</p>
                     {% endfor %}
-            </div>
+                </div>
+                <div class="col-sm-3 text-right">
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
+                    {% endif %}
+                </div>
+                </div>
+        </div>
 
-            <div class="col-sm-3 mb-3 text-right">
-            {% if user.is_authenticated %}
-                        <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
-            {% endif %}
+    <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi"></img>
 
-            </div>
+
+    </span>
+
+
     </div>
-
-        <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi">
-
-
-</span>
-
-    </p>
-</div>
 {% endblock %}

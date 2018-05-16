@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from distributors.models import Person, CarShop, Model, Car, Sell, ModelReview
+from distributors.models import Person, CarShop, Car, Sell
 from distributors.forms import SellForm, CarShopForm, CarForm
 
 
@@ -31,12 +31,12 @@ class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin,
 
 # HTML Views
 
-class ModelDetail(DetailView):
-    model = Model
-    template_name = 'distributors/model_detail.html'
+class CarDetail(DetailView):
+    model = Car
+    template_name = 'distributors/car_detail.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ModelDetail, self).get_context_data(**kwargs)
+        context = super(CarDetail, self).get_context_data(**kwargs)
         return context
 
 
@@ -49,10 +49,10 @@ class SellerDetail(DetailView):
         return context
 
 
-class ModelList(ListView):
-    model = Model
-    context_object_name = 'latest_model_list'
-    template_name = 'distributors/model_list.html'
+class CarList(ListView):
+    model = Car
+    context_object_name = 'latest_car_list'
+    template_name = 'distributors/car_list.html'
 
 
 class CarShopDetail(DetailView):
@@ -158,15 +158,16 @@ class CarCreate(LoginRequiredMixin, CreateView):
 
 
 
-
-
-@login_required()
-def review(request, pk):
-    model = get_object_or_404(Model, pk=pk)
-    new_review = ModelReview(
-        rating=request.POST['rating'],
-        comment=request.POST['comment'],
-        user=request.user,
-        model=model)
-    new_review.save()
-    return HttpResponseRedirect(reverse('myapp:restaurant_detail', args=(model.id,)))
+#
+#
+# @login_required()
+#
+# def review(request, pk):
+#     model = get_object_or_404(Model, pk=pk)
+#     new_review = ModelReview(
+#         rating=request.POST['rating'],
+#         comment=request.POST['comment'],
+#         user=request.user,
+#         model=model)
+#     new_review.save()
+#     return HttpResponseRedirect(reverse('myapp:restaurant_detail', args=(model.id,)))
