@@ -64,6 +64,7 @@ class CarShopDetail(DetailView):
         return context
 
 
+
 class CarShopList(ListView):
     model = CarShop
     context_object_name = 'latest_carshop_list'
@@ -151,8 +152,12 @@ class CarCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        # form.instance.CarshopCreate = CarShop.objects.get(id=self.kwargs['pk'])
+        form.instance.carshop = CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarCreate, self).form_valid(form)
+
+
+
+
 
 
 @login_required()

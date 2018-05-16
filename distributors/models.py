@@ -33,29 +33,6 @@ class Person(models.Model):
     def get_absolute_url(self):
         return reverse('distributors:person_list', kwargs={'pk': self.pk})
 
-
-class CarShop(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
-    inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
-    shopName = models.CharField(max_length=30, null=True)
-    addr = models.CharField(max_length=30, null=True)
-    country = models.CharField(max_length=120, blank=True, null=True)
-    city = models.CharField(max_length=120, blank=True, null=True)
-    zipCode = models.CharField(max_length=120, blank=True, null=True)
-    stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
-    user = models.ForeignKey(User, default=1)
-
-    def __str__(self):
-        space = " - "
-        return "{} {} {}".format(self.shopName, space, self.addr)
-
-    def __unicode__(self):
-        return u"%s" % self.shopName
-
-    def get_absolute_url(self):
-        return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
-
-
 class Model(models.Model):
     year_dropdown = []
     for y in range(2011, (datetime.datetime.now().year + 5)):
@@ -87,6 +64,28 @@ class Model(models.Model):
         return reverse('distributors:model_list', kwargs={'pk': self.pk})
 
 
+
+class CarShop(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
+    shopName = models.CharField(max_length=30, null=True)
+    addr = models.CharField(max_length=30, null=True)
+    country = models.CharField(max_length=120, blank=True, null=True)
+    city = models.CharField(max_length=120, blank=True, null=True)
+    zipCode = models.CharField(max_length=120, blank=True, null=True)
+    stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
+    user = models.ForeignKey(User, default=1)
+
+    def __str__(self):
+        space = " - "
+        return "{} {} {}".format(self.shopName, space, self.addr)
+
+    def __unicode__(self):
+        return u"%s" % self.shopName
+
+    def get_absolute_url(self):
+        return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
+
 class Car(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     model = models.ForeignKey(Model, default=1)
@@ -101,7 +100,8 @@ class Car(models.Model):
         return '1 - ' + str(self.model.modelName)
 
     def get_absolute_url(self):
-        return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
+
+        return reverse('distributors:model_detail', kwargs={'pkr': self.carshop.pk, 'pk': self.pk})
 
 
 class Seller(models.Model):

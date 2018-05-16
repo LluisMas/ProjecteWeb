@@ -17,23 +17,38 @@
 			Car shop address: {{ carshop.addr }}
 		</span> <br />
 
+        <span property="country">
+			Country: {{ carshop.country }}
+		</span> <br />
+
+
+        <span property="city">
+			City: {{ carshop.city }}
+		</span> <br />
+
 
 		<span property="cars">
 			Cars:
 		</span> <br />
 
-		<ul>
+
+<div class="row">
+            <div class="col-sm-9"><!--MEJORARR ESTA MIERDA-->
+                    {% for car in carshop.cars.all %}
+                        <p><a class="car-link" href="{% url 'distributors:model_detail' carshop.id car.id %}">
+                            {{ car.model.modelName }}
+                        </a></p>
+                    {% empty %}<p>Sorry, no cars for this restaurant yet</p>
+                    {% endfor %}
+            </div>
+
             <div class="col-sm-3 mb-3 text-right">
             {% if user.is_authenticated %}
-                <li><a class="btn btn-primary" href="{% url 'distributors:add_car'  %}"> Añadir Coche</a></li>
+                        <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
             {% endif %}
+
             </div>
-    		{% for car in carshop.cars.all %}
-        	<li>
-            	{{ car.model.modelName }}</li>
-    			{% empty %}<li>Sorry, no cars in this CarsShop yet.</li>
-    			{% endfor %}
-		</ul>
+    </div>
 
         <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi">
 

@@ -8,14 +8,16 @@ from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from django.views.static import serve
 from django.conf import settings
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    #url(r'^login/', login, name='login'),
-    #url(r'^logout/', logout, name='logout'),
+    # url(r'^login/', login, name='login'),
+    # url(r'^logout/', logout, name='logout'),
     #
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^distributors/', include('distributors.urls', namespace='distributors')),
+    #url(r'^$', RedirectView.as_view(pattern_name='distributors:carshop_list'), name='home'),
 
+    url(r'^admin/', include(admin.site.urls)),
+     url(r'^distributors/', include('distributors.urls', namespace='distributors')),
 
     url(r'^accounts/login/$', login, name='login'),
     url(r'^accounts/logout/$', logout, name='logout'),

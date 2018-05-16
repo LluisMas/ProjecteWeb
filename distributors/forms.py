@@ -38,6 +38,8 @@ class CarForm(ModelForm):
         model = Car
         #fields = ('id','model', 'kms', 'price', 'color', 'registrationYear', 'carShop')
         exclude = ('carShop',)
+       # def get_success_url(self):
+        #    return reverse('profile-list')
 
         #class Car(models.Model):
         #    id = models.PositiveIntegerField(primary_key=True)
