@@ -21,7 +21,7 @@
         <div class="col-sm-3 text-right align-bottom">
         {% if user == carshop.user %}
             <a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a>
-            <a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Eliminar</a>
+            <a class="btn btn-primary" href="{% url 'distributors:distributors_delete' carshop.id %}">Eliminar</a>
         {% endif %}
         </div></li>
 	{% empty %}<li>Sorry, no car shop registered yet.</li>

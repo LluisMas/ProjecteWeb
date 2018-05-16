@@ -23,6 +23,11 @@
 		</span> <br />
 
 		<ul>
+            <div class="col-sm-3 mb-3 text-right">
+            {% if user.is_authenticated %}
+                <li><a class="btn btn-primary" href="{% url 'distributors:add_car'  %}"> Añadir Coche</a></li>
+            {% endif %}
+            </div>
     		{% for car in carshop.cars.all %}
         	<li>
             	{{ car.model.modelName }}</li>

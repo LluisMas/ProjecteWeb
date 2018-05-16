@@ -100,6 +100,9 @@ class Car(models.Model):
     def __str__(self):
         return '1 - ' + str(self.model.modelName)
 
+    def get_absolute_url(self):
+        return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
+
 
 class Seller(models.Model):
     info = models.ForeignKey(Person, default=1)

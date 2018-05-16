@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import Model, CarShop, Seller, Customer, Person
 from distributors.views import ModelList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
-    ModelDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView
+    ModelDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
 from forms import CarShopForm
 
 urlpatterns = [
@@ -87,16 +87,28 @@ urlpatterns = [
         SellCreate.as_view(),
         name='sell_create'),
 
+    # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/create/$',
         CarShopCreate.as_view(),
         name='add_distributors'),
 
 
-    # Edit restaurant details, ex.: /myrestaurants/restaurants/1/edit/
+    # Edit CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/(?P<pk>\d+)/edit/$',
         LoginRequiredCheckIsOwnerUpdateView.as_view(
             model=CarShop,
             form_class=CarShopForm),
         name='distributors_edit'),
+
+    # Edit CarShop details, ex.: /myrestaurants/restaurants/1/delete/
+    url(r'^carshop/(?P<pk>\d+)/delete/$',
+        CarShopDelete.as_view(
+        template_name = 'distributors/carshop_delete.html'),
+        name='distributors_delete'),
+
+    # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
+    url(r'^carshop/(?P<pk>\d+)/create/$',
+        CarCreate.as_view()),
+
 
 ]

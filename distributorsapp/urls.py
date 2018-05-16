@@ -10,11 +10,11 @@ from django.views.static import serve
 from django.conf import settings
 
 urlpatterns = [
-    # url(r'^login/', login, name='login'),
-    # url(r'^logout/', logout, name='logout'),
+    #url(r'^login/', login, name='login'),
+    #url(r'^logout/', logout, name='logout'),
     #
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^distributors/', include('distributors.urls', namespace='distributors')),
+    url(r'^distributors/', include('distributors.urls', namespace='distributors')),
 
 
     url(r'^accounts/login/$', login, name='login'),
