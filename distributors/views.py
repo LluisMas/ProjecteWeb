@@ -109,15 +109,15 @@ class PersonList(ListView):
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
 
-#class SellCreate(LoginRequiredMixin, CreateView):
-#    model = Sell
-#    template_name = 'distributors/form.html'
-#    form_class = SellForm
+class SellCreate(LoginRequiredMixin, CreateView):
+   model = Sell
+   template_name = 'distributors/form.html'
+   form_class = SellForm
 
-#    def form_valid(self, form):
-#        form.instance.user = self.request.user
-#        #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
-#        return super(SellCreate, self).form_valid(form)
+   def form_valid(self, form):
+       form.instance.user = self.request.user
+       #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
+       return super(SellCreate, self).form_valid(form)
 
 
 class CarShopCreate(LoginRequiredMixin, CreateView):

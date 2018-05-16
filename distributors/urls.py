@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import CarShop, Person, Car
 from distributors.views import CarList,  PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
-    CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
+    CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate, SellCreate
 
 from forms import CarShopForm, CarForm
 
@@ -27,7 +27,7 @@ urlpatterns = [
 
     url(r'^seller/$',
         PersonList.as_view(
-            context_object_name='latest_seller_list',
+            context_object_name='latest_person_list',
             template_name='distributors/seller_list.html'),
         name='seller_list'),
 
@@ -39,7 +39,7 @@ urlpatterns = [
 
     url(r'^customer/$',
         PersonList.as_view(
-            context_object_name='latest_customer_list',
+            context_object_name='latest_person_list',
             template_name='distributors/customer_list.html'),
         name='customer_list'),
 
@@ -90,9 +90,9 @@ urlpatterns = [
         name='person_detail'),
 
 
-    #url(r'^add_sell/$',
-    #    SellCreate.as_view(),
-    #    name='sell_create'),
+    url(r'^add_sell/$',
+        SellCreate.as_view(),
+        name='sell_create'),
 
     # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/create/$',

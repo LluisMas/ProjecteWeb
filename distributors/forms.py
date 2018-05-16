@@ -23,13 +23,13 @@ class SellForm(ModelForm):
     class Meta:
         model = Sell
         #la data s'ha exlos s'ha de mirar com afegir-la automaticament
-        fields = ('seller', 'car')
+        fields = ('seller', 'car', 'date', )
 
 class CarShopForm(ModelForm):
     class Meta:
         model = CarShop
        # fields = ('id','inaugurationYear', 'shopName', 'addr', 'country', 'city', )
-        exclude = ('user', 'date', 'zipCode', )
+        exclude = ('id', 'user', 'date', 'zipCode', )
 
     #def get_success_url(self):
     #    return reverse('profile-list')

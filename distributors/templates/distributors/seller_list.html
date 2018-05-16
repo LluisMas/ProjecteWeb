@@ -7,9 +7,15 @@
 
 <h2>Seller List:</h2>
 <u1>
-	{% for seller in latest_seller_list %}
-		<li><a href="./{{seller.id}}">
-			{{ seller.info.name }}</a></li>
+	{% for person in latest_person_list %}
+
+                {% if person.type == 2 %}
+              		<li><a href="./{{person.id}}">
+			{{ person.name }}</a></li>
+        {% endif %}
+
+
+
 	{% empty %}<li>Sorry, no sellers registered yet.</li>
 	{% endfor %}
 </u1>

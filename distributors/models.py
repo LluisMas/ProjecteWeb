@@ -21,7 +21,6 @@ class Person(models.Model):
     state = models.CharField(max_length=30, null=True)
     phoneNumber = models.IntegerField(max_length=12, null=True)
     email = models.EmailField(max_length=70, blank=False, null=True)
-
     type = models.IntegerField(choices=(
         (1, 'Customer'),
         (2, 'Seller'),
@@ -74,7 +73,6 @@ class Person(models.Model):
 
 
 class CarShop(models.Model):
-    id = models.PositiveIntegerField(primary_key=True)
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
     shopName = models.CharField(max_length=30, null=True)
     addr = models.CharField(max_length=30, null=True)
