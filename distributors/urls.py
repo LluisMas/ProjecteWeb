@@ -107,8 +107,11 @@ urlpatterns = [
         name='distributors_delete'),
 
     # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
-    url(r'^carshop/(?P<pk>\d+)/create/$',
-        CarCreate.as_view()),
+    url(r'^carshop/car/create/$',
+        CarCreate.as_view(),
+        name='add_car'),
+
+    #r'^carshop/(?P<pk>\d+)/create/$'
 
 
 ]
