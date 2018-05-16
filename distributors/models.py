@@ -22,11 +22,11 @@ class Person(models.Model):
     phoneNumber = models.IntegerField(max_length=12, null=True)
     email = models.EmailField(max_length=70, blank=False, null=True)
 
-        # type = models.IntegerField(choices=(
-        #     (1, 'Customer'),
-        #     (2, 'Seller'),
-        #     (3, 'Administrator')
-        # ), default=1)
+    type = models.IntegerField(choices=(
+        (1, 'Customer'),
+        (2, 'Seller'),
+        (3, 'Administrator')
+        ), default=1)
 
     # En futures versions es ficara foto del venedor/ client
     # image = models.ImageField(upload_to="myapp", blank=True, null=True)
@@ -39,7 +39,7 @@ class Person(models.Model):
         return u"%s" % self.name
 
     def get_absolute_url(self):
-        return reverse('distributors:person_list', kwargs={'pk': self.pk})
+        return reverse('distributors:customer_list', kwargs={'pk': self.pk})
 
 # class Model(models.Model):
 #     year_dropdown = []

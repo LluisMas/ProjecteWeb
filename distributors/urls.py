@@ -2,8 +2,8 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import CarShop, Person, Car
-from distributors.views import CarList, SellerList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
-    CarDetail, CarShopDetail, SellCreate, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
+from distributors.views import CarList,  PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
+    CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate
 
 from forms import CarShopForm, CarForm
 
@@ -26,25 +26,25 @@ urlpatterns = [
         name='car_detail'),
 
     url(r'^seller/$',
-        SellerList.as_view(
+        PersonList.as_view(
             context_object_name='latest_seller_list',
             template_name='distributors/seller_list.html'),
         name='seller_list'),
 
     url(r'^seller/(?P<pk>\d+)/$',
-        SellerDetail.as_view(
+        PersonDetail.as_view(
             model=Person,
             template_name='distributors/seller_detail.html'),
         name='seller'),
 
     url(r'^customer/$',
-        CustomerList.as_view(
+        PersonList.as_view(
             context_object_name='latest_customer_list',
             template_name='distributors/customer_list.html'),
         name='customer_list'),
 
     url(r'^customer/(?P<pk>\d+)/$',
-        CustomerDetail.as_view(
+        PersonDetail.as_view(
             model=Person,
             template_name='distributors/customer_detail.html'),
         name='customer_detail'),
@@ -90,9 +90,9 @@ urlpatterns = [
         name='person_detail'),
 
 
-    url(r'^add_sell/$',
-        SellCreate.as_view(),
-        name='sell_create'),
+    #url(r'^add_sell/$',
+    #    SellCreate.as_view(),
+    #    name='sell_create'),
 
     # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/create/$',
