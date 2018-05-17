@@ -4,29 +4,55 @@
 
 <span vocab="http://schema.org/" typeof="Car shop">
 
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    max-width:100%;
+    white-space:nowrap;
+}
+
+td, th {
+    border:  1px solid transparent;
+    text-align: left;
+    padding: 8px;
+}
+
+
+</style>
+
+<div class="row">
+  <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> > Concesionarios</h4>
+</div>
 
 <h2>Car Shop List:</h2>
-<div class="row">
-        <div class="col-sm-3 mb-3 text-right">
-            {% if user.is_authenticated %}
-                <li><a class="btn btn-primary" href="{% url 'distributors:add_distributors'  %}"> Añadir Concesionario</a></li>
-            {% endif %}
-        </div>
-</div>
-<u1>
-	{% for carshop in latest_carshop_list %}
 
-		<div> <a href="./{{carshop.id}}">
-            {{ carshop.shopName }}</a></div>
+<u1>
+     <table>
+        <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        </tr>
+	{% for carshop in latest_carshop_list %}
+		<div> <tr><td><a href="./{{carshop.id}}">
+            {{ carshop.shopName }}</a></td></div>
 
         <div class="col-sm-3 text-right align-bottom">
         {% if user == carshop.user %}
-            <a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a>
-            <a class="btn btn-primary" href="{% url 'distributors:distributors_delete' carshop.id %}">Eliminar</a>
+            <td><a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a></td>
+            <td><a class="btn btn-danger" href="{% url 'distributors:distributors_delete' carshop.id %}">Eliminar</a></td></tr>
         {% endif %}
         </div></li>
 	{% empty %}<li>Sorry, no car shop registered yet.</li>
 	{% endfor %}
+     <div class="col-sm-3 mb-3 text-right">
+            {% if user.is_authenticated %}
+                <td><a class="btn btn-success btn-sm" href="{% url 'distributors:add_distributors'  %}"> Añadir Concesionario</a></td>
+                <td></td><td></td>
+            {% endif %}
+     </div>
+     </table>
 </u1>
 
 

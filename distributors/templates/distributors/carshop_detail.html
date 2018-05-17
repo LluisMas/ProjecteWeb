@@ -2,8 +2,16 @@
 {% block content %}
     <div class="container-fluid">
 
+
+
 <span vocab="http://schema.org/" typeof="Car Shop Detail">
-	<h2>
+	 <div class="row">
+    <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
+        <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
+        {{ carshop.shopName }}</h4>
+    </div>
+
+    <h2>
 		<span property="name">{{ carshop.shopName }}</span>
 	</h2>
 
