@@ -1,0 +1,28 @@
+{% extends "distributors/base.html" %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Sell Detail">
+    <h2>
+        <span property="seller">{{ sell.seller.name }}</span>
+    </h2>
+
+        <h2>
+        <span property="car">{{ sell.car.name }}</span>
+    </h2>
+        <h2>
+        <span property="date">{{ sell.date }}</span>
+    </h2>
+
+
+        <img src="https://i.ytimg.com/vi/KWVmEO9HJ6Q/hqdefault.jpg" alt="seller">
+
+       <!-- <span property="image" content="https://www.actualidadmotor.com/wp-content/uploads/2014/07/Audi-A8-Transporter.jpg">
+
+
+        </span>-->
+
+</span>
+
+    </p>
+
+{% endblock %}

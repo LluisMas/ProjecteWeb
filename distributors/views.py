@@ -156,6 +156,17 @@ class CarCreate(LoginRequiredMixin, CreateView):
         return super(CarCreate, self).form_valid(form)
 
 
+class SellCreate(LoginRequiredMixin, CreateView):
+    model = Sell
+    template_name = 'distributors/form.html'
+    form_class = SellForm
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.sell = Sell.objects.get(id=self.kwargs['pk'])
+        return super(SellCreate, self).form_valid(form)
+
+
 
 
 #

@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
-from distributors.models import CarShop, Person, Car
+from distributors.models import CarShop, Person, Car, Sell
 from distributors.views import CarList,  PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, CarShopList, \
     CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate, SellCreate
 
@@ -123,6 +123,17 @@ urlpatterns = [
     url(r'^carshop/(?P<pk>\d+)/create/$',
          CarCreate.as_view(),
          name='add_car'),
+
+    url(r'^car/(?P<pk>\d+)/create/$',
+        SellCreate.as_view(),
+        name='add_sell'),
+
+    url(r'^car/(?P<pkr>\d+)/sells/(?P<pk>\d+)/$',
+        DetailView.as_view(
+            model=Sell,
+            template_name='distributors/sell_detail.html'),
+        name='sell_detail'),
+
 
     #r'^carshop/(?P<pk>\d+)/create/$'
 

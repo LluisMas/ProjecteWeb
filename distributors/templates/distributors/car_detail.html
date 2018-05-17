@@ -13,13 +13,19 @@
 
         <div class="row">
             <div class="col-sm-9">
-		<span property="modelYear" content="{{ car.modelYear }}-1-1">Year: {{ car.modelYear }}</span> <br />
-        <span property="body">Car Body: {{ car.body }}</span> <br />
-        <span property="seats">Seats: {{ car.seats }}</span> <br />
-        <span property="maxTopSpeed">Max top speed: {{ car.maxTopSpeed }}</span> <br />
-        <span property="doors">Doors: {{ car.get_doors_display }}</span> <br />
-        <span property="fuelType">Fuel Type: {{ car.get_fuelType_display }}</span> <br />
+		        <span property="modelYear" content="{{ car.modelYear }}-1-1">Year: {{ car.modelYear }}</span> <br />
+                <span property="body">Car Body: {{ car.body }}</span> <br />
+                <span property="seats">Seats: {{ car.seats }}</span> <br />
+                <span property="maxTopSpeed">Max top speed: {{ car.maxTopSpeed }}</span> <br />
+                <span property="doors">Doors: {{ car.get_doors_display }}</span> <br />
+                <span property="fuelType">Fuel Type: {{ car.get_fuelType_display }}</span> <br />
 
+            </div>
+
+                    <div class="col-sm-3 text-right">
+                    {% if user.is_authenticated %}
+                    <a class="btn btn-success" href="{% url 'distributors:add_sell' car.id %}">Añadir Venta</a>
+                    {% endif %}
                 </div>
     </div>
 

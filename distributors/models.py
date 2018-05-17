@@ -142,7 +142,10 @@ class Sell(models.Model):
     date = models.DateField(default=date.today)
 
     def __str__(self):
-        return self.seller.info.name + ' - ' + self.car.name
+        return self.seller.name + ' - ' + self.car.name
+
+    def get_absolute_url(self):
+        return reverse('distributors:sell_detail', kwargs={'pkr': self.car.pk, 'pk': self.pk})
 
 
 class ModelReview(models.Model):

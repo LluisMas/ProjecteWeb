@@ -1,0 +1,26 @@
+{% extends "distributors/base.html" %}
+{% block title %}Customer{% endblock %}
+{% block content %}
+
+<span vocab="http://schema.org/" typeof="Customer">
+
+
+<h2>Sell List:</h2>
+<u1>
+{#   <div class="col-sm-3 mb-3 text-right">#}
+{#          {% if user.is_authenticated %}#}
+{#                <li><a class="btn btn-primary" href="{% url 'distributors:add_customer'  %}"> Añadir Cliente</a></li>#}
+{#            {% endif %}#}
+{#    </div>#}
+		{% for sell in latest_sells_list %}
+
+              		<li><a href="./{{sell.id}}">
+			{{ sell.car.name }} {{ sell.seller.name }}</a></li>
+
+
+
+	{% empty %}<li>Sorry, no sellers registered yet.</li>
+	{% endfor %}
+</u1>
+</span>
+{% endblock %}
