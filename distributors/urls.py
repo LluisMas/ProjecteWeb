@@ -126,6 +126,10 @@ urlpatterns = [
          CarCreate.as_view(),
          name='add_car'),
 
+#url(r'^restaurants/(?P<pk>\d+)/dishes/create/$',
+#        DishCreate.as_view(),
+#        name='dish_create'),
+
     url(r'^car/(?P<pk>\d+)/create/$',
         SellCreate.as_view(),
         name='add_sell'),

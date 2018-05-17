@@ -38,4 +38,4 @@ class CarForm(ModelForm):
     class Meta:
         model = Car
         #fields = ('id','model', 'kms', 'price', 'color', 'registrationYear', 'carShop')
-        exclude = ()
+        exclude = ('carShop',)
