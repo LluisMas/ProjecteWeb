@@ -86,9 +86,7 @@ class CustomerList(ListView):
     template_name = 'distributors/customer_list.html'
 
 
-# class SellDetail(DetailView):
-#    model = Sell
-#  template_name = 'myapp/sell?detail'
+
 
 #class SellerList(ListView):
 #    model = Person
@@ -164,9 +162,26 @@ class SellCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.sell = Sell.objects.get(id=self.kwargs['pk'])
+
+        #obj = super(SellCreate, self).get_object()
+        #form.instance.sell.car.setSold()
+
         return super(SellCreate, self).form_valid(form)
 
 
+class SellList(ListView):
+    model = Sell
+    context_object_name = 'latest_sells_list'
+    template_name = 'distributors/sell_list.html'
+
+
+class SellDetail(DetailView):
+    model = Sell
+    template_name = 'distributors/sell_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SellDetail, self).get_context_data(**kwargs)
+        return context
 
 
 #

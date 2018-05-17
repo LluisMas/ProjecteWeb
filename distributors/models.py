@@ -124,13 +124,16 @@ class Car(models.Model):
     availability = models.IntegerField(choices=(
         (1, 'Available'),
         (2, 'Sold')
-    ), default=2)
+    ), default=1)
 
 
 
 
     def __str__(self):
         return '1 - ' + str(self.name)
+
+    def setSold(self):
+        self.availability = 2
 
     def get_absolute_url(self):
         return reverse('distributors:car_detail', kwargs={'pkr': self.carshop.pk, 'pk': self.pk})

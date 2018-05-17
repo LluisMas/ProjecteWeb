@@ -22,8 +22,12 @@
 
             </div>
 
-                    <div class="col-sm-3 text-right">
-                    {% if user.is_authenticated %}
+        {% if user == carshop.user %}
+            <a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a>
+            <a class="btn btn-primary" href="{% url 'distributors:distributors_delete' carshop.id %}">Eliminar</a>
+        {% endif %}
+
+                    {% if user.is_authenticated and car.availability == 1 %}
                     <a class="btn btn-success" href="{% url 'distributors:add_sell' car.id %}">Añadir Venta</a>
                     {% endif %}
                 </div>

@@ -2,7 +2,7 @@
 {% block title %}Customer{% endblock %}
 {% block content %}
 
-<span vocab="http://schema.org/" typeof="Customer">
+<span vocab="http://schema.org/" typeof="SellList">
 
 
 <h2>Sell List:</h2>
@@ -15,11 +15,11 @@
 		{% for sell in latest_sells_list %}
 
               		<li><a href="./{{sell.id}}">
-			{{ sell.car.name }} {{ sell.seller.name }}</a></li>
+			{{ sell.car.name }} , {{ sell.seller.name }}</a></li>
 
 
 
-	{% empty %}<li>Sorry, no sellers registered yet.</li>
+	{% empty %}<li>Sorry, no sells registered yet.</li>
 	{% endfor %}
 </u1>
 </span>
