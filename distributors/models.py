@@ -121,6 +121,11 @@ class Car(models.Model):
     ), default=2)
     seats = models.IntegerField(choices=[(x, x) for x in range(2, 10)], default=5)
 
+    availability = models.IntegerField(choices=(
+        (1, 'Available'),
+        (2, 'Sold')
+    ), default=2)
+
 
 
 
