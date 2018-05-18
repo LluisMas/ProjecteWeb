@@ -18,6 +18,7 @@
 
         <div class="row">
             <div class="col-sm-9">
+
 		        <span property="modelYear" content="{{ car.modelYear }}-1-1">Year: {{ car.modelYear }}</span> <br />
                 <span property="body">Car Body: {{ car.body }}</span> <br />
                 <span property="seats">Seats: {{ car.seats }}</span> <br />
@@ -30,12 +31,13 @@
 
             </div>
 
+
         {% if user == carshop.user %}
             <a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a>
             <a class="btn btn-primary" href="{% url 'distributors:distributors_delete' carshop.id %}">Eliminar</a>
         {% endif %}
 
-                    {% if user.is_authenticated and car.availability == 1 %}
+                    {% if request.user.type == 2 and car.availability == 1 %}
                     <a class="btn btn-success" href="{% url 'distributors:add_sell' car.id %}">Añadir Venta</a>
                     {% endif %}
                 </div>

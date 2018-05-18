@@ -107,16 +107,16 @@ class PersonList(ListView):
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
 
-class SellCreate(LoginRequiredMixin, CreateView):
-   model = Sell
-   template_name = 'distributors/form.html'
-   form_class = SellForm
-
-   def form_valid(self, form):
-       form.instance.user = self.request.user
-       #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
-       return super(SellCreate, self).form_valid(form)
-
+# class SellCreate(LoginRequiredMixin, CreateView):
+#    model = Sell
+#    template_name = 'distributors/form.html'
+#    form_class = SellForm
+#
+#    def form_valid(self, form):
+#        form.instance.user = self.request.user
+#        #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
+#        return super(SellCreate, self).form_valid(form)
+#
 
 class CarShopCreate(LoginRequiredMixin, CreateView):
     model = CarShop
@@ -161,6 +161,8 @@ class SellCreate(LoginRequiredMixin, CreateView):#isSellermixing envez de LoginR
     form_class = SellForm
 
     def form_valid(self, form):
+       # form.instance.seller = self.request.user.name
+       # {% if request.user.type == 2 and car.availability == 1 %}
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
 
