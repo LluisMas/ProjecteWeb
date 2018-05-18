@@ -131,6 +131,8 @@ class Car(models.Model):
     def get_absolute_url(self):
         return reverse('distributors:car_detail', kwargs={'pkr': self.carShop.pk, 'pk': self.pk})
 
+    #return reverse('myrestaurants:dish_detail', kwargs={'pkr': self.restaurant.pk, 'pk': self.pk})
+
 
 class Sell(models.Model):
     seller = models.ForeignKey(Person, default=1)
@@ -142,6 +144,8 @@ class Sell(models.Model):
 
     def get_absolute_url(self):
         return reverse('distributors:sell_detail', kwargs={'pkr': self.car.pk, 'pk': self.pk})
+
+
 
 
 class ModelReview(models.Model):
