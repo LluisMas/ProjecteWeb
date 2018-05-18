@@ -8,7 +8,7 @@ from datetime import date
 import datetime
 
 
-class Person(models.Model):
+class Person(models.Model):#BaseModeUser
     # Mirant la randomuser.api les dades que retorna, comunes per seller i customer son:
     name = models.CharField(max_length=30, null=True)
     street = models.CharField(max_length=30, null=True)
@@ -25,7 +25,7 @@ class Person(models.Model):
         (1, 'Customer'),
         (2, 'Seller'),
         (3, 'Administrator')
-        ), default=1)
+    ), default=1)
 
     # En futures versions es ficara foto del venedor/ client
     # image = models.ImageField(upload_to="myapp", blank=True, null=True)
@@ -33,12 +33,12 @@ class Person(models.Model):
     def __str__(self):
         return self.name
 
-
     def __unicode__(self):
         return u"%s" % self.name
 
     def get_absolute_url(self):
         return reverse('distributors:customer_list', kwargs={'pk': self.pk})
+
 
 # class Model(models.Model):
 #     year_dropdown = []
@@ -71,7 +71,6 @@ class Person(models.Model):
 #         return reverse('distributors:model_list', kwargs={'pk': self.pk})
 
 
-
 class CarShop(models.Model):
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
     shopName = models.CharField(max_length=30, null=True)
@@ -92,16 +91,16 @@ class CarShop(models.Model):
     def get_absolute_url(self):
         return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
 
-class Car(models.Model):
-    name = models.CharField(max_length=30, null=True)
 
-    #model = models.ForeignKey(Model, default=1)
+class Car(models.Model):
+
+    name = models.CharField(max_length=30, null=True)
+    # model = models.ForeignKey(Model, default=1)
     kms = models.PositiveIntegerField(default=0)
     price = models.PositiveIntegerField(default=0)
     color = models.CharField(max_length=30, default="Color")
     registrationYear = models.PositiveIntegerField(default=0)
     carShop = models.ForeignKey(CarShop, null=True, related_name='cars')
-
 
     year_dropdown = []
     for y in range(2011, (datetime.datetime.now().year + 5)):
@@ -112,7 +111,7 @@ class Car(models.Model):
         (2, 'Diesel'),
         (3, 'Electric'),
         (4, 'Hybrid')
-        ), default=1)
+    ), default=1)
     modelYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
     maxTopSpeed = models.PositiveIntegerField(validators=[MaxValueValidator(500)], default=0)
     doors = models.IntegerField(choices=(
@@ -126,17 +125,11 @@ class Car(models.Model):
         (2, 'Sold')
     ), default=1)
 
-
-
-
     def __str__(self):
         return '1 - ' + str(self.name)
 
-    def setSold(self):
-        self.availability = 2
-
     def get_absolute_url(self):
-        return reverse('distributors:car_detail', kwargs={'pkr': self.carshop.pk, 'pk': self.pk})
+        return reverse('distributors:car_detail', kwargs={'pkr': self.carShop.pk, 'pk': self.pk})
 
 
 class Sell(models.Model):
@@ -159,4 +152,4 @@ class ModelReview(models.Model):
     date = models.DateField(default=date.today)
 
     def __str__(self):
-        return str(self.date), str(self.rating) + " starts" 
+        return str(self.date), str(self.rating) + " starts"

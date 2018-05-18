@@ -20,6 +20,9 @@
                 <span property="doors">Doors: {{ car.get_doors_display }}</span> <br />
                 <span property="fuelType">Fuel Type: {{ car.get_fuelType_display }}</span> <br />
 
+
+                CARSHOP : {{ car.carShop.shopName }}
+
             </div>
 
         {% if user == carshop.user %}
