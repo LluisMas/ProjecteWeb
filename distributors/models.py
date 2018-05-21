@@ -71,7 +71,7 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
     type = models.IntegerField(choices=(
         (1, 'Customer'),
         (2, 'Seller')
-    ), default=1)
+    ),default=1)
 
     objects = UserManager()
 
@@ -144,7 +144,7 @@ class CarShop(models.Model):
     zipCode = models.CharField(max_length=120, blank=True, null=True)
     stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        Person,
         on_delete=models.CASCADE,
     )
 

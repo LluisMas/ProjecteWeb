@@ -20,7 +20,6 @@ class LoginRequiredMixin(object):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
 
 class PermissionRequiredMixin(object):
-
     login_url = settings.LOGIN_URL
     permission_required = 'fitters.change_fitter'
     raise_exception = False
@@ -28,14 +27,10 @@ class PermissionRequiredMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         # Verify class settings
-        if self.permission_required == None or len(
-            self.permission_required.split(".")) != 2:
-            raise ImproperlyConfigured("'PermissionRequiredMixin' requires "
-                "'permission_required' attribute to be set.")
 
         if request.user.is_authenticated:
-            has_permission = request.user.type
 
+            has_permission = request.user.type
             if has_permission == 1:
                 if self.raise_exception:
                     return HttpResponseForbidden()
@@ -43,20 +38,18 @@ class PermissionRequiredMixin(object):
                     path = urlquote(request.get_full_path())
                     tup = self.login_url, self.redirect_field_name, path
                     return HttpResponseRedirect("%s?%s=%s" % tup)
+        else:
+            path = urlquote(request.get_full_path())
+            tup = self.login_url, self.redirect_field_name, path
+            return HttpResponseRedirect("%s?%s=%s" % tup)
 
         return super(PermissionRequiredMixin, self).dispatch(
             request, *args, **kwargs)
 
-
 class CheckIsOwnerMixin(object):
     def get_object(self, *args, **kwargs):
-        obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
-        if isinstance(obj, Car):
-            return obj
-        else:
-            if not obj.user == self.request.user:
-                raise PermissionDenied
-            return obj
+        context_object_name = 'latest_person_list'
+        template_name = 'distributors/person_list.html'
 
 
 class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
@@ -204,16 +197,10 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
     template_name = 'distributors/sell_form.html'
     form_class = SellForm
     #permission_required = 'fitters.change_fitter'
-
-
     #@user_passes_test(lambda u: u.has_perm('distributors.permission_code'))
     def form_valid(self, form):
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
-        #self.object = self.get_object()
-        #self.object.car.availability = 2
-        #self.object.save(update_fields=('availability',))
-        #Car.availability = 2
 
         car = Car.objects.get(pk=self.kwargs['pk'])
         car.availability = 2
@@ -226,13 +213,13 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
          #   return reverse('distributors:Principal')
 
 
-class SellList(ListView):
+class SellList(PermissionRequiredMixin, ListView):
     model = Sell
     context_object_name = 'latest_sells_list'
     template_name = 'distributors/sell_list.html'
 
 
-class SellDetail(DetailView):
+class SellDetail(PermissionRequiredMixin, DetailView):
     model = Sell
     template_name = 'distributors/sell_detail.html'
 

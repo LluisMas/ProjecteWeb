@@ -14,8 +14,14 @@
 {#    </div>#}
 		{% for sell in latest_sells_list %}
 
+            {% if sell.car.availability == 2 %}
+
+
+
               		<li><a href="./{{sell.id}}">
 			{{ sell.car.name }} , {{ sell.seller.name }}</a></li>
+
+                   {% endif %}
 
 
 
