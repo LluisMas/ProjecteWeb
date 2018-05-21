@@ -154,6 +154,23 @@ class CarCreate(LoginRequiredMixin, CreateView):
         return super(CarCreate, self).form_valid(form)
 
 
+class CarDelete(DeleteView):
+    model = Car
+    #template_name = 'department_delete.html'
+    template_name = 'distributors/cars_delete.html'
+
+    #def get_success_url(self):
+     #   return reverse_lazy('department')
+
+    def get_object(self, queryset=None):
+        obj = super(CarDelete, self).get_object()
+        return obj
+
+    def get_success_url(self):
+        return reverse('distributors:carshop_detail', kwargs={'pk':self.kwargs['pkr'],})
+
+
+
 
 class SellCreate(LoginRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
     model = Sell

@@ -5,7 +5,7 @@ from distributors.models import CarShop, Person, Car, Sell
 from distributors.views import CarList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, \
     CarShopList, \
     CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate, SellCreate, \
-    SellList, SellDetail
+    SellList, SellDetail, CarDelete
 
 from forms import CarShopForm, CarForm
 
@@ -109,7 +109,7 @@ urlpatterns = [
             form_class=CarShopForm),
         name='distributors_edit'),
 
-    # Edit CarShop details, ex.: /myrestaurants/restaurants/1/delete/
+    # Delete CarShop details, ex.: /myrestaurants/restaurants/1/delete/
     url(r'^carshop/(?P<pk>\d+)/delete/$',
         CarShopDelete.as_view(
         template_name = 'distributors/carshop_delete.html'),
@@ -125,6 +125,19 @@ urlpatterns = [
     url(r'^carshop/(?P<pk>\d+)/create/$',
          CarCreate.as_view(),
          name='add_car'),
+
+    # Edit Car details, ex.: /distributors/carshop/carshop_id/cars/car_id
+    url(r'^carshop/(?P<pk>\d+)/cars/(?P<p>\d+)/edit/$',
+        LoginRequiredCheckIsOwnerUpdateView.as_view(
+            model=Car,
+            form_class=CarForm),
+        name='car_edit'),
+
+    # Delete Car details, ex.: /myrestaurants/restaurants/1/delete/
+    url(r'^carshop/(?P<pkr>\d+)/cars/(?P<pk>\d+)/delete/$',
+        CarDelete.as_view(
+            template_name='distributors/cars_delete.html'),
+        name='car_delete'),
 
     url(r'^car/(?P<pk>\d+)/create/$',
         SellCreate.as_view(),
@@ -146,6 +159,10 @@ urlpatterns = [
         SellDetail.as_view(),
         name='sell_detail'),
     #r'^carshop/(?P<pk>\d+)/create/$'
+
+
+
+
 
 
 ]

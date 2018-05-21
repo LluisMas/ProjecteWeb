@@ -1,0 +1,61 @@
+{% extends 'distributors/base.html' %}
+{% load static %}
+{% load i18n %} {# for translation #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Car</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <div class="col-md-8 py-5 text-center"></div>
+            <div class="row">
+                <div class="col-md-10">
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <h5>{{ car.name }}</h5>
+                        <h5>{{ car.kms }}</h5>
+                        <h5>{{ car.price }}</h5>
+                        <h5>{{ car.color }}</h5>
+                        <h5>{{ car.registrationYear }}</h5>
+                        <h5>{{ car.carShop }}</h5>
+                        <h5>{{ car.body }}</h5>
+                        <h5>{{ car.fuelType }}</h5>
+                        <h5>{{ car.modelYear }}</h5>
+                        <h5>{{ car.maxTopSpeed }}</h5>
+                        <h5>{{ car.doors }}</h5>
+                        <h5>{{ car.seats }}</h5>
+                        <h5>{{ car.availability }}</h5>
+
+                        <input type="submit" class="btn btn-primary" value="Delete Car"
+                               onclick="return confirm('Estas seguro que quieres eliminar')">
+
+
+                    </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
