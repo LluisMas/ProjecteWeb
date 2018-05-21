@@ -6,10 +6,16 @@ from django.urls.base import reverse
 use_step_matcher("parse")
 
 
-@given('Exists a user "{username}" with password "{password}" and email "{email}"')
+@given('Exists a user "{username}" with password "{password}" and email "{email}" with Seller role')
 def step_impl(context, username, password, email):
     from distributors.models import Person
-    Person.objects.create_user(name=username, email=email, password=password)
+    Person.objects.create_user(name=username, email=email, password=password, type=2)  # Type 2 means Seller
+
+
+@given('Exists a user "{username}" with password "{password}" and email "{email}" with Customer role')
+def step_impl(context, username, password, email):
+    from distributors.models import Person
+    Person.objects.create_user(name=username, email=email, password=password, type=1)  # Type 1 means Customer
 
 
 @given('I login as user "{email}" with password "{password}" and I am user "{user}"')
