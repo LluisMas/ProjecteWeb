@@ -149,7 +149,8 @@ class CarShopCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        #form.instance.CarshopCreate = CarShop.objects.get(id=self.kwargs['pk'])
+        #form.instance.email = self.request.user.email
+        #form.instance.CarshopCreate =  CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
 
 class CarShopDelete(DeleteView):
@@ -207,17 +208,16 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
 
     #@user_passes_test(lambda u: u.has_perm('distributors.permission_code'))
     def form_valid(self, form):
-       # form.instance.seller = self.request.user.name
-       # {% if request.user.type == 2 and car.availability == 1 %}
-        #if self.request.user.type == 2:
-        #print "ENTRO O QUE MIERDA"
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
-
         #self.object = self.get_object()
         #self.object.car.availability = 2
         #self.object.save(update_fields=('availability',))
         #Car.availability = 2
+
+        car = Car.objects.get(pk=self.kwargs['pk'])
+        car.availability = 2
+        car.save()
 
         return super(SellCreate, self).form_valid(form)
         #else:

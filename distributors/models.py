@@ -47,13 +47,14 @@ class UserManager(BaseUserManager):
 
 class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
     # Mirant la randomuser.api les dades que retorna, comunes per seller i customer son:
+
     name = models.CharField(max_length=30, null=True)
     password = models.CharField(max_length=30, default="root")
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
         unique=True,
-        default="email@email.com"
+        default="email@email.com",
     )
 
     is_admin = models.BooleanField(default=False)
@@ -67,7 +68,6 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
     city = models.CharField(max_length=30, null=True)
     postCode = models.CharField(max_length=30, null=True)
     state = models.CharField(max_length=30, null=True)
-    #email = models.EmailField(max_length=70, blank=False, null=True)
     type = models.IntegerField(choices=(
         (1, 'Customer'),
         (2, 'Seller')
@@ -144,7 +144,7 @@ class CarShop(models.Model):
     zipCode = models.CharField(max_length=120, blank=True, null=True)
     stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
     user = models.ForeignKey(
-        Person,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
 

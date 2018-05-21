@@ -9,10 +9,12 @@
 <u1>
 	{% for car in latest_car_list %}
 
+        {% if car.availability == 1 %}
 
 		<li><a href="./{{car.id}}">
 			{{ car.name }}</a></li>
 
+                        {% endif %}
 
 	{% empty %}<li>Sorry, no Cars registered yet.</li>
 	{% endfor %}
