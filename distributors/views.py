@@ -51,13 +51,17 @@ class PermissionRequiredMixin(object):
 class CheckIsOwnerMixin(object):
     def get_object(self, *args, **kwargs):
         obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
-        if not obj.user == self.request.user:
-            raise PermissionDenied
-        return obj
+        if isinstance(obj, Car):
+            return obj
+        else:
+            if not obj.user == self.request.user:
+                raise PermissionDenied
+            return obj
 
 
 class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
     template_name = 'distributors/form.html'
+
 
 
 # HTML Views
@@ -175,6 +179,23 @@ class CarCreate(PermissionRequiredMixin, CreateView):
         return super(CarCreate, self).form_valid(form)
 
 
+class CarDelete(DeleteView):
+    model = Car
+    #template_name = 'department_delete.html'
+    template_name = 'distributors/cars_delete.html'
+
+    #def get_success_url(self):
+     #   return reverse_lazy('department')
+
+    def get_object(self, queryset=None):
+        obj = super(CarDelete, self).get_object()
+        return obj
+
+    def get_success_url(self):
+        return reverse('distributors:carshop_detail', kwargs={'pk':self.kwargs['pkr'],})
+
+
+
 
 class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
 
@@ -192,6 +213,11 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
         #print "ENTRO O QUE MIERDA"
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
+
+        #self.object = self.get_object()
+        #self.object.car.availability = 2
+        #self.object.save(update_fields=('availability',))
+        #Car.availability = 2
 
         return super(SellCreate, self).form_valid(form)
         #else:

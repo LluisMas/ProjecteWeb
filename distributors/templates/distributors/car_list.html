@@ -8,8 +8,12 @@
 <h2>Car List:</h2>
 <u1>
 	{% for car in latest_car_list %}
+
+
 		<li><a href="./{{car.id}}">
 			{{ car.name }}</a></li>
+
+
 	{% empty %}<li>Sorry, no Cars registered yet.</li>
 	{% endfor %}
 </u1>
