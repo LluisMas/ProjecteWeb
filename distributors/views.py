@@ -51,13 +51,17 @@ class PermissionRequiredMixin(object):
 class CheckIsOwnerMixin(object):
     def get_object(self, *args, **kwargs):
         obj = super(CheckIsOwnerMixin, self).get_object(*args, **kwargs)
-        if not obj.user == self.request.user:
-            raise PermissionDenied
-        return obj
+        if isinstance(obj, Car):
+            return obj
+        else:
+            if not obj.user == self.request.user:
+                raise PermissionDenied
+            return obj
 
 
 class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
     template_name = 'distributors/form.html'
+
 
 
 # HTML Views
