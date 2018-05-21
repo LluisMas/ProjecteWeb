@@ -210,6 +210,11 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
 
+        #self.object = self.get_object()
+        #self.object.car.availability = 2
+        #self.object.save(update_fields=('availability',))
+        #Car.availability = 2
+
         return super(SellCreate, self).form_valid(form)
         #else:
         #    print "no entro MIERDA"

@@ -41,8 +41,16 @@
             <div class="row">
                 <div class="col-sm-9">
                     {% for car in carshop.cars.all %}
+
+                        {% if car.availability == 1 %}
+
                         <p><a class="car-link" href="{% url 'distributors:car_detail' carshop.id car.id %}">
                             {{ car.name }}
+
+                        {% endif %}
+
+
+
                         </a></p>
                     {% empty %}<p>Sorry, no cars for this car shop yet</p>
                     {% endfor %}
