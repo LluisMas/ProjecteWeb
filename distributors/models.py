@@ -137,7 +137,7 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
 
 class CarShop(models.Model):
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
-    shopName = models.CharField(max_length=30, null=True)
+    shopName = models.CharField(max_length=30, null=True, unique=True)
     addr = models.CharField(max_length=30, null=True)
     country = models.CharField(max_length=120, blank=True, null=True)
     city = models.CharField(max_length=120, blank=True, null=True)
