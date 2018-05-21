@@ -1,20 +1,51 @@
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
+from django.utils.http import urlquote
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from distributors.models import Person, CarShop, Car, Sell
 from distributors.forms import SellForm, CarShopForm, CarForm
+from distributorsapp import settings
 
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required())
     def dispatch(self, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+
+class PermissionRequiredMixin(object):
+
+    login_url = settings.LOGIN_URL
+    permission_required = 'fitters.change_fitter'
+    raise_exception = False
+    redirect_field_name = REDIRECT_FIELD_NAME
+
+    def dispatch(self, request, *args, **kwargs):
+        # Verify class settings
+        if self.permission_required == None or len(
+            self.permission_required.split(".")) != 2:
+            raise ImproperlyConfigured("'PermissionRequiredMixin' requires "
+                "'permission_required' attribute to be set.")
+
+        if request.user.is_authenticated:
+            has_permission = request.user.type
+
+            if has_permission == 1:
+                if self.raise_exception:
+                    return HttpResponseForbidden()
+                else:
+                    path = urlquote(request.get_full_path())
+                    tup = self.login_url, self.redirect_field_name, path
+                    return HttpResponseRedirect("%s?%s=%s" % tup)
+
+        return super(PermissionRequiredMixin, self).dispatch(
+            request, *args, **kwargs)
 
 
 class CheckIsOwnerMixin(object):
@@ -107,18 +138,7 @@ class PersonList(ListView):
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
 
-# class SellCreate(LoginRequiredMixin, CreateView):
-#    model = Sell
-#    template_name = 'distributors/form.html'
-#    form_class = SellForm
-#
-#    def form_valid(self, form):
-#        form.instance.user = self.request.user
-#        #form.instance.restaurant = Restaurant.objects.get(id=self.kwargs['pk'])
-#        return super(SellCreate, self).form_valid(form)
-#
-
-class CarShopCreate(LoginRequiredMixin, CreateView):
+class CarShopCreate(PermissionRequiredMixin, CreateView):
     model = CarShop
     template_name = 'distributors/form.html'
     form_class = CarShopForm
@@ -143,10 +163,11 @@ class CarShopDelete(DeleteView):
     def get_success_url(self):
         return reverse('distributors:carshop_list')
 
-class CarCreate(LoginRequiredMixin, CreateView):
+class CarCreate(PermissionRequiredMixin, CreateView):
     model = Car
     template_name = 'distributors/form.html'
     form_class = CarForm
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -172,18 +193,28 @@ class CarDelete(DeleteView):
 
 
 
-class SellCreate(LoginRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
+class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
+
     model = Sell
     template_name = 'distributors/form.html'
     form_class = SellForm
+    #permission_required = 'fitters.change_fitter'
 
+
+    #@user_passes_test(lambda u: u.has_perm('distributors.permission_code'))
     def form_valid(self, form):
        # form.instance.seller = self.request.user.name
        # {% if request.user.type == 2 and car.availability == 1 %}
+        #if self.request.user.type == 2:
+        #print "ENTRO O QUE MIERDA"
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
 
         return super(SellCreate, self).form_valid(form)
+        #else:
+        #    print "no entro MIERDA"
+
+         #   return reverse('distributors:Principal')
 
 
 class SellList(ListView):

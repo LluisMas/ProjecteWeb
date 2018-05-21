@@ -85,7 +85,10 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
+        # if type == 2:
         return True
+        # else:
+        #     return False
 
     def has_module_perms(self, app_label):
         "Does the user have permissions to view the app `app_label`?"
@@ -97,6 +100,8 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
     class Meta:
         verbose_name = ('user')
         verbose_name_plural = ('users')
+
+
 
     def get_full_name(self):
         '''
