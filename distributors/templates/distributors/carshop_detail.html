@@ -1,8 +1,16 @@
 {% extends "distributors/base.html" %}
+{% load staticfiles %}
 {% block content %}
     <div class="container-fluid">
 
-
+        <style>
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+        </style>
 
 <span vocab="http://schema.org/" typeof="Car Shop Detail">
 	 <div class="row">
@@ -18,26 +26,26 @@
 
 	<p>
 		<span property="inagurationYear" content="{{ carshop.inagurationYear }}-1-1">
-			Inaguration: {{ carshop.get_inaugurationYear_display }}
+			Año de Inauguración: {{ carshop.get_inaugurationYear_display }}
 		</span> <br />
 
 		<span property="addr">
-			Car shop address: {{ carshop.addr }}
+			Dirección: {{ carshop.addr }}
 		</span> <br />
 
         <span property="country">
-			Country: {{ carshop.country }}
+			País: {{ carshop.country }}
 		</span> <br />
 
 
         <span property="city">
-			City: {{ carshop.city }}
+			Ciutat: {{ carshop.city }}
 		</span> <br />
  </p>
 
 
         <div class="col-md mt-3">
-            <h5>Cars:</h5>
+            <h5>Coches:</h5>
             <div class="row">
                 <div class="col-sm-9">
                     {% for car in carshop.cars.all %}
@@ -52,7 +60,7 @@
 
 
                         </a></p>
-                    {% empty %}<p>Sorry, no cars for this car shop yet</p>
+                    {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
                     {% endfor %}
                 </div>
                 <div class="col-sm-3 text-right">
@@ -63,8 +71,21 @@
                 </div>
         </div>
 
-    <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi" class="center"></img>
+    <img id="i1" src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi" class="center"></img>
 
+
+    <script>
+        var id = {{ carshop.id }}
+        if (id == 5){
+            document.getElementById("i1").src="http://www.f1latam.com/autos/img/prin/chry_vit_02.jpg";
+        }  else if (id == 6){
+            document.getElementById("i1").src="https://andro4all.com/files/2014/03/concesionario-renault.jpg";
+        } else if (id == 7){
+            document.getElementById("i1").src="https://www.cortizo.com/ficheros/thumbnails/ficheros/obras/1342094199.0x0.fe.279.20102601.jpg";
+        } else if (id == 8){
+            document.getElementById("i1").src="https://motorgiga.com/cargadatos/fotos2/Audi-Wagen-Motors-Albacete_8.jpg";
+        }
+    </script>
 
     </span>
 
