@@ -15,6 +15,7 @@ urlpatterns = [
     #
     url(r'^admin/', include(admin.site.urls)),
     url(r'^distributors/', include('distributors.urls', namespace='distributors')),
+   # url(r'^login/$', auth_views.LoginView.as_view(authentication_form=AuthenticationFormWithChekUsersStatus)),
 
 
     url(r'^accounts/login/$', login, name='login'),
