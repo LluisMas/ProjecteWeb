@@ -200,7 +200,7 @@ class CarDelete(DeleteView):
 class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
 
     model = Sell
-    template_name = 'distributors/form.html'
+    template_name = 'distributors/sell_form.html'
     form_class = SellForm
     #permission_required = 'fitters.change_fitter'
 

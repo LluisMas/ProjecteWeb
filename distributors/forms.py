@@ -25,7 +25,8 @@ class SellForm(ModelForm):
     class Meta:
         model = Sell
         #la data s'ha exlos s'ha de mirar com afegir-la automaticament
-        fields = ('seller', 'car', 'date', )
+        #fields = ('seller', 'car', 'date', )
+        exclude = ('seller', 'car')
 
 
 class CarShopForm(ModelForm):
