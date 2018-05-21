@@ -8,7 +8,13 @@
 {#    {% if request.user.type == 2 or request.user.is_superuser %}#}
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
-        {{ form|crispy }}
+        <div>
+            <span property="name">{{ request.user }}</span>
+            <span property="name">{{ sell.car }}</span>
+            <span property="name">{{ sell.car.price }}</span>
+            {{ form|crispy }}
+        </div>
+
         <div class="form-group">
             <button type="submit" class="btn btn-success">Aceptar</button>
             <a class="btn btn-danger" href="{{ request.META.HTTP_REFERER }}">Cancelar</a>

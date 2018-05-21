@@ -40,7 +40,7 @@ td, th {
 
         <div class="col-sm-3 text-right align-bottom">
         {% if user == carshop.user %}
-            <td><a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Edit</a></td>
+            <td><a class="btn btn-primary" href="{% url 'distributors:distributors_edit' carshop.id %}">Editar</a></td>
             <td><a class="btn btn-danger" href="{% url 'distributors:distributors_delete' carshop.id %}">Eliminar</a></td></tr>
         {% endif %}
         </div></li>
