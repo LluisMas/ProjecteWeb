@@ -12,7 +12,7 @@ from distributorsapp import settings
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, type, password=None):
+    def create_user(self, email, name, type=1, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -144,7 +144,7 @@ class CarShop(models.Model):
     zipCode = models.CharField(max_length=120, blank=True, null=True)
     stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        Person,
         on_delete=models.CASCADE,
     )
 
