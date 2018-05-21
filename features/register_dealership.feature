@@ -24,3 +24,13 @@ Feature: Register Dealership
       | Fish and Chips |
     And There are 0 dealerships
 
+
+  Scenario: Register a Dealership two times
+    Given I login as user "test@test.com" with password "password" and I am user "user"
+    When I register dealership
+      | shopName       |
+      | Fish and Chips |
+    When I register dealership
+      | shopName       |
+      | Fish and Chips |
+    And There are 1 dealerships
