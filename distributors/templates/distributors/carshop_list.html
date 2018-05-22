@@ -37,6 +37,19 @@ td, th {
 	{% for carshop in latest_carshop_list %}
 		<div> <tr><td><a class="carshop-link" href="./{{carshop.id}}">
             {{ carshop.shopName }}</a></td></div>
+		<div> <tr><td><a href="./{{carshop.id}}">
+            {{ carshop.shopName }}</a>
+
+        <div class="col-md-4 p-1 mb-1 small">
+          <p class="card-text">Average rating:{{ carshop.averageRating|stringformat:".1f" }}
+              {% with carshop.carshopreview_set.count as reviewCount %}
+                  ({{ reviewCount }} review{{ reviewCount|pluralize }})
+              {% endwith %}
+          </p>
+        </div>
+
+        </td>
+        </div>
 
         <div class="col-sm-3 text-right align-bottom">
         {% if user == carshop.user %}
@@ -46,8 +59,9 @@ td, th {
         </div></li>
 	{% empty %}<li>Sorry, no car shop registered yet.</li>
 	{% endfor %}
+
      <div class="col-sm-3 mb-3 text-right">
-            {% if user.is_authenticated %}
+            {% if user.type == 2 or user.is_superuser %}
                 <td><a class="btn btn-success btn-sm" href="{% url 'distributors:add_distributors'  %}"> Añadir Concesionario</a></td>
                 <td></td><td></td>
             {% endif %}

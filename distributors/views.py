@@ -9,7 +9,7 @@ from django.utils.http import urlquote
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from distributors.models import Person, CarShop, Car, Sell
+from distributors.models import Person, CarShop, Car, Sell, CarShopReview
 from distributors.forms import SellForm, CarShopForm, CarForm
 from distributorsapp import settings
 
@@ -67,15 +67,15 @@ class CarDetail(DetailView):
         context = super(CarDetail, self).get_context_data(**kwargs)
         return context
 
-
-class SellerDetail(DetailView):
-    model = Person
-    template_name = 'distributors/seller_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(SellerDetail, self).get_context_data(**kwargs)
-        return context
-
+#
+# class SellerDetail(DetailView):
+#     model = Person
+#     template_name = 'distributors/seller_detail.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(SellerDetail, self).get_context_data(**kwargs)
+#         return context
+#
 
 class CarList(ListView):
     model = Car
@@ -89,6 +89,7 @@ class CarShopDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CarShopDetail, self).get_context_data(**kwargs)
+        context['RATING_CHOICES'] = CarShopReview.RATING_CHOICES
         return context
 
 
@@ -99,19 +100,19 @@ class CarShopList(ListView):
     template_name = 'distributors/carshop_list.html'
 
 
-class CustomerDetail(DetailView):
-    model = Person
-    template_name = 'distributors/customer_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(CustomerDetail, self).get_context_data(**kwargs)
-        return context
-
-
-class CustomerList(ListView):
-    model = Person
-    context_object_name = 'latest_customer_list'
-    template_name = 'distributors/customer_list.html'
+# class CustomerDetail(DetailView):
+#     model = Person
+#     template_name = 'distributors/customer_detail.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(CustomerDetail, self).get_context_data(**kwargs)
+#         return context
+#
+#
+# class CustomerList(ListView):
+#     model = Person
+#     context_object_name = 'latest_customer_list'
+#     template_name = 'distributors/customer_list.html'
 
 
 
@@ -121,7 +122,8 @@ class CustomerList(ListView):
 #    context_object_name = 'latest_seller_list'
 #    template_name = 'distributors/seller_list.html'
 
-class PersonDetail(DetailView):
+
+class PersonDetail(PermissionRequiredMixin, DetailView):
     model = Person
     template_name = 'distributors/person_detail.html'
 
@@ -130,7 +132,7 @@ class PersonDetail(DetailView):
         return context
 
 
-class PersonList(ListView):
+class PersonList(PermissionRequiredMixin, ListView):
     model = Person
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
@@ -227,17 +229,15 @@ class SellDetail(PermissionRequiredMixin, DetailView):
         context = super(SellDetail, self).get_context_data(**kwargs)
         return context
 
-
-#
-#
-# @login_required()
-#
-# def review(request, pk):
-#     model = get_object_or_404(Model, pk=pk)
-#     new_review = ModelReview(
-#         rating=request.POST['rating'],
-#         comment=request.POST['comment'],
-#         user=request.user,
-#         model=model)
-#     new_review.save()
-#     return HttpResponseRedirect(reverse('myapp:restaurant_detail', args=(model.id,)))
+@login_required()
+def review(request, pk):
+    carshop = get_object_or_404(CarShop, pk=pk)
+    if CarShopReview.objects.filter(shopName=carshop, user=request.user).exists():
+        CarShopReview.objects.get(shopName=carshop, user=request.user).delete()
+    new_review = CarShopReview(
+        rating=request.POST['rating'],
+        comment=request.POST['comment'],
+        user=request.user,
+        shopName=carshop)
+    new_review.save()
+    return HttpResponseRedirect(reverse('distributors:carshop_detail', args=(carshop.id,)))

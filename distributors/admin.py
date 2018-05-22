@@ -11,7 +11,7 @@ admin.site.register(models.CarShop)
 #admin.site.register(models.Model)
 admin.site.register(models.Car)
 admin.site.register(models.Sell)
-admin.site.register(models.ModelReview)
+admin.site.register(models.CarShopReview)
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required

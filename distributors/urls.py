@@ -2,8 +2,7 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import CarShop, Person, Car, Sell
-from distributors.views import CarList, PersonList, PersonDetail, SellerDetail, CustomerList, CustomerDetail, \
-    CarShopList, \
+from distributors.views import CarList, review, PersonList, PersonDetail, CarShopList, \
     CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate, SellCreate, \
     SellList, SellDetail, CarDelete
 
@@ -160,9 +159,9 @@ urlpatterns = [
         name='sell_detail'),
     #r'^carshop/(?P<pk>\d+)/create/$'
 
-
-
-
-
+# Create a restaurant review, ex.: /myrestaurants/restaurants/1/reviews/create/
+    url(r'^carshop/(?P<pk>\d+)/reviews/create/$',
+        review,
+        name='review_create'),
 
 ]
