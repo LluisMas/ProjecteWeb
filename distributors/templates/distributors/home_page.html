@@ -6,22 +6,20 @@
     Home Page
 </h2>
     <style>
-            .center {
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width: 50%;
+            .centred {
+                margin: auto;
+                text-align: center;
             }
     </style>
 <ul>
   <li><a href="/distributors/carshop/">
-      CarShop List</a></li>
+      Concesionarios</a></li>
   <li><a href="/distributors/car/">
-      Car list</a></li>
+      Lista de Coches</a></li>
   <li><a href="/distributors/seller/">
-      Seller list</a></li>
+      Lista de Vendedores</a></li>
   <li><a href="/distributors/customer/">
-      Customer list</a></li>
+      Lista de Ventas</a></li>
     {% if user.type == 2 or user.is_superuser %}
 
     <li><a href="/distributors/sells/">
@@ -34,11 +32,11 @@
         Añadir Concesionario</a></li>-->
 </ul>
 
-
-        <img src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi"  style="width:128px;height:128px;"></img>
+    <div class="centred">
+        <img src="http://www.f1latam.com/autos/img/prin/chry_vit_02.jpg" alt="audi"  style="width:128px;height:128px;"></img>
         <img src="https://andro4all.com/files/2014/03/concesionario-renault.jpg" alt="audi" style="width:128px;height:128px;"></img>
         <img src="https://www.cortizo.com/ficheros/thumbnails/ficheros/obras/1342094199.0x0.fe.279.20102601.jpg" alt="audi"  style="width:128px;height:128px;"></img>
         <img src="https://motorgiga.com/cargadatos/fotos2/Audi-Wagen-Motors-Albacete_8.jpg" alt="audi"  style="width:128px;height:128px;"></img>
-
+    </div>
 
 {% endblock %}

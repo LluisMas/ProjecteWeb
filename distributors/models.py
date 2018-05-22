@@ -143,6 +143,7 @@ class CarShop(models.Model):
     city = models.CharField(max_length=120, blank=True, null=True)
     zipCode = models.CharField(max_length=120, blank=True, null=True)
     stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
+    image = models.ImageField(upload_to = 'pic_folder/', default = 'pic_folder/None/no-img.jpg')
     user = models.ForeignKey(
         Person,
         on_delete=models.CASCADE,
