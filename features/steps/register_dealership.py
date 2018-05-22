@@ -3,6 +3,7 @@ import operator
 from django.db.models import Q
 from django.urls.base import reverse
 
+
 use_step_matcher("parse")
 
 
@@ -56,3 +57,15 @@ def step_impl(context, username):
 def step_impl(context, count):
     from distributors.models import CarShop
     assert count == CarShop.objects.count()
+
+
+@step('Exists dealerships registered by "{username}"')
+def step_impl(context, username):
+    from distributors.models import Person
+    user = Person.objects.get(email=username)
+    from distributors.models import CarShop
+    for row in context.table:
+        carshop = CarShop(user=user)
+        for heading in row.headings:
+            setattr(carshop, heading, row[heading])
+        carshop.save()

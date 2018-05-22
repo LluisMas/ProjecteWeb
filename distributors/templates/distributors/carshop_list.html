@@ -35,6 +35,8 @@ td, th {
         <th></th>
         </tr>
 	{% for carshop in latest_carshop_list %}
+		<div> <tr><td><a class="carshop-link" href="./{{carshop.id}}">
+            {{ carshop.shopName }}</a></td></div>
 		<div> <tr><td><a href="./{{carshop.id}}">
             {{ carshop.shopName }}</a>
 
@@ -47,12 +49,6 @@ td, th {
         </div>
 
         </td>
-
-
-
-
-
-
         </div>
 
         <div class="col-sm-3 text-right align-bottom">
