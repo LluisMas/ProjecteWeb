@@ -14,7 +14,11 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-success">Login</button>
-        <a class="btn btn-danger" href="{{ next }}">Cancel</a>
+        {% if next ==  "/accounts/login/" %}
+            <a class="btn btn-danger" href="{{ next }}">Cancel</a>
+        {% else %}
+            <a class="btn btn-danger" href="{% url 'distributors:Principal' %}">Cancel</a>
+        {% endif %}
     </div>
 
     {% csrf_token %}

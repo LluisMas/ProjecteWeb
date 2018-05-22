@@ -37,10 +37,6 @@
 			País: {{ carshop.country }}
 		</span> <br />
 
-
-        <span property="city">
-			Ciutat: {{ carshop.city }}
-		</span> <br />
  </p>
 
 
@@ -143,21 +139,12 @@
 
 
 
-    <img id="i1" src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2017/02/carshop-store.jpg" alt="audi" class="center"></img>
+
+    <span property="city">
+            <img id="i1" src="{{ carshop.image.url }}" class="center"></img>
+    </span> <br />
 
 
-    <script>
-        var id = {{ carshop.id }}
-        if (id == 5){
-            document.getElementById("i1").src="http://www.f1latam.com/autos/img/prin/chry_vit_02.jpg";
-        }  else if (id == 6){
-            document.getElementById("i1").src="https://andro4all.com/files/2014/03/concesionario-renault.jpg";
-        } else if (id == 7){
-            document.getElementById("i1").src="https://www.cortizo.com/ficheros/thumbnails/ficheros/obras/1342094199.0x0.fe.279.20102601.jpg";
-        } else if (id == 8){
-            document.getElementById("i1").src="https://motorgiga.com/cargadatos/fotos2/Audi-Wagen-Motors-Albacete_8.jpg";
-        }
-    </script>
 
     </span>
 

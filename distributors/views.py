@@ -213,6 +213,10 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
         #    print "no entro MIERDA"
 
          #   return reverse('distributors:Principal')
+    def get_context_data(self, **kwargs):
+        context = super(SellCreate, self).get_context_data(**kwargs)
+        context['car'] = Car.objects.get(pk=self.kwargs['pk'])
+        return context
 
 
 class SellList(PermissionRequiredMixin, ListView):
