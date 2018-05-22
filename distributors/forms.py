@@ -2,7 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from models import Sell, CarShop, Car
-from models import ModelReview, Sell, CarShop, Car, Person
+from models import Sell, CarShop, Car, Person
 
 
 

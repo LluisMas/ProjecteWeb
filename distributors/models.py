@@ -159,6 +159,33 @@ class CarShop(models.Model):
     def get_absolute_url(self):
         return reverse('distributors:carshop_detail', kwargs={'pk': self.pk})
 
+    def averageRating(self):
+        reviewCount = self.carshopreview_set.count()
+        if not reviewCount:
+            return 0
+        else:
+            ratingSum = sum([float(review.rating) for review in self.carshopreview_set.all()])
+            return ratingSum / reviewCount
+
+
+class Review(models.Model):
+    RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
+    rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
+    comment = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(
+        Person,
+        on_delete=models.CASCADE,
+        default=1)
+    date = models.DateField(default=date.today)
+
+    class Meta:
+        abstract = True
+
+class CarShopReview(Review):
+    shopName = models.ForeignKey(CarShop)
+
+    class Meta:
+        unique_together = ("shopName", "user")
 
 class Car(models.Model):
 
@@ -219,13 +246,3 @@ class Sell(models.Model):
 
 
 
-
-class ModelReview(models.Model):
-    RATING_CHOICES = ((1, 'one'), (2, 'two'), (3, 'three'), (4, 'four'), (5, 'five'))
-    rating = models.PositiveSmallIntegerField('Rating (stars)', blank=False, default=3, choices=RATING_CHOICES)
-    comment = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(Person, default=1)
-    date = models.DateField(default=date.today)
-
-    def __str__(self):
-        return str(self.date), str(self.rating) + " starts"
