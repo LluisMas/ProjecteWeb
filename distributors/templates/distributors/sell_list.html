@@ -39,13 +39,20 @@ td, th {
         <th></th>
         </tr>
 		{% for sell in latest_sells_list %}
+
             {% if sell.car.availability == 2 %}
-              		<li><a href="./{{sell.id}}">
-			{{ sell.car.name }} , {{ sell.seller.name }}</a></li>
+                <div> <tr><td><a class="sell-link"  href="./{{sell.id}}">
+
+			{{ sell.car.name }} , {{ sell.seller.name }}</a>
+                </td>
+
+        </div>
 
                    {% endif %}
 
+
 	{% empty %}<li>Sorry, no sells registered yet.</li>
+
 	{% endfor %}
 
 
