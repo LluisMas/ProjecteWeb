@@ -21,6 +21,7 @@ def before_all(context):
     context.test_runner = DiscoverRunner()
     context.test_runner.setup_test_environment()
     context.browser = Browser('chrome', headless=True)
+    
 
 def before_scenario(context, scenario):
     context.old_db_config = context.test_runner.setup_databases()
