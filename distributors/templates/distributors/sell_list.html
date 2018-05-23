@@ -4,6 +4,26 @@
 
 <span vocab="http://schema.org/" typeof="SellList">
 
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    max-width:100%;
+    white-space:nowrap;
+}
+
+td, th {
+    border:  1px solid transparent;
+    text-align: left;
+    padding: 8px;
+}
+
+
+</style>
+
+<div class="row">
+  <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> > Lista de ventas</h4>
+</div>
 
 <h2>Sell List:</h2>
 <u1>
@@ -12,21 +32,28 @@
 {#                <li><a class="btn btn-primary" href="{% url 'distributors:add_customer'  %}"> Añadir Cliente</a></li>#}
 {#            {% endif %}#}
 {#    </div>#}
+     <table>
+        <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        </tr>
 		{% for sell in latest_sells_list %}
-
             {% if sell.car.availability == 2 %}
-
-
-
               		<li><a href="./{{sell.id}}">
 			{{ sell.car.name }} , {{ sell.seller.name }}</a></li>
 
                    {% endif %}
 
-
-
 	{% empty %}<li>Sorry, no sells registered yet.</li>
 	{% endfor %}
+
+
+
+
+     </table>
+
 </u1>
+
 </span>
 {% endblock %}
