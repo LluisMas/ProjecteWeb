@@ -35,7 +35,7 @@ td, th {
         <th></th>
         </tr>
 	{% for carshop in latest_carshop_list %}
-		<div> <tr><td><a href="./{{carshop.id}}">
+		<div> <tr><td><a class="carshop-link"  href="./{{carshop.id}}">
             {{ carshop.shopName }}</a>
 
         <div class="col-md-4 p-1 mb-1 small">
@@ -48,12 +48,8 @@ td, th {
 
         </td>
 
-
-
-
-
-
         </div>
+
 
         <div class="col-sm-3 text-right align-bottom">
         {% if user == carshop.user %}
