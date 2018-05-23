@@ -3,7 +3,7 @@ from behave import *
 use_step_matcher("parse")
 
 
-@when("I list restaurants")
+@when("I list dealerships")
 def step_impl(context):
     context.browser.visit(context.get_url('distributors:carshop_list'))
 
