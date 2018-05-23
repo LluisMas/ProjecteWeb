@@ -30,13 +30,16 @@ def step_impl(context, username):
         user = Person.objects.get(email=username)
         for heading in row.headings:
             car = Car.objects.get(name=row[heading])
-            sell = Sell.objects.create(car=car, seller=user)
+            Sell.objects.create(car=car, seller=user)
+            car.availability = 2
+            car.save()
 
 
-@then("I'm viewing a list containing those sells")
-def step_impl(context):
+@then('I\'m viewing a list containing those sells by user "{user}"')
+def step_impl(context, user):
     file = open("/home/lmr/Desktop/verga.txt", "w")
-    file.write(context.get_url('distributors:sell_list'))
+
     sells_links = context.browser.find_by_css('a.sell-link')
     for i, row in enumerate(context.table):
-        assert row['name'] == sells_links[i].text
+        file.write(row['name'] + ' yyyyy ' + sells_links[i].text + ', ' + user + ' FIANAAAL ')
+        assert row['name'] + ' , ' + user == sells_links[i].text
