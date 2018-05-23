@@ -14,4 +14,5 @@ Feature: Register Sell
       | Date       |
       | 2018-05-17 |
     And There are 1 sell
+    And Car "troncomovil" is set as sold
 

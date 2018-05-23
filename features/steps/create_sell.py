@@ -37,3 +37,10 @@ def step_impl(context, sell):
 def step_impl(context, count):
     from distributors.models import Sell
     assert count == Sell.objects.count()
+
+
+@step('Car "{car}" is set as sold')
+def step_impl(context, car):
+    from distributors.models import Car
+    car_obj = Car.objects.get(name=car)
+    assert car_obj.availability == 2
