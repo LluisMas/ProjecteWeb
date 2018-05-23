@@ -23,21 +23,21 @@
 
                     <form action="" method="post">
                         {% csrf_token %}
-                        <h5>{{ car.name }}</h5>
-                        <h5>{{ car.kms }}</h5>
-                        <h5>{{ car.price }}</h5>
-                        <h5>{{ car.color }}</h5>
-                        <h5>{{ car.registrationYear }}</h5>
-                        <h5>{{ car.carShop }}</h5>
-                        <h5>{{ car.body }}</h5>
-                        <h5>{{ car.fuelType }}</h5>
-                        <h5>{{ car.modelYear }}</h5>
-                        <h5>{{ car.maxTopSpeed }}</h5>
-                        <h5>{{ car.doors }}</h5>
-                        <h5>{{ car.seats }}</h5>
-                        <h5>{{ car.availability }}</h5>
+                        <h5>Nombre: {{ car.name }}</h5>
+                        <h5>Kms: {{ car.kms }}</h5>
+                        <h5>Precio: {{ car.price }}</h5>
+                        <h5>Color: {{ car.color }}</h5>
+                        <h5>Año de registro: {{ car.registrationYear }}</h5>
+                        <h5>Concesionario: {{ car.carShop }}</h5>
+                        <h5>Tipo: {{ car.body }}</h5>
+                        <h5>Combustible: {{ car.fuelType }}</h5>
+                        <h5>Año del Modelo: {{ car.modelYear }}</h5>
+                        <h5>Velocidad Maxima: {{ car.maxTopSpeed }}</h5>
+                        <h5>Puertas: {{ car.doors }}</h5>
+                        <h5>Asientos: {{ car.seats }}</h5>
+                        <h5>Disponibilidad: {{ car.availability }}</h5>
 
-                        <input type="submit" class="btn btn-primary" value="Delete Car"
+                        <input type="submit" class="btn btn-primary" value="Eliminar Coche"
                                onclick="return confirm('Estas seguro que quieres eliminar')">
 
 
