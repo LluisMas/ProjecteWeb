@@ -22,6 +22,7 @@ Feature: List Sells
     | Barco de guerra |
 
   Scenario: List all the sells
+    Given I login as user "test@test.com" with password "test" and I am user "test"
     When I list sells
     Then I'm viewing a list containing those sells
     | name            |

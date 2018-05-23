@@ -35,8 +35,8 @@ def step_impl(context, username):
 
 @then("I'm viewing a list containing those sells")
 def step_impl(context):
-    from distributors.models import Sell
-    assert Sell.objects.count() == 6
-    distributors_links = context.browser.find_by_css('a.sell-link')
+    file = open("/home/lmr/Desktop/verga.txt", "w")
+    file.write(context.get_url('distributors:sell_list'))
+    sells_links = context.browser.find_by_css('a.sell-link')
     for i, row in enumerate(context.table):
-        assert row['name'] == distributors_links[i].text
+        assert row['name'] == sells_links[i].text
