@@ -2,6 +2,20 @@
 
 <div class="container-fluid">
 {% block content %}
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            max-width:100%;
+            white-space:nowrap;
+        }
+
+        td, th {
+            border:  1px solid transparent;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
 
 <span vocab="http://schema.org/" typeof="Car Detail">
     <div class="row">
@@ -32,9 +46,18 @@
 
 
                 {% if request.user.type == 2 and car.availability == 1 %}
-                    <a class="btn btn-primary" href="{% url 'distributors:car_edit' car.carShop.id car.id %}">Editar</a>
-                    <a class="btn btn-primary" href="{% url 'distributors:car_delete' car.carShop.id car.id %}">Eliminar</a>
-                    <a class="btn btn-success" href="{% url 'distributors:add_sell' car.id %}">Añadir Venta</a>
+                    <table>
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                            <td> <a class="btn btn-primary" href="{% url 'distributors:car_edit' car.carShop.id car.id %}">Editar</a></td>
+                            <td> <a class="btn btn-danger" href="{% url 'distributors:car_delete' car.carShop.id car.id %}">Eliminar</a></td>
+                            <td> <a class="btn btn-success" href="{% url 'distributors:add_sell' car.id %}">Añadir Venta</a></td>
+                        </tr>
+                    </table>
                 {% endif %}
                 </div>
 
