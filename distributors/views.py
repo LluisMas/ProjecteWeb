@@ -198,8 +198,6 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
     model = Sell
     template_name = 'distributors/sell_form.html'
     form_class = SellForm
-    #permission_required = 'fitters.change_fitter'
-    #@user_passes_test(lambda u: u.has_perm('distributors.permission_code'))
     def form_valid(self, form):
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
@@ -209,14 +207,12 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
         car.save()
 
         return super(SellCreate, self).form_valid(form)
-        #else:
-        #    print "no entro MIERDA"
 
-         #   return reverse('distributors:Principal')
     def get_context_data(self, **kwargs):
         context = super(SellCreate, self).get_context_data(**kwargs)
         context['car'] = Car.objects.get(pk=self.kwargs['pk'])
         return context
+
 
 
 class SellList(PermissionRequiredMixin, ListView):
