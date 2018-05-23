@@ -10,8 +10,8 @@ Feature: Register Sell
     When I register sell for car "troncomovil"
       | Date |
       | 2018-05-17 |
-#    Then I'm viewing the details of the sell
-#      | Date       |
-#      | 2018-05-17 |
-#    And There are 1 sell
+    Then I'm viewing the details of the sell "troncomovil"
+      | Date       |
+      | 2018-05-17 |
+    And There are 1 sell
 
