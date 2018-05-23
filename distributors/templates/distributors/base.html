@@ -34,8 +34,7 @@
     <ul class="navbar-nav">
         {% if user.is_authenticated %}
             <li class="nav-item">
-                 <a class="nav-link" href="#">{{ user.username }}</a>
-                <font color="white"> Welcome, {{ user.get_username    }}.    </font>
+                 <a class="nav-link" href="{% url 'distributors:Principal' %}"><font color="white">{{ user.get_username}} </font> </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}?next={{request.path}}">Logout</a>
