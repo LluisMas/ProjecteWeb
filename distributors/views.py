@@ -99,6 +99,11 @@ class CarShopList(ListView):
     context_object_name = 'latest_carshop_list'
     template_name = 'distributors/carshop_list.html'
 
+    class SellList(PermissionRequiredMixin, ListView):
+        model = Sell
+        context_object_name = 'latest_sells_list'
+        template_name = 'distributors/sell_list.html'
+
 
 # class CustomerDetail(DetailView):
 #     model = Person
