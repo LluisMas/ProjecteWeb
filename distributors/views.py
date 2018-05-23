@@ -208,15 +208,11 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
 
         return super(SellCreate, self).form_valid(form)
 
-    def get_success_url(self):
-        return reverse('distributors:car_detail', kwargs={'pk':self.kwargs['pkr'],})
-
     def get_context_data(self, **kwargs):
         context = super(SellCreate, self).get_context_data(**kwargs)
         context['car'] = Car.objects.get(pk=self.kwargs['pk'])
         return context
-    def get_success_url(self):
-        return reverse('distributors:sell_list')
+
 
 
 class SellList(PermissionRequiredMixin, ListView):
