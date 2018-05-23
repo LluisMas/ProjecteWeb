@@ -23,15 +23,15 @@
 
                     <form action="" method="post">
                         {% csrf_token %}
-                        <h5>{{ carshop.inaugurationYear }}</h5>
-                        <h5>{{ carshop.shopName }}</h5>
-                        <h5>{{ carshop.addr }}</h5>
-                        <h5>{{ carshop.country }}</h5>
-                        <h5>{{ carshop.city }}</h5>
-                        <h5>{{ carshop.zipCode }}</h5>
-                        <h5>{{ carshop.stateOrProvince }}</h5>
+                        <h5>Nombre: {{ carshop.shopName }}</h5>
+                        <h5>Año de inauguración: {{ carshop.inaugurationYear }}</h5>
+                        <h5>Dirección: {{ carshop.addr }}</h5>
+                        <h5>País: {{ carshop.country }}</h5>
+                        <h5>Ciudad: {{ carshop.city }}</h5>
+                        <h5>Codigo Postal: {{ carshop.zipCode }}</h5>
+                        <h5>Estado/Provincia: {{ carshop.stateOrProvince }}</h5>
 
-                        <input type="submit" class="btn btn-primary" value="Delete Carshop"
+                        <input type="submit" class="btn btn-danger" value="Eliminar Concesionario"
                                onclick="return confirm('Are you sure?')">
 
 
