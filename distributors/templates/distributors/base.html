@@ -52,13 +52,13 @@
 
 {% endblock %}
 
-<div id="content">
+<main id="content" class="container mt-3">
     {% block content %}
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     {% endblock %}
-</div>
+</main>
 
-<div id="footer" class="footer">
+<footer>
     {% block footer %}
         <div class="text-muted text-center">
             <svg class="octicon octicon-pencil" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true">
@@ -74,7 +74,7 @@
             </a>
         </div>
     {% endblock %}
-</div>
+</footer>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <!-- Bootstrap JavaScripts -->

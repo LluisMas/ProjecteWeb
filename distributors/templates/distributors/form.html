@@ -2,20 +2,16 @@
 {% load staticfiles %}
 {% load crispy_forms_tags %}
 
-
 {% block content %}
 
-{#    {% if request.user.type == 2 or request.user.is_superuser %}#}
     <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="form-group">
-            <button type="submit" class="btn btn-success">Aceptar</button>
-            <a class="btn btn-danger" href="{{ request.META.HTTP_REFERER }}">Cancelar</a>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a class="btn btn-danger" href="{{ request.META.HTTP_REFERER }}">Cancel</a>
         </div>
     </form>
-
     <script src="{% static "js/autocomplete.js" %}"></script>
-
 
 {% endblock %}
