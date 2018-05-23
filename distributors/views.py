@@ -215,6 +215,8 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
         context = super(SellCreate, self).get_context_data(**kwargs)
         context['car'] = Car.objects.get(pk=self.kwargs['pk'])
         return context
+    def get_success_url(self):
+        return reverse('distributors:sell_list')
 
 
 class SellList(PermissionRequiredMixin, ListView):
