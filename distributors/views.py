@@ -10,7 +10,7 @@ from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from distributors.models import Person, CarShop, Car, Sell, CarShopReview
-from distributors.forms import SellForm, CarShopForm, CarForm
+from distributors.forms import SellForm, CarShopForm, CarForm, EditCarShopForm
 from distributorsapp import settings
 
 
@@ -52,7 +52,7 @@ class CheckIsOwnerMixin(object):
         template_name = 'distributors/person_list.html'
 
 
-class LoginRequiredCheckIsOwnerUpdateView(LoginRequiredMixin, CheckIsOwnerMixin, UpdateView):
+class LoginRequiredCheckIsOwnerUpdateView(CheckIsOwnerMixin, UpdateView):
     template_name = 'distributors/form.html'
 
 
@@ -105,29 +105,6 @@ class CarShopList(ListView):
         template_name = 'distributors/sell_list.html'
 
 
-# class CustomerDetail(DetailView):
-#     model = Person
-#     template_name = 'distributors/customer_detail.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(CustomerDetail, self).get_context_data(**kwargs)
-#         return context
-#
-#
-# class CustomerList(ListView):
-#     model = Person
-#     context_object_name = 'latest_customer_list'
-#     template_name = 'distributors/customer_list.html'
-
-
-
-
-#class SellerList(ListView):
-#    model = Person
-#    context_object_name = 'latest_seller_list'
-#    template_name = 'distributors/seller_list.html'
-
-
 class PersonDetail(PermissionRequiredMixin, DetailView):
     model = Person
     template_name = 'distributors/person_detail.html'
@@ -142,7 +119,7 @@ class PersonList(PermissionRequiredMixin, ListView):
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
 
-class CarShopCreate(PermissionRequiredMixin, CreateView):
+class CarShopCreate(CreateView):
     model = CarShop
     template_name = 'distributors/form.html'
     form_class = CarShopForm
@@ -152,6 +129,7 @@ class CarShopCreate(PermissionRequiredMixin, CreateView):
         #form.instance.email = self.request.user.email
         #form.instance.CarshopCreate =  CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
+
 
 class CarShopDelete(DeleteView):
     model = CarShop
@@ -168,7 +146,7 @@ class CarShopDelete(DeleteView):
     def get_success_url(self):
         return reverse('distributors:carshop_list')
 
-class CarCreate(PermissionRequiredMixin, CreateView):
+class CarCreate(CreateView):
     model = Car
     template_name = 'distributors/form.html'
     form_class = CarForm
@@ -196,6 +174,19 @@ class CarDelete(DeleteView):
         return reverse('distributors:carshop_detail', kwargs={'pk':self.kwargs['pkr'],})
 
 
+class CarEdit(PermissionRequiredMixin, UpdateView):
+    model = Car
+    #
+    template_name_suffix = "_update_form"
+
+class CarShopEdit(PermissionRequiredMixin, UpdateView):
+    model = CarShop
+    #exclude = ['user']
+    form_class = EditCarShopForm
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CarShopEdit, self).form_valid(form)
+    #template_name_suffix = "_update_form"
 
 
 class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired

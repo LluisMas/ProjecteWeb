@@ -12,14 +12,6 @@ class SellerForm(ModelForm):
         exclude = ('salary',)
 
 
-#
-# class ReviewForm(ModelForm):
-#
-#     class Meta:
-#          model = ModelReview
-#          fields = ('user', 'comment', 'rating')
-
-
 class SellForm(ModelForm):
 
     class Meta:
@@ -28,12 +20,18 @@ class SellForm(ModelForm):
         #fields = ('seller', 'car', 'date', )
         exclude = ('seller', 'car')
 
+class EditCarShopForm(ModelForm):
+
+    class Meta:
+        model = CarShop
+        exclude = ('user', )
+
 
 class CarShopForm(ModelForm):
     class Meta:
         model = CarShop
        # fields = ('id','inaugurationYear', 'shopName', 'addr', 'country', 'city', )
-        exclude = ('id', 'user', 'date', 'zipCode', )
+        exclude = ('id', 'date', 'zipCode', )
 
     #def get_success_url(self):
     #    return reverse('profile-list')

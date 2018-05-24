@@ -1,0 +1,22 @@
+{% extends "distributors/base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Aceptar</button>
+            <a class="btn btn-danger" href="{{ request.META.HTTP_REFERER }}">Cancelar</a>
+        </div>
+    </form>
+
+
+
+
+
+{% endblock %}
