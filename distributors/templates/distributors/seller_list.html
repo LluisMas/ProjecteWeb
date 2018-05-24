@@ -10,7 +10,7 @@
 	{% for person in latest_person_list %}
 
                 {% if person.type == 2 %}
-              		<li><a href="./{{person.id}}">
+              		<li><a class="seller-link" href="./{{person.id}}">
 			{{ person.name }}</a></li>
         {% endif %}
 

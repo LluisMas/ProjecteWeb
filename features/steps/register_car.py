@@ -26,10 +26,6 @@ def step_impl(context, shopName):
 
     for row in context.table:
         context.browser.visit(context.get_url('distributors:add_car', carShop.pk))
-        with open('some.txt', 'a') as the_file:
-            the_file.write(context.browser.url)
-            the_file.write("\n")
-            the_file.write(context.get_url('distributors:add_car', carShop.pk))
         if context.browser.url == context.get_url('distributors:add_car', carShop.pk):
             form = context.browser.find_by_tag('form').first
             context.browser.fill("name","AnyShop")
