@@ -34,6 +34,7 @@ def step_impl(context, shopName):
 
             form.find_by_css('button.btn-success').first.click()
 
+
 @then('I\'m viewing the details page for car at carshop "{shopName}" by "{email}"')
 def step_impl(context, shopName, email):
     q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
