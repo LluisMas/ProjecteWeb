@@ -58,7 +58,6 @@ def step_impl(context, shopName, email):
     #assert context.browser.url == context.get_url(car)
 
 
-
 @step("There are {count:n} cars")
 def step_impl(context, count):
     from distributors.models import Car

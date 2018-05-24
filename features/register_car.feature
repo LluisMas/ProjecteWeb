@@ -18,6 +18,7 @@ Feature: Register Car
       | Fish and Chips |
     And There are 1 cars
 
+
   Scenario: Register a Car with Customer role
     Given I login as user "customer@customer.com" with password "password" and I am user "customer"
     When I register a car at carshop "shopName"
