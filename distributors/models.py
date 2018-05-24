@@ -59,7 +59,7 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
 
     is_admin = models.BooleanField(default=False)
 
-    phoneNumber = models.IntegerField(max_length=12, null=True)
+    phoneNumber = models.IntegerField(null=True)
     street = models.CharField(max_length=30, null=True)
     gender = models.IntegerField(choices=(
         (1, 'Male'),
