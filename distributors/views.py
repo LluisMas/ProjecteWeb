@@ -2,6 +2,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
@@ -18,6 +19,7 @@ class LoginRequiredMixin(object):
     @method_decorator(login_required())
     def dispatch(self, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+
 
 class PermissionRequiredMixin(object):
     login_url = settings.LOGIN_URL
@@ -46,6 +48,7 @@ class PermissionRequiredMixin(object):
         return super(PermissionRequiredMixin, self).dispatch(
             request, *args, **kwargs)
 
+
 class CheckIsOwnerMixin(object):
     def get_object(self, *args, **kwargs):
         context_object_name = 'latest_person_list'
@@ -54,7 +57,6 @@ class CheckIsOwnerMixin(object):
 
 class LoginRequiredCheckIsOwnerUpdateView(CheckIsOwnerMixin, UpdateView):
     template_name = 'distributors/form.html'
-
 
 
 # HTML Views
@@ -66,6 +68,7 @@ class CarDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super(CarDetail, self).get_context_data(**kwargs)
         return context
+
 
 #
 # class SellerDetail(DetailView):
@@ -93,7 +96,6 @@ class CarShopDetail(DetailView):
         return context
 
 
-
 class CarShopList(ListView):
     model = CarShop
     context_object_name = 'latest_carshop_list'
@@ -119,14 +121,16 @@ class PersonList(PermissionRequiredMixin, ListView):
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
 
+
 class CarShopEdit(PermissionRequiredMixin, UpdateView):
     model = CarShop
-    #exclude = ['user']
+    # exclude = ['user']
     form_class = EditCarShopForm
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CarShopEdit, self).form_valid(form)
-    #template_name_suffix = "_update_form"
+    # template_name_suffix = "_update_form"
 
 
 class CarShopCreate(PermissionRequiredMixin, CreateView):
@@ -136,18 +140,18 @@ class CarShopCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        #form.instance.email = self.request.user.email
-        #form.instance.CarshopCreate =  CarShop.objects.get(id=self.kwargs['pk'])
+        # form.instance.email = self.request.user.email
+        # form.instance.CarshopCreate =  CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
 
 
 class CarShopDelete(PermissionRequiredMixin, DeleteView):
     model = CarShop
-    #template_name = 'department_delete.html'
+    # template_name = 'department_delete.html'
     template_name = 'distributors/carshop_delete.html'
 
-    #def get_success_url(self):
-     #   return reverse_lazy('department')
+    # def get_success_url(self):
+    #   return reverse_lazy('department')
 
     def get_object(self, queryset=None):
         obj = super(CarShopDelete, self).get_object()
@@ -156,11 +160,11 @@ class CarShopDelete(PermissionRequiredMixin, DeleteView):
     def get_success_url(self):
         return reverse('distributors:carshop_list')
 
+
 class CarCreate(PermissionRequiredMixin, CreateView):
     model = Car
     template_name = 'distributors/form.html'
     form_class = CarForm
-
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -170,18 +174,18 @@ class CarCreate(PermissionRequiredMixin, CreateView):
 
 class CarDelete(PermissionRequiredMixin, DeleteView):
     model = Car
-    #template_name = 'department_delete.html'
+    # template_name = 'department_delete.html'
     template_name = 'distributors/cars_delete.html'
 
-    #def get_success_url(self):
-     #   return reverse_lazy('department')
+    # def get_success_url(self):
+    #   return reverse_lazy('department')
 
     def get_object(self, queryset=None):
         obj = super(CarDelete, self).get_object()
         return obj
 
     def get_success_url(self):
-        return reverse('distributors:carshop_detail', kwargs={'pk':self.kwargs['pkr'],})
+        return reverse('distributors:carshop_detail', kwargs={'pk': self.kwargs['pkr'], })
 
 
 class CarEdit(PermissionRequiredMixin, UpdateView):
@@ -190,12 +194,13 @@ class CarEdit(PermissionRequiredMixin, UpdateView):
     template_name_suffix = "_update_form"
 
 
-
-class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
+class SellCreate(PermissionRequiredMixin,
+                 CreateView):  # isSellermixing envez de LoginRequiredMixin extienda LoginREquired
 
     model = Sell
     template_name = 'distributors/sell_form.html'
     form_class = SellForm
+
     def form_valid(self, form):
         form.instance.seller = self.request.user
         form.instance.car = Car.objects.get(id=self.kwargs['pk'])
@@ -212,7 +217,6 @@ class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de L
         return context
 
 
-
 class SellList(PermissionRequiredMixin, ListView):
     model = Sell
     context_object_name = 'latest_sells_list'
@@ -226,15 +230,21 @@ class SellDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(SellDetail, self).get_context_data(**kwargs)
         return context
-    
+
 
 @login_required()
 def review(request, pk):
     carshop = get_object_or_404(CarShop, pk=pk)
+    try:
+        stars = request.POST['rating']
+    except:
+        stars = 3
+
     if CarShopReview.objects.filter(shopName=carshop, user=request.user).exists():
         CarShopReview.objects.get(shopName=carshop, user=request.user).delete()
     new_review = CarShopReview(
-        rating=request.POST['rating'],
+
+        rating=stars,
         comment=request.POST['comment'],
         user=request.user,
         shopName=carshop)
