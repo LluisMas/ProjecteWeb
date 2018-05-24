@@ -37,9 +37,6 @@ def step_impl(context, username):
 
 @then('I\'m viewing a list containing those sells by user "{user}"')
 def step_impl(context, user):
-    file = open("/home/lmr/Desktop/verga.txt", "w")
-
     sells_links = context.browser.find_by_css('a.sell-link')
     for i, row in enumerate(context.table):
-        file.write(row['name'] + ' yyyyy ' + sells_links[i].text + ', ' + user + ' FIANAAAL ')
         assert row['name'] + ' , ' + user == sells_links[i].text
