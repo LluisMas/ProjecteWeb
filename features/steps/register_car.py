@@ -9,13 +9,13 @@ from django.urls.base import reverse
 
 use_step_matcher("parse")
 
-@step('Exists a carshop with name "{shopName}"')
-def step_impl(context, shopName):
+@step('Exists a carshop with name "{shopName}" and email "{email}"')
+def step_impl(context, shopName, email):
     from distributors.models import Person
-    user = Person.objects.create_user(name="user", email="email", password="password", type=2)
+    u= Person.objects.get(email=email)
     from distributors.models import CarShop
     CarShop.objects.create(inaugurationYear="1997", shopName=shopName, addr="Laverga",
-                           country="Argentina", city="Franco", user=user)
+                           country="Argentina", city="Franco", user=u)
 
 
 @when('I register a car at carshop "{shopName}"')
@@ -26,30 +26,30 @@ def step_impl(context, shopName):
 
     for row in context.table:
         context.browser.visit(context.get_url('distributors:add_car', carShop.pk))
+        with open('some.txt', 'a') as the_file:
+            the_file.write(context.browser.url)
+            the_file.write("\n")
+            the_file.write(context.get_url('distributors:add_car', carShop.pk))
         if context.browser.url == context.get_url('distributors:add_car', carShop.pk):
             form = context.browser.find_by_tag('form').first
             context.browser.fill("name","AnyShop")
-            context.browser.fill("kms", "AnyKms")
-            context.browser.fill("price", "AnyPrice")
+            context.browser.fill("body", "Compacto")
+            #context.browser.fill("price", "AnyPrice")
+
             form.find_by_css('button.btn-success').first.click()
 
-@then('I\'m viewing the details page for car at carshop "{shopName}" by "{user}"')
-def step_impl(context, shopName, user):
-    from distributors.models import CarShop
-    carShop = CarShop.objects.get(shopName=shopName)
-
+@then('I\'m viewing the details page for car at carshop "{shopName}" by "{email}"')
+def step_impl(context, shopName, email):
     q_list = [Q((attribute, context.table.rows[0][attribute])) for attribute in context.table.headings]
     from distributors.models import Person
-    q_list.append(Q(('user', Person.objects.get(name=user))))
-
-    q_list.append(Q(('carshop', carShop)))
+    q_list.append(Q(('user', Person.objects.get(email=email))))
+    from distributors.models import CarShop
+    q_list.append(Q(('carshop', CarShop.objects.get(shopName=shopName))))
 
     from distributors.models import Car
-    car = Car.objects.filter(reduce(operator.and_, q_list)).get()
-    with open('some.txt', 'a') as the_file:
-     the_file.write(context.browser.url)
-     the_file.write('\n')
-     the_file.write(context.get_url(car))
+    user = Person.objects.get(email=email)
+    shop = CarShop.objects.get(shopName=shopName)
+    car = Car.objects.get(carShop__shopName=shopName, carShop__user__email=email)
     assert context.browser.url == context.get_url(car)
 
     from distributors.models import Car

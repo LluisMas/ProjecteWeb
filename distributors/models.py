@@ -189,7 +189,7 @@ class CarShopReview(Review):
 
 class Car(models.Model):
 
-    name = models.CharField(max_length=30, null=True)
+    name = models.CharField(unique=True, max_length=30, null=True)
     # model = models.ForeignKey(Model, default=1)
     kms = models.PositiveIntegerField(default=0)
     price = models.PositiveIntegerField(default=0)
