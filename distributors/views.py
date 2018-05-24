@@ -226,6 +226,7 @@ class SellDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(SellDetail, self).get_context_data(**kwargs)
         return context
+    
 
 @login_required()
 def review(request, pk):
