@@ -197,6 +197,7 @@ class Car(models.Model):
     color = models.CharField(max_length=30, default="Color")
     registrationYear = models.PositiveIntegerField(default=0)
     carShop = models.ForeignKey(CarShop, null=True, related_name='cars')
+    #image = models.ImageField(upload_to='pic_folder/', default='pic_folder/None/no-img.jpg')
     #user = carShop.user
 
     year_dropdown = []
