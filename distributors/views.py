@@ -129,7 +129,7 @@ class CarShopEdit(PermissionRequiredMixin, UpdateView):
     #template_name_suffix = "_update_form"
 
 
-class CarShopCreate(CreateView):
+class CarShopCreate(PermissionRequiredMixin, CreateView):
     model = CarShop
     template_name = 'distributors/form.html'
     form_class = CarShopForm
@@ -141,7 +141,7 @@ class CarShopCreate(CreateView):
         return super(CarShopCreate, self).form_valid(form)
 
 
-class CarShopDelete(DeleteView):
+class CarShopDelete(PermissionRequiredMixin, DeleteView):
     model = CarShop
     #template_name = 'department_delete.html'
     template_name = 'distributors/carshop_delete.html'
@@ -156,7 +156,7 @@ class CarShopDelete(DeleteView):
     def get_success_url(self):
         return reverse('distributors:carshop_list')
 
-class CarCreate(CreateView):
+class CarCreate(PermissionRequiredMixin, CreateView):
     model = Car
     template_name = 'distributors/form.html'
     form_class = CarForm
@@ -168,7 +168,7 @@ class CarCreate(CreateView):
         return super(CarCreate, self).form_valid(form)
 
 
-class CarDelete(DeleteView):
+class CarDelete(PermissionRequiredMixin, DeleteView):
     model = Car
     #template_name = 'department_delete.html'
     template_name = 'distributors/cars_delete.html'
@@ -226,6 +226,7 @@ class SellDetail(PermissionRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(SellDetail, self).get_context_data(**kwargs)
         return context
+    
 
 @login_required()
 def review(request, pk):
