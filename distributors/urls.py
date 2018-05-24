@@ -4,9 +4,9 @@ from django.views.generic import DetailView, ListView, UpdateView, TemplateView
 from distributors.models import CarShop, Person, Car, Sell
 from distributors.views import CarList, review, PersonList, PersonDetail, CarShopList, \
     CarDetail, CarShopDetail, CarShopCreate, LoginRequiredCheckIsOwnerUpdateView, CarShopDelete, CarCreate, SellCreate, \
-    SellList, SellDetail, CarDelete
+    SellList, SellDetail, CarDelete, CarEdit, CarShopEdit
 
-from forms import CarShopForm, CarForm
+from forms import CarShopForm, CarForm, EditCarShopForm
 
 urlpatterns = [
     url(r'^$',
@@ -103,9 +103,9 @@ urlpatterns = [
 
     # Edit CarShop details, ex.: /myrestaurants/restaurants/1/edit/
     url(r'^carshop/(?P<pk>\d+)/edit/$',
-        LoginRequiredCheckIsOwnerUpdateView.as_view(
+        CarShopEdit.as_view(
             model=CarShop,
-            form_class=CarShopForm),
+            form_class=EditCarShopForm),
         name='distributors_edit'),
 
     # Delete CarShop details, ex.: /myrestaurants/restaurants/1/delete/
@@ -126,10 +126,11 @@ urlpatterns = [
          name='add_car'),
 
     # Edit Car details, ex.: /distributors/carshop/carshop_id/cars/car_id
-    url(r'^carshop/(?P<pk>\d+)/cars/(?P<p>\d+)/edit/$',
-        LoginRequiredCheckIsOwnerUpdateView.as_view(
+    url(r'^carshop/(?P<pkr>\d+)/cars/(?P<pk>\d+)/edit/$',
+        CarEdit.as_view(
             model=Car,
-            form_class=CarForm),
+            form_class=CarForm,
+        ),
         name='car_edit'),
 
     # Delete Car details, ex.: /myrestaurants/restaurants/1/delete/
