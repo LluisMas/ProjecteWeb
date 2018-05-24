@@ -53,6 +53,12 @@ def step_impl(context, username):
     assert context.browser.url == context.get_url(carShop)
 
 
+@then('I\'m viewing the details page for dealership with name "{name}"')
+def step_impl(context, name):
+    from distributors.models import CarShop
+    carShop = CarShop.objects.get(shopName=name)
+    assert context.browser.url == context.get_url(carShop)
+
 @step("There are {count:n} dealerships")
 def step_impl(context, count):
     from distributors.models import CarShop

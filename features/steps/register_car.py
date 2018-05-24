@@ -4,15 +4,13 @@ import operator
 from django.db.models import Q
 from django.urls.base import reverse
 
-
-
-
 use_step_matcher("parse")
+
 
 @step('Exists a carshop with name "{shopName}" and email "{email}"')
 def step_impl(context, shopName, email):
     from distributors.models import Person
-    u= Person.objects.get(email=email)
+    u = Person.objects.get(email=email)
     from distributors.models import CarShop
     CarShop.objects.create(inaugurationYear="1997", shopName=shopName, addr="Laverga",
                            country="Argentina", city="Franco", user=u)
@@ -23,14 +21,13 @@ def step_impl(context, shopName):
     from distributors.models import CarShop
     carShop = CarShop.objects.get(shopName=shopName)
 
-
     for row in context.table:
         context.browser.visit(context.get_url('distributors:add_car', carShop.pk))
         if context.browser.url == context.get_url('distributors:add_car', carShop.pk):
             form = context.browser.find_by_tag('form').first
             context.browser.fill("name","AnyShop")
             context.browser.fill("body", "Compacto")
-            #context.browser.fill("price", "AnyPrice")
+            # context.browser.fill("price", "AnyPrice")
 
             form.find_by_css('button.btn-success').first.click()
 

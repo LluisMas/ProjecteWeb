@@ -4,6 +4,7 @@ import operator
 from django.db.models import Q
 from django.urls.base import reverse
 
+
 @given('Exists dealership registered by "{username}"')
 def step_impl(context, username):
     from distributors.models import Person
@@ -14,6 +15,7 @@ def step_impl(context, username):
         for heading in row.headings:
             setattr(carShop, heading, row[heading])
         carShop.save()
+
 
 @when('I edit the dealership with name "{name}"')
 def step_impl(context, name):
