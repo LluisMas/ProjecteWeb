@@ -73,6 +73,7 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
         (2, 'Seller')
     ),default=1)
 
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

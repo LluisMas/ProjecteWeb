@@ -119,6 +119,16 @@ class PersonList(PermissionRequiredMixin, ListView):
     context_object_name = 'latest_person_list'
     template_name = 'distributors/person_list.html'
 
+class CarShopEdit(PermissionRequiredMixin, UpdateView):
+    model = CarShop
+    #exclude = ['user']
+    form_class = EditCarShopForm
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CarShopEdit, self).form_valid(form)
+    #template_name_suffix = "_update_form"
+
+
 class CarShopCreate(CreateView):
     model = CarShop
     template_name = 'distributors/form.html'
@@ -179,14 +189,6 @@ class CarEdit(PermissionRequiredMixin, UpdateView):
     #
     template_name_suffix = "_update_form"
 
-class CarShopEdit(PermissionRequiredMixin, UpdateView):
-    model = CarShop
-    #exclude = ['user']
-    form_class = EditCarShopForm
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(CarShopEdit, self).form_valid(form)
-    #template_name_suffix = "_update_form"
 
 
 class SellCreate(PermissionRequiredMixin, CreateView):#isSellermixing envez de LoginRequiredMixin extienda LoginREquired
