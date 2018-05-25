@@ -6,9 +6,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from distributors import models
 from models import Person
 
-#admin.site.register(models.Person)
 admin.site.register(models.CarShop)
-#admin.site.register(models.Model)
 admin.site.register(models.Car)
 admin.site.register(models.Sell)
 admin.site.register(models.CarShopReview)

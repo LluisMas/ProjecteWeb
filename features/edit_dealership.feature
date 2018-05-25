@@ -29,19 +29,3 @@ Feature: Edit DealerShip
     Given I'm not logged in
     When I list dealerships
     Then There is not "Editar" link available
-
-#  Scenario: Try to edit restaurant but not the owner no edit button
-#    Given I login as user "user2" with password "password"
-#    When I view the details for restaurant "The Tavern"
-#    Then There is no "Edit" link available
-#
-#  Scenario: Force edit restaurant but not the owner permission exception
-#    Given I login as user "user2" with password "password"
-#    When I edit the restaurant with name "The Tavern"
-#      | country         |
-#      | England         |
-#    Then Server responds with page containing "403 Forbidden"
-#    When I view the details for restaurant "The Tavern"
-#    Then I'm viewing the details page for restaurant by "user1"
-#      | name            | city            | country         |
-#      | The Tavern      | London          | USA             |

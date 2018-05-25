@@ -191,14 +191,11 @@ class CarShopReview(Review):
 class Car(models.Model):
 
     name = models.CharField(unique=True, max_length=30, null=True)
-    # model = models.ForeignKey(Model, default=1)
     kms = models.PositiveIntegerField(default=0)
     price = models.PositiveIntegerField(default=0)
     color = models.CharField(max_length=30, default="Color")
     registrationYear = models.PositiveIntegerField(default=0)
     carShop = models.ForeignKey(CarShop, null=True, related_name='cars')
-    #image = models.ImageField(upload_to='pic_folder/', default='pic_folder/None/no-img.jpg')
-    #user = carShop.user
 
     year_dropdown = []
     for y in range(2011, (datetime.datetime.now().year + 5)):
@@ -228,8 +225,6 @@ class Car(models.Model):
 
     def get_absolute_url(self):
         return reverse('distributors:car_detail', kwargs={'pkr': self.carShop.pk, 'pk': self.pk})
-
-    #return reverse('myrestaurants:dish_detail', kwargs={'pkr': self.restaurant.pk, 'pk': self.pk})
 
 
 class Sell(models.Model):

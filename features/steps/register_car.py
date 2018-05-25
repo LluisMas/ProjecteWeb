@@ -46,13 +46,6 @@ def step_impl(context, shopName, email):
     car = Car.objects.get(carShop__shopName=shopName, carShop__user__email=email)
     assert context.browser.url == context.get_url(car)
 
-    from distributors.models import Car
-    #car = Car.objects.get(shopName=carShop.shopName)
-
-    #with open('some.txt', 'a') as the_file:
-    #    the_file.write('Hello\n')
-
-    #assert context.browser.url == context.get_url(car)
 
 
 @step("There are {count:n} cars")
