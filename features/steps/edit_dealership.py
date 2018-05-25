@@ -29,7 +29,4 @@ def step_impl(context, name):
             context.browser.fill(heading, context.table[0][heading])
         context.browser.find_by_css('button.btn-success').first.click()
 
-        file = open("verga.txt", "wa")
-        file.write(context.get_url(carShop) + " Browser: " + context.browser.url)
-
         assert context.browser.url == context.get_url(carShop) + 'edit/'
