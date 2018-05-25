@@ -5,7 +5,6 @@ Feature: Trying to delete all the deletable things with any role.
     Given Exists a user "customer" with password "customer" and email "customer@customer.com" with Customer role
     And Exists a carshop with name "shopName" and email "seller@seller.com"
 
-
     Scenario: Delete a car with Seller role
       Given I login as user "seller@seller.com" with password "seller" and I am user "seller"
       When I register a car at carshop "shopName"
@@ -30,4 +29,10 @@ Feature: Trying to delete all the deletable things with any role.
       When I list dealerships
       Then There is not "Editar" link available
       And There is not "Elimiar" link available
+
+    Scenario: Try to delete dealership but not logged in
+      Given I'm not logged in
+      When I list dealerships
+      Then There is not "Editar" link available
+      And There is not "Eliminar" link available
 

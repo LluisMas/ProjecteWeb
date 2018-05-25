@@ -50,6 +50,9 @@ def step_impl(context, username):
     from distributors.models import CarShop
     user = Person.objects.get(email=username)
     carShop = CarShop.objects.get(user=user)
+    with open('some.txt', 'a') as the_file:
+        the_file.write(context.get_url(carShop) + '\n')
+        the_file.write(context.browser.url + '\n')
     assert context.browser.url == context.get_url(carShop)
 
 

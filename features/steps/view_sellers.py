@@ -18,6 +18,6 @@ def step_impl(context):
     assert context.browser.url == context.get_url("distributors:seller_list")
 
 
-@step('Customer list contains {count:n} seller')
+@step('Seller list contains {count:n} seller')
 def step_impl(context, count):
     assert count == len(context.browser.find_by_css('a.seller-link'))
