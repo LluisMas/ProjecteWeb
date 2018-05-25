@@ -13,18 +13,23 @@ Feature: Edit DealerShip
   Scenario: Edit owned dealership registry country
     Given I login as user "test@test.com" with password "password" and I am user "user"
     When I edit the dealership with name "The Tavern"
-      | country         |
-      | England         |
-#    Then I'm viewing the details page for dealership by "test@test.com"
-#      | shopName       |
-#      | The Tavern     |
-#    And There are 1 dealerships
+      | shopName         |
+      | Concesionario         |
+    Then I'm viewing the details page for dealership by "test@test.com"
+      | shopName       |
+      | Concesionario  |
+    And There are 1 dealerships
 
-#  Scenario: Try to edit restaurant but not logged in
-#    Given I'm not logged in
-#    When I view the details for restaurant "The Tavern"
-#    Then There is no "Edit" link available
-#
+  Scenario: Try to edit restaurant but not logged in
+    Given  I login as user "customer@customer.com" with password "password" and I am user "customer"
+    When I list dealerships
+    Then There is not "Editar" link available
+
+  Scenario: Try to edit dealership but not logged in
+    Given I'm not logged in
+    When I list dealerships
+    Then There is not "Editar" link available
+
 #  Scenario: Try to edit restaurant but not the owner no edit button
 #    Given I login as user "user2" with password "password"
 #    When I view the details for restaurant "The Tavern"

@@ -27,6 +27,8 @@ def step_impl(context, name):
         form = context.browser.find_by_tag('form').first
         for heading in context.table.headings:
             context.browser.fill(heading, context.table[0][heading])
+            context.browser.fill("addr", "concesionario")
+            context.browser.fill("country", "nopais")
         context.browser.find_by_css('button.btn-success').first.click()
 
-        assert context.browser.url == context.get_url(carShop) + 'edit/'
+        assert context.browser.url == context.get_url(carShop)
