@@ -16,11 +16,12 @@
       Concesionarios</a></li>
   <li><a href="/distributors/car/">
       Lista de Coches</a></li>
+     {% if user.type == 2 or user.is_superuser %}
   <li><a href="/distributors/seller/">
       Lista de Vendedores</a></li>
   <li><a href="/distributors/customer/">
       Lista de Clientes</a></li>
-    {% if user.type == 2 or user.is_superuser %}
+
 
     <li><a href="/distributors/sells/">
         Lista de Ventas</a></li>
