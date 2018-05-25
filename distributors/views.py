@@ -69,17 +69,6 @@ class CarDetail(DetailView):
         context = super(CarDetail, self).get_context_data(**kwargs)
         return context
 
-
-#
-# class SellerDetail(DetailView):
-#     model = Person
-#     template_name = 'distributors/seller_detail.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(SellerDetail, self).get_context_data(**kwargs)
-#         return context
-#
-
 class CarList(ListView):
     model = Car
     context_object_name = 'latest_car_list'
@@ -140,18 +129,12 @@ class CarShopCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        # form.instance.email = self.request.user.email
-        # form.instance.CarshopCreate =  CarShop.objects.get(id=self.kwargs['pk'])
         return super(CarShopCreate, self).form_valid(form)
 
 
 class CarShopDelete(PermissionRequiredMixin, DeleteView):
     model = CarShop
-    # template_name = 'department_delete.html'
     template_name = 'distributors/carshop_delete.html'
-
-    # def get_success_url(self):
-    #   return reverse_lazy('department')
 
     def get_object(self, queryset=None):
         obj = super(CarShopDelete, self).get_object()
@@ -174,11 +157,7 @@ class CarCreate(PermissionRequiredMixin, CreateView):
 
 class CarDelete(PermissionRequiredMixin, DeleteView):
     model = Car
-    # template_name = 'department_delete.html'
     template_name = 'distributors/cars_delete.html'
-
-    # def get_success_url(self):
-    #   return reverse_lazy('department')
 
     def get_object(self, queryset=None):
         obj = super(CarDelete, self).get_object()
@@ -195,7 +174,7 @@ class CarEdit(PermissionRequiredMixin, UpdateView):
 
 
 class SellCreate(PermissionRequiredMixin,
-                 CreateView):  # isSellermixing envez de LoginRequiredMixin extienda LoginREquired
+                 CreateView):
 
     model = Sell
     template_name = 'distributors/sell_form.html'

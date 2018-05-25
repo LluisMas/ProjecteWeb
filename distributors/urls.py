@@ -50,13 +50,6 @@ urlpatterns = [
             template_name='distributors/customer_detail.html'),
         name='customer_detail'),
 
-  #  url(r'^carshop/$',
-   #     CarShopList.as_view(
-    #        # context_object_name = 'latest_movie_list',
-     #       model=CarShop,
-      #      context_object_name='latest_carshop_list',
-       #     template_name='distributors/carshop_list.html'),
-       # name='carshop_list'),
 
     url(r'^carshop/$',
         CarShopList.as_view(
@@ -114,18 +107,10 @@ urlpatterns = [
         template_name = 'distributors/carshop_delete.html'),
         name='distributors_delete'),
 
-    # Create CarShop details, ex.: /myrestaurants/restaurants/1/edit/
-    # url(r'^carshop/(?P<pk>\d+)/create/$',
-    #     LoginRequiredCheckIsOwnerUpdateView.as_view(
-    #         model=Car,
-    #         form_class=CarForm),
-    #         name='add_car'),
-
     url(r'^carshop/(?P<pk>\d+)/create/$',
          CarCreate.as_view(),
          name='add_car'),
 
-    # Edit Car details, ex.: /distributors/carshop/carshop_id/cars/car_id
     url(r'^carshop/(?P<pkr>\d+)/cars/(?P<pk>\d+)/edit/$',
         CarEdit.as_view(
             model=Car,
@@ -133,7 +118,6 @@ urlpatterns = [
         ),
         name='car_edit'),
 
-    # Delete Car details, ex.: /myrestaurants/restaurants/1/delete/
     url(r'^carshop/(?P<pkr>\d+)/cars/(?P<pk>\d+)/delete/$',
         CarDelete.as_view(
             template_name='distributors/cars_delete.html'),
@@ -158,9 +142,7 @@ urlpatterns = [
     url(r'^sells/(?P<pk>\d+)/$',
         SellDetail.as_view(),
         name='sell_detail'),
-    #r'^carshop/(?P<pk>\d+)/create/$'
 
-# Create a restaurant review, ex.: /myrestaurants/restaurants/1/reviews/create/
     url(r'^carshop/(?P<pk>\d+)/reviews/create/$',
         review,
         name='review_create'),
