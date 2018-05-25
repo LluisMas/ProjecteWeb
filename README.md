@@ -1,5 +1,7 @@
 LRL Distributors
 
+[![Build Status](https://travis-ci.com/LluisMas/ProjecteWeb.svg?branch=master)](https://travis-ci.org/LluisMas/ProjecteWeb)
+
 # Testing with Ubuntu  
 
 To be able to use *behave* in Ubuntu you must download the latest version of Firefox Browser. 
