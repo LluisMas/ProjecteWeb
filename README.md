@@ -1,6 +1,6 @@
 LRL Distributors
 
-[![Build Status](https://travis-ci.org/LluisMas/ProjecteWeb.svg?branch=master)](https://travis-ci.org/LluisMas/ProjecteWeb)
+[![Build Status](https://travis-ci.com/LluisMas/ProjecteWeb.svg?branch=master)](https://travis-ci.org/LluisMas/ProjecteWeb)
 
 # Testing with Ubuntu  
 
