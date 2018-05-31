@@ -9,22 +9,19 @@
                 margin-right: auto;
                 width: 50%;
         }
-
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             max-width:100%;
             white-space:nowrap;
         }
-
         td, th {
             border:  1px solid transparent;
             text-align: left;
             padding: 8px;
         }
     </style>
-
-<span vocab="http://schema.org/" typeof="Car Detail">
+<span vocab="http://schema.org/" typeof="Car">
     <div class="row">
         <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
         <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
@@ -33,26 +30,20 @@
 	<h2>
 		<span property="name">{{ car.name }}</span>
 	</h2>
-
-
 	<p>
-
         <div class="row">
             <div class="col-sm-9">
-                <span property="body">Precio: {{ car.price }}</span> <br />
-		        <span property="modelYear" content="{{ car.modelYear }}-1-1">Año: {{ car.modelYear }}</span> <br />
-                <span property="body">Tipo de coche: {{ car.body }}</span> <br />
-                <span property="seats">Asientos: {{ car.seats }}</span> <br />
-                <span property="maxTopSpeed">Velocidad Maxima: {{ car.maxTopSpeed }}</span> <br />
-                <span property="doors">Puertas: {{ car.get_doors_display }}</span> <br />
+            <span vocab="http://schema.org/" typeof="PriceSpecification">
+                <span property="price" content="{{ car.price }}">Precio: {{ car.price }} $ </span> <br />
+                </span>
+                <br />
+		        <span property="modelDate" content="{{ car.modelYear }}-1-1">Año: {{ car.modelYear }}</span> <br />
+                <span property="bodyType">Tipo de coche: {{ car.body }}</span> <br />
+                <span property="seatingCapacity">Asientos: {{ car.seats }}</span> <br />
+                <span property="speed">Velocidad Maxima: {{ car.maxTopSpeed }}</span> <br />
+                <span property="numberOfDoors">Puertas: {{ car.get_doors_display }}</span> <br />
                 <span property="fuelType">Combustible: {{ car.get_fuelType_display }}</span> <br />
-
-
             </div>
-
-
-
-
                 {% if request.user.type == 2 and car.availability == 1 %}
                     <table>
                         <tr>
@@ -68,15 +59,11 @@
                     </table>
                 {% endif %}
                 </div>
-
-
-
   <div class="row">
     <div class="col">
         <img class="img-fluid" src="http://media.luxury-insider.com/public/uploads/news/2016/01/audi-a8-transporter-2-3.jpg"/>
     </div>
   </div>
-
 </span>
 
     </p>

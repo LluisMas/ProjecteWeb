@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="container-fluid">
+    <div class="container-fluid">
         <style>
             .center {
                 display: block;
@@ -11,11 +11,11 @@
                 width: 50%;
             }
         </style>
-<span vocab="http://schema.org/" typeof="AutoDealer">
+        <span vocab="http://schema.org/" typeof="AutoDealer">
 	 <div class="row">
         <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
         <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
-        {{ carshop.shopName }}</h4>
+            {{ carshop.shopName }}</h4>
     </div>
     <h2>
 		<span property="name">{{ carshop.shopName }}</span>
@@ -43,33 +43,33 @@
                 <div class="col-sm-9">
                     {% for car in carshop.cars.all %}
                         {% if car.availability == 1 %}
-                        <p><a class="car-link" href="{% url 'distributors:car_detail' carshop.id car.id %}">
+                            <p><a class="car-link" href="{% url 'distributors:car_detail' carshop.id car.id %}">
                             {{ car.name }}
                         {% endif %}
-                        </a></p>
+                    </a></p>
                     {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
                     {% endfor %}
                 </div>
-                                {% if user.type == 2 or user.is_superuser %}
-                <div class="col-sm-3 text-right">
+                {% if user.type == 2 or user.is_superuser %}
+                    <div class="col-sm-3 text-right">
                     <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
                 </div>
-                                {% endif %}
+                {% endif %}
                 </div>
         </div>
     <div class="row mt-3">
         <div class="col-md">
             <h5>Rating</h5>
             {% if carshop.carshopreview_set.all|length > 0 %}
-            <p>
+                <p>
                 <strong>{{ carshop.averageRating|stringformat:".1f" }}</strong>
-                {% with carshop.carshopreview_set.all|length as reviewCount %}
-                    (average from {{ reviewCount }} review{{ reviewCount|pluralize }})
-                {% endwith %}
+                    {% with carshop.carshopreview_set.all|length as reviewCount %}
+                        (average from {{ reviewCount }} review{{ reviewCount|pluralize }})
+                    {% endwith %}
             </p>
             {% endif %}
-                    {% if user.is_authenticated and user.type == 1 %}
-            <form action="{% url 'distributors:review_create' carshop.id %}" method="post">
+            {% if user.is_authenticated and user.type == 1 %}
+                <form action="{% url 'distributors:review_create' carshop.id %}" method="post">
                 {% csrf_token %}
                 <div id="div_id_comment" class="form-group">
                     <label for="id_comment" class="col-form-label ">Comment:</label>
@@ -88,7 +88,7 @@
                     <button class="btn btn-success" type="submit">Add Review</button>
                 </div>
             </form>
-                    {% endif %}
+            {% endif %}
         </div>
         <div class="col-md">
             <h5>Reviews</h5>
@@ -107,10 +107,7 @@
             {% endfor %}
         </div>
     </div>
-    <span property="image">
-    http://google.es
-            <img id="i1" src="{{ carshop.image.url }}" class="center"></img>
-    </span> <br />
+            <img id="i1" src="https://vignette.wikia.nocookie.net/fastandfurious/images/b/bb/The_Racers_Edge.jpg/revision/latest?cb=20150501084059" class="center"></img>
     </span>
     </div>
 
