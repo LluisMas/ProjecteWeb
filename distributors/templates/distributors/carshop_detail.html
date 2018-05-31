@@ -1,8 +1,41 @@
-{% extends "distributors/base.html" %}
-{% load staticfiles %}
-{% block content %}
-    <div class="container-fluid">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/static/style/base.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <title>LRL Distributors</title>
+</head>
+<body><!-- bgcolor="#00FF00"-->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="/distributors/">Distributors</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+      </li>
+    </ul>
+    <ul class="navbar-nav">
 
+            <li class="nav-item">
+                <a class="nav-link" href="/accounts/login/?next=/distributors/carshop/19/">Login</a>
+            </li>
+
+    </ul>
+  </div>
+</nav>
+<main id="content" class="container mt-3">
+
+    <div class="container-fluid">
         <style>
             .center {
                 display: block;
@@ -11,143 +44,114 @@
                 width: 50%;
             }
         </style>
-
 <span vocab="http://schema.org/" typeof="AutoDealer">
 	 <div class="row">
-        <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
-        <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
-        {{ carshop.shopName }}</h4>
+        <h4 class="col"><a href="/distributors/">Menu Principal</a> >
+        <a href="/distributors/carshop/">Concesionarios</a> >
+        Concesionario Chevrolet</h4>
     </div>
-
     <h2>
-		<span property="name">{{ carshop.shopName }}</span>
+		<span property="name">Concesionario Chevrolet</span>
 	</h2>
-
-
 	<p>
-		<span property="inagurationYear" typeof="dateCreated" content="{{ carshop.inagurationYear }}-1-1">
-			Año de Inauguración: {{ carshop.get_inaugurationYear_display }}
+		<span property="foundingDate" content="-1-1">
+			Año de Inauguración: 2009
 		</span> <br />
-
-		<span property="addr">
-			Dirección: {{ carshop.addr }}
+		<span property="address">
+			Dirección: Avenida Madrid
 		</span> <br />
-
-        <span property="country">
-			País: {{ carshop.country }}
+        <span property="foundingLocation">
+			País: Ecuador
 		</span> <br />
-
- </p>
-
-
+                <span property="telephone">
+			+34 658121919
+		</span> <br />
+                <span property="priceRange">
+			30000$
+		</span> <br />
+ 	</p>
         <div class="col-md mt-3">
             <h5>Coches:</h5>
             <div class="row">
                 <div class="col-sm-9">
-                    {% for car in carshop.cars.all %}
-
-                        {% if car.availability == 1 %}
-
-                        <p><a class="car-link" href="{% url 'distributors:car_detail' carshop.id car.id %}">
-                            {{ car.name }}
-
-                        {% endif %}
 
 
+                        <p><a class="car-link"
+                        href="/distributors/carshop/19/cars/44/">
+                            Chevrolet1
 
                         </a></p>
-                    {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
-                    {% endfor %}
-                </div>
-                                {% if user.type == 2 or user.is_superuser %}
-                <div class="col-sm-3 text-right">
 
-                    <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
-                </div>
-                                {% endif %}
+
+                        <p><a class="car-link" href="/distributors/carshop/19/cars/45/">
+                            Chevrolet2
+
+                        </a></p>
 
                 </div>
+
         </div>
-
-
-
-
-
     <div class="row mt-3">
         <div class="col-md">
             <h5>Rating</h5>
-            {% if carshop.carshopreview_set.all|length > 0 %}
+
             <p>
-                <strong>{{ carshop.averageRating|stringformat:".1f" }}</strong>
-                {% with carshop.carshopreview_set.all|length as reviewCount %}
-                    (average from {{ reviewCount }} review{{ reviewCount|pluralize }})
-                {% endwith %}
+                <strong>4.0</strong>
+
+                    (average from 1 review)
+
             </p>
-            {% endif %}
-
-
-
-
-                    {% if user.is_authenticated and user.type == 1 %}
-
-
-            <form action="{% url 'distributors:review_create' carshop.id %}" method="post">
-                {% csrf_token %}
-                <div id="div_id_comment" class="form-group">
-                    <label for="id_comment" class="col-form-label ">Comment:</label>
-                    <textarea class="form-control" name="comment" id="id_comment" rows="2"></textarea>
-                </div>
-                <p>Rating:
-                    <span class="rating">
-                    {% for rate in RATING_CHOICES reversed %}
-                        <input type="radio" class="rating-input" id="rating-{{ forloop.revcounter }}"
-                               name="rating" value="{{ rate.0 }}"/>
-                        <label for="rating-{{ forloop.revcounter }}" class="rating-star"></label>
-                    {% endfor %}
-                    </span>
-                </p>
-                <div class="text-right">
-                    <button class="btn btn-success" type="submit">Add Review</button>
-                </div>
-            </form>
-
-                    {% endif %}
-
 
 
         </div>
         <div class="col-md">
             <h5>Reviews</h5>
-            {% for review in carshop.carshopreview_set.all %}
+
                 <blockquote class="blockquote review">
                     <small>
                         <span class="rating">
-                          {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
+                          &starf;&starf;&starf;&starf;&star;
                         </span>
-                        {% if review.comment %}
-                            &rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}
-                        <footer class="blockquote-footer text-center">{{ review.user }}, {{ review.date }}</footer>
+
+                            &rdquo;<strong class="mb-0">Solucionaron mis dudas muy rapida.</strong>&rdquo;
+                        <footer class="blockquote-footer text-center">Adria Casals, May 25, 2018</footer>
                     </small>
                 </blockquote>
-            {% empty %}<p>Sorry, no reviews for this carshop yet</p>
-            {% endfor %}
+
         </div>
     </div>
-
-
-
-
-
-
-
-    <span property="carimage">
-            <img id="i1" src="{{ carshop.image.url }}" class="center"></img>
-    </span> <br />
-
-
-
+    <span property="image">
+    	http://www.google.es
+<img src="http://farm6.static.flickr.com/5178/5428759578_d6fb2288a4.jpg" />
     </span>
 
 
+        </div>
+</span>
     </div>
-{% endblock %}
+</main>
+<footer>
+
+        <div class="text-muted text-center">
+            <svg class="octicon octicon-pencil" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true">
+                <path fill-rule="evenodd" d="M0 11.592v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3l-1.3 1.3-3-3 1.3-1.3a.996.996 0 0 1 1.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"></path>
+            </svg>
+            by <a href="https://github.com/lrcarrera/"> lrcarrera </a> &
+            <a href="https://github.com/lluismas/">lluismas </a> &
+            <a href="https://github.com/rspaimoc/">rspaimoc </a>at
+            <a href="https://github.com/rogargon/myrecommendations-bdd/">
+                <svg class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+        </div>
+
+</footer>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- Bootstrap JavaScripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
