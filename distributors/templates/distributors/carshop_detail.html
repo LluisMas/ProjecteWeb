@@ -77,8 +77,9 @@
                         {% endwith %}
                     </p>
                     </span>
-                                <blockquote class="blockquote review">
 
+                    <blockquote class="blockquote review">
+                <ul rel="review">
                         {% for review in carshop.carshopreview_set.all %}
 
                             <li typeof="Review">
@@ -88,23 +89,24 @@
                                     <span class="rating">
                                     Puntuación: <span property="ratingValue">{{ review.rating }}</span>
                                     {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
-                                    {% with RATING_CHOICES|last as best %}
-                                        <span property="bestRating" content="{{ best.0 }}"></span>
-                                    {% endwith %}
+                                        {% with RATING_CHOICES|last as best %}
+                                            <span property="bestRating" content="{{ best.0 }}"></span>
+                                        {% endwith %}
                                     </span>
                                 </p>
 
                                 <p property="description">{% if review.comment %}&rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}</p>
-                                <footer class="blockquote-footer text-center">{{ review.user }}, {{ review.date }}</footer
-                                <p>Creado por <span property="author">{{ review.user }}</span> en
+                                <footer class="blockquote-footer text-center">{{ review.user }}, {{ review.date }}</footer>
+                                <h6>Creado por <span property="author">{{ review.user }}</span> en
                                     <span property="datePublished" content="{{ review.date|date:'Y-m-d' }}">{{ review.date }}</span>
-                                </p>
-                                </blockquote>
+                                </h6>
+
                             </li>
 
                         {% endfor %}
-
                     </ul>
+                     </blockquote>
+
                 {% endif %}
 
 
