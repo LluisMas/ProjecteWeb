@@ -50,7 +50,7 @@
                             {{ car.name }}
                             </a></p>
                         {% endif %}
-                        {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
+                    {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
                     {% endfor %}
                 </div>
                 {% if user.type == 2 or user.is_superuser %}
@@ -73,7 +73,7 @@
                     <p typeof="AggregateRating">
                         Puntuación media <span property="ratingValue">{{ carshop.averageRating|stringformat:".1f" }}</span>
                         {% with carshop.carshopreview_set.all|length as reviewCount %}
-                        de <span property="reviewCount">{{ reviewCount }}</span> comentario{{ reviewCount|pluralize }}
+                            de <span property="reviewCount">{{ reviewCount }}</span> comentario{{ reviewCount|pluralize }}
                         {% endwith %}
                     </p>
                     </span>
@@ -88,7 +88,7 @@
                                     Puntuación: <span property="ratingValue">{{ review.rating }}</span>
                                     {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
                                     {% with RATING_CHOICES|last as best %}
-                                    <span property="bestRating" content="{{ best.0 }}"></span>
+                                        <span property="bestRating" content="{{ best.0 }}"></span>
                                     {% endwith %}
 
                                 </p>
@@ -136,18 +136,15 @@
 
 
             </div>
-                        <img id="i1" src="https://i.ytimg.com/vi/FsZu-F7i_cc/hqdefault.jpg" class="center"></img>
 
+            <img id="i1" src="https://i.ytimg.com/vi/FsZu-F7i_cc/hqdefault.jpg" class="center"></img>
             <div property="image" typeof="ImageObject">
 
-    <link property="url" src="https://i.ytimg.com/vi/FsZu-F7i_cc/hqdefault.jpg" />
-    <meta property="height" content="50" />
-    <meta property="width" content="50" />
-  </div>
-
-
+                <link property="url" src="https://i.ytimg.com/vi/FsZu-F7i_cc/hqdefault.jpg" />
+                <meta property="height" content="50" />
+                <meta property="width" content="50" />
+            </div>
         </span>
-
     </div>
 {% endblock %}
 

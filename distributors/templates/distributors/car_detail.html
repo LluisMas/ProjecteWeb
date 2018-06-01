@@ -1,27 +1,27 @@
 {% extends "distributors/base.html" %}
 
 <div class="container-fluid">
-{% block content %}
-    <style>
-        .center {
+    {% block content %}
+        <style>
+            .center {
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
                 width: 50%;
-        }
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            max-width:100%;
-            white-space:nowrap;
-        }
-        td, th {
-            border:  1px solid transparent;
-            text-align: left;
-            padding: 8px;
-        }
-    </style>
-<span vocab="http://schema.org/" typeof="Car">
+            }
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                max-width:100%;
+                white-space:nowrap;
+            }
+            td, th {
+                border:  1px solid transparent;
+                text-align: left;
+                padding: 8px;
+            }
+        </style>
+        <span vocab="http://schema.org/" typeof="Car">
     <div class="row">
         <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
         <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
@@ -44,8 +44,8 @@
                 <span property="numberOfDoors">Puertas: {{ car.get_doors_display }}</span> <br />
                 <span property="fuelType">Combustible: {{ car.get_fuelType_display }}</span> <br />
             </div>
-                {% if request.user.type == 2 and car.availability == 1 %}
-                    <table>
+            {% if request.user.type == 2 and car.availability == 1 %}
+                <table>
                         <tr>
                         <th></th>
                         <th></th>
@@ -57,16 +57,19 @@
                             <td> <a class="btn btn-success" href="{% url 'distributors:add_sell' car.id %}">Añadir Venta</a></td>
                         </tr>
                     </table>
-                {% endif %}
+            {% endif %}
                 </div>
   <div class="row">
-    <div class="col">
-        <img class="img-fluid" src="http://media.luxury-insider.com/public/uploads/news/2016/01/audi-a8-transporter-2-3.jpg"/>
-    </div>
+                <img id="i1" src="http://media.luxury-insider.com/public/uploads/news/2016/01/audi-a8-transporter-2-3.jpg" class="center"></img>
+            <div property="image" typeof="ImageObject">
+
+                <link property="url" src="http://media.luxury-insider.com/public/uploads/news/2016/01/audi-a8-transporter-2-3.jpg" />
+                <meta property="height" content="50" />
+                <meta property="width" content="50" />
+            </div>
   </div>
 </span>
+        </p>
 
-    </p>
-
-{% endblock %}
+    {% endblock %}
 </div>
