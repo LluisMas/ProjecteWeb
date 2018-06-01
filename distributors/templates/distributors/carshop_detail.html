@@ -73,7 +73,7 @@
                     <p typeof="AggregateRating">
                         Puntuación media <span property="ratingValue">{{ carshop.averageRating|stringformat:".1f" }}</span>
                         {% with carshop.carshopreview_set.all|length as reviewCount %}
-                        de <span property="reviewCount">{{ reviewCount }}</span> comentarios.{{ reviewCount|pluralize }}
+                        de <span property="reviewCount">{{ reviewCount }}</span> comentario{{ reviewCount|pluralize }}
                         {% endwith %}
                     </p>
                     </span>
@@ -85,10 +85,8 @@
 
                                 <p rel="reviewRating" typeof="Rating">
                                     <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
-                                    <span property="ratingValue">
-                                        {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
-                                    </span>
-
+                                    Puntuación: <span property="ratingValue">{{ review.rating }}</span>
+                                    {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
                                     {% with RATING_CHOICES|last as best %}
                                     <span property="bestRating" content="{{ best.0 }}"></span>
                                     {% endwith %}
