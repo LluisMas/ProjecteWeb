@@ -59,22 +59,34 @@
         </div>
     <div class="row mt-3">
         <div class="col-md">
+
+
             <h5>Rating</h5>
             {% if carshop.carshopreview_set.all|length > 0 %}
-                <p>
+
+<span rel="aggregateRating">
+    <p typeof="AggregateRating">
                 <strong>{{ carshop.averageRating|stringformat:".1f" }}</strong>
                     {% with carshop.carshopreview_set.all|length as reviewCount %}
                         (average from {{ reviewCount }} review{{ reviewCount|pluralize }})
                     {% endwith %}
-            </p>
+                </p>
+</span>
+
+
+
             {% endif %}
             {% if user.is_authenticated and user.type == 1 %}
                 <form action="{% url 'distributors:review_create' carshop.id %}" method="post">
                 {% csrf_token %}
                 <div id="div_id_comment" class="form-group">
+
                     <label for="id_comment" class="col-form-label ">Comment:</label>
                     <textarea class="form-control" name="comment" id="id_comment" rows="2"></textarea>
                 </div>
+
+
+
                 <p>Rating:
                     <span class="rating">
                     {% for rate in RATING_CHOICES reversed %}
@@ -91,23 +103,67 @@
             {% endif %}
         </div>
         <div class="col-md">
+
+
+
             <h5>Reviews</h5>
+
+
+        <ul rel="review">
             {% for review in carshop.carshopreview_set.all %}
+
+
+
+{% comment %}
+<li typeof="Review">
+            <p rel="reviewRating" typeof="Rating">
+                <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
+
                 <blockquote class="blockquote review">
                     <small>
-                        <span class="rating">
+
+                        <span property="ratingValue">
                           {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
                         </span>
-                        {% if review.comment %}
+                        <p property="description">{% if review.comment %}
                             &rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}
                         <footer class="blockquote-footer text-center">{{ review.user }}, {{ review.date }}</footer>
                     </small>
                 </blockquote>
             {% empty %}<p>Sorry, no reviews for this carshop yet</p>
+
+            </p>
+            </li>
+
+{% endcomment %}
+
+                <li typeof="Review">
+
+            <p rel="reviewRating" typeof="Rating">
+                <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
+
+                <span property="ratingValue">
+                          {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
+                        </span>
+
+                {% with RATING_CHOICES|last as best %}
+                <span property="bestRating" content="{{ best.0 }}"></span>
+                {% endwith %}
+            </p>
+
+            <p property="description">{% if review.comment %}&rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}</p>
+            <p>Creado por by <span property="author">{{ review.user }}</span> on
+                <span property="datePublished" content="{{ review.date|date:'Y-m-d' }}">{{ review.date }}</span></p>
+        </li>
+
+
+
             {% endfor %}
+
+</ul>
         </div>
     </div>
-            <img class="img-fluid" src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2016/04/Screen-Shot-2016-04-11-at-09.32.06-1-690x450.png"/>
+            <img class="img-fluid" class="center" src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2016/04/Screen-Shot-2016-04-11-at-09.32.06-1-690x450.png"/>
     </span>
     </div>
 
