@@ -1,8 +1,11 @@
 {% extends "distributors/base.html" %}
 {% load staticfiles %}
+{% block title %}Concesionario - {{ carshop.name }}{% endblock %}
 {% block content %}
 
     <div class="container-fluid">
+
+
         <style>
             .center {
                 display: block;
@@ -12,31 +15,31 @@
             }
         </style>
         <span vocab="http://schema.org/" typeof="AutoDealer">
-	 <div class="row">
-        <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
-        <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
-            {{ carshop.shopName }}</h4>
-    </div>
-    <h2>
-		<span property="name">{{ carshop.shopName }}</span>
-	</h2>
-	<p>
-		<span property="foundingDate" content="{{ carshop.inagurationYear }}-1-1">
-			Año de Inauguración: {{ carshop.get_inaugurationYear_display }}
-		</span> <br />
-		<span property="address">
-			Dirección: {{ carshop.addr }}
-		</span> <br />
-        <span property="foundingLocation">
-			País: {{ carshop.country }}
-		</span> <br />
-        <span property="telephone">
-			Telefono: +34659251188
-		</span> <br />
-        <span property="priceRange">
-			Rango de precio: 2000$ - 30000$
-		</span> <br />
- </p>
+             <div class="row">
+                <h4 class="col"><a href="{% url 'distributors:Principal' %}">Menu Principal</a> >
+                <a href="{% url 'distributors:carshop_list' %}">Concesionarios</a> >
+                    {{ carshop.shopName }}</h4>
+            </div>
+        <h2>
+            <span property="name">{{ carshop.shopName }}</span>
+        </h2>
+        <p>
+            <span property="foundingDate" content="{{ carshop.inagurationYear }}-1-1">
+                Año de Inauguración: {{ carshop.get_inaugurationYear_display }}
+            </span> <br />
+            <span property="address">
+                Dirección: {{ carshop.addr }}
+            </span> <br />
+            <span property="foundingLocation">
+                País: {{ carshop.country }}
+            </span> <br />
+            <span property="telephone">
+                Telefono: +34659251188
+            </span> <br />
+            <span property="priceRange">
+                Rango de precio: 2000$ - 30000$
+            </span> <br />
+         </p>
         <div class="col-md mt-3">
             <h5>Coches:</h5>
             <div class="row">
@@ -45,126 +48,99 @@
                         {% if car.availability == 1 %}
                             <p><a class="car-link" href="{% url 'distributors:car_detail' carshop.id car.id %}">
                             {{ car.name }}
+                            </a></p>
                         {% endif %}
-                    </a></p>
-                    {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
+                        {% empty %}<p>Lo sentimos, este concesionario no dispone de ningun coche todavía.</p>
                     {% endfor %}
                 </div>
                 {% if user.type == 2 or user.is_superuser %}
                     <div class="col-sm-3 text-right">
-                    <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
-                </div>
+                        <a class="btn btn-success" href="{% url 'distributors:add_car' carshop.id %}">Añadir Coche</a>
+                    </div>
                 {% endif %}
-                </div>
+            </div>
         </div>
-    <div class="row mt-3">
-        <div class="col-md">
 
+        <div class="row mt-3">
 
-            <h5>Rating</h5>
-            {% if carshop.carshopreview_set.all|length > 0 %}
+            <div class="col-md">
 
-<span rel="aggregateRating">
-    <p typeof="AggregateRating">
-                <strong>{{ carshop.averageRating|stringformat:".1f" }}</strong>
-                    {% with carshop.carshopreview_set.all|length as reviewCount %}
-                        (average from {{ reviewCount }} review{{ reviewCount|pluralize }})
-                    {% endwith %}
-                </p>
-</span>
+                <h5>Reviews</h5>
 
+                {% if carshop.carshopreview_set.all|length > 0 %}
 
-
-            {% endif %}
-            {% if user.is_authenticated and user.type == 1 %}
-                <form action="{% url 'distributors:review_create' carshop.id %}" method="post">
-                {% csrf_token %}
-                <div id="div_id_comment" class="form-group">
-
-                    <label for="id_comment" class="col-form-label ">Comment:</label>
-                    <textarea class="form-control" name="comment" id="id_comment" rows="2"></textarea>
-                </div>
-
-
-
-                <p>Rating:
-                    <span class="rating">
-                    {% for rate in RATING_CHOICES reversed %}
-                        <input type="radio" class="rating-input" id="rating-{{ forloop.revcounter }}"
-                               name="rating" value="{{ rate.0 }}"/>
-                        <label for="rating-{{ forloop.revcounter }}" class="rating-star"></label>
-                    {% endfor %}
+                    <span rel="aggregateRating">
+                    <p typeof="AggregateRating">
+                        Average rating <span property="ratingValue">{{ carshop.averageRating|stringformat:".1f" }}</span>
+                        {% with carshop.carshopreview_set.all|length as reviewCount %}
+                        from <span property="reviewCount">{{ reviewCount }}</span> review{{ reviewCount|pluralize }}
+                        {% endwith %}
+                    </p>
                     </span>
-                </p>
-                <div class="text-right">
-                    <button class="btn btn-success" type="submit">Add Review</button>
+
+                    <ul rel="review">
+                        {% for review in carshop.carshopreview_set.all %}
+
+                            <li typeof="Review">
+
+                                <p rel="reviewRating" typeof="Rating">
+                                    <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
+                                    <span property="ratingValue">
+                                        {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
+                                    </span>
+
+                                    {% with RATING_CHOICES|last as best %}
+                                    <span property="bestRating" content="{{ best.0 }}"></span>
+                                    {% endwith %}
+
+                                </p>
+
+                                <p property="description">{% if review.comment %}&rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}</p>
+                                <p>Creado por by <span property="author">{{ review.user }}</span> on
+                                    <span property="datePublished" content="{{ review.date|date:'Y-m-d' }}">{{ review.date }}</span>
+                                </p>
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+                {% endif %}
+
+
+
+                <div class="col-md">
+                    <h5>Rating</h5>
+
+                    {% if user.is_authenticated and user.type == 1 %}
+                        <form action="{% url 'distributors:review_create' carshop.id %}" method="post">
+                            {% csrf_token %}
+                            <div id="div_id_comment" class="form-group">
+
+                                <label for="id_comment" class="col-form-label ">Comment:</label>
+                                <textarea class="form-control" name="comment" id="id_comment" rows="2"></textarea>
+                            </div>
+
+                            <p>Rating:
+                            <span class="rating">
+                                {% for rate in RATING_CHOICES reversed %}
+                                    <input type="radio" class="rating-input" id="rating-{{ forloop.revcounter }}"
+                                           name="rating" value="{{ rate.0 }}"/>
+                                    <label for="rating-{{ forloop.revcounter }}" class="rating-star"></label>
+                                {% endfor %}
+                            </span>
+                            </p>
+                            <div class="text-right">
+                                <button class="btn btn-success" type="submit">Add Review</button>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
-            </form>
-            {% endif %}
-        </div>
-        <div class="col-md">
 
 
+            </div>
+                <img class="img-fluid" class="center" src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2016/04/Screen-Shot-2016-04-11-at-09.32.06-1-690x450.png"/>
+        </span>
 
-            <h5>Reviews</h5>
-
-
-        <ul rel="review">
-            {% for review in carshop.carshopreview_set.all %}
-
-
-
-{% comment %}
-<li typeof="Review">
-            <p rel="reviewRating" typeof="Rating">
-                <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
-
-                <blockquote class="blockquote review">
-                    <small>
-
-                        <span property="ratingValue">
-                          {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
-                        </span>
-                        <p property="description">{% if review.comment %}
-                            &rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}
-                        <footer class="blockquote-footer text-center">{{ review.user }}, {{ review.date }}</footer>
-                    </small>
-                </blockquote>
-            {% empty %}<p>Sorry, no reviews for this carshop yet</p>
-
-            </p>
-            </li>
-
-{% endcomment %}
-
-                <li typeof="Review">
-
-            <p rel="reviewRating" typeof="Rating">
-                <span property="worstRating" content="{{ RATING_CHOICES.0.0 }}"></span>
-
-                <span property="ratingValue">
-                          {% for star in RATING_CHOICES %}{% if forloop.counter <= review.rating %}&starf;{% else %}&star;{% endif %}{% endfor %}
-                        </span>
-
-                {% with RATING_CHOICES|last as best %}
-                <span property="bestRating" content="{{ best.0 }}"></span>
-                {% endwith %}
-            </p>
-
-            <p property="description">{% if review.comment %}&rdquo;<strong class="mb-0">{{ review.comment }}</strong>&rdquo;{% endif %}</p>
-            <p>Creado por by <span property="author">{{ review.user }}</span> on
-                <span property="datePublished" content="{{ review.date|date:'Y-m-d' }}">{{ review.date }}</span></p>
-        </li>
-
-
-
-            {% endfor %}
-
-</ul>
-        </div>
     </div>
-            <img class="img-fluid" class="center" src="http://cardealermagazine.co.uk/publish/wp-content/uploads/2016/04/Screen-Shot-2016-04-11-at-09.32.06-1-690x450.png"/>
-    </span>
-    </div>
-
 {% endblock %}
+
