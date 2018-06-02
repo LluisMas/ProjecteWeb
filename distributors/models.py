@@ -135,7 +135,6 @@ class Person(AbstractBaseUser, PermissionsMixin):#BaseModeUser
         return reverse('distributors:customer_list', kwargs={'pk': self.pk})
 
 
-
 class CarShop(models.Model):
     inaugurationYear = models.IntegerField(choices=[(x, x) for x in range(2000, 2019)], default=2018)
     shopName = models.CharField(max_length=30, null=True, unique=True)
@@ -144,9 +143,9 @@ class CarShop(models.Model):
     city = models.CharField(max_length=120, blank=True, null=True)
     zipCode = models.CharField(max_length=120, blank=True, null=True)
     stateOrProvince = models.CharField(max_length=120, blank=True, null=True)
-    image = models.ImageField(upload_to = 'pic_folder/', default = 'pic_folder/None/no-img.jpg')
-    telephone = models.PositiveIntegerField(default=626191181)
-    priceRange = models.CharField(max_length=10, null=True)
+    image = models.ImageField(upload_to='pic_folder/', default='pic_folder/None/no-img.jpg')
+    telephone = models.PositiveIntegerField(default=626191181, blank=True)
+    priceRange = models.CharField(max_length=10, null=True, blank=True)
     user = models.ForeignKey(
         Person,
         on_delete=models.CASCADE,
